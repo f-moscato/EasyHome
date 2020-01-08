@@ -12,6 +12,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import it.uniba.di.easyhome.LoginActivity;
 import it.uniba.di.easyhome.R;
 
@@ -31,6 +33,7 @@ public class Logout extends Fragment {
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                FirebaseAuth.getInstance().signOut();
                                 Intent i = new Intent(getActivity(),
                                         LoginActivity.class);
                                 startActivity(i);
