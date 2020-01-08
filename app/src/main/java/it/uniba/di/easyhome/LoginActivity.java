@@ -74,19 +74,17 @@ public class LoginActivity extends AppCompatActivity {
 
     // [START on_start_check_user]
     @Override
-    public void onStart() {
+    public void onStart() {//controlla le credenziali all'avvio dell'app
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
     // [END on_start_check_user]
-    public void  updateUI(FirebaseUser account){
+    public void  updateUI(FirebaseUser account){// controlla se l'utente ha già fatto l'accesso e se è vero salta il form login
         if(account != null){
             Toast.makeText(this,"U Signed In successfully",Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this,SplashScreenActivity.class));
-        }else {
-            Toast.makeText(this,"U Didnt signed in",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this,ProprietarioActivity.class));
         }
     }
 }

@@ -17,7 +17,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/pr_nav_tools"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/impostazioni" />
 
@@ -26,7 +26,7 @@
                 android:icon="@drawable/icon_logout"
                 android:title="@string/logout" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/pr_nav_info"
                 android:icon="@drawable/info"
                 android:title="@string/info" />
 
