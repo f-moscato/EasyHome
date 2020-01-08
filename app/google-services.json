@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "658795475116",
+    "firebase_url": "https://easyhome-eba41.firebaseio.com",
+    "project_id": "easyhome-eba41",
+    "storage_bucket": "easyhome-eba41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658795475116:android:c6cbf2d2cecd5c7f7faf09",
+        "android_client_info": {
+          "package_name": "it.uniba.di.easyhome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658795475116-dkl4j726k7j1b38lo7339t4d52ij0ctr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9L4f6OLPc0oMxz3LCFYwI9eu-Gc_K34g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658795475116-dkl4j726k7j1b38lo7339t4d52ij0ctr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
