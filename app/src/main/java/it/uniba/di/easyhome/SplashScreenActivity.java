@@ -1,15 +1,10 @@
 package it.uniba.di.easyhome;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.widget.ActionMenuView;
-import android.widget.Button;
 
-import it.uniba.di.easyhome.ui.login.LoginActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -23,8 +18,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-               /* Intent i = new Intent(SplashScreenActivity.this,LoginActivity.class);
-                startActivity(i);*/
+               Intent i = new Intent(SplashScreenActivity.this,LoginActivity.class);
+                startActivity(i);
 
             }
         }, 3000);
