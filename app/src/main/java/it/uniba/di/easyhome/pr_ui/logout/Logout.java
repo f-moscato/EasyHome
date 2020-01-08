@@ -25,9 +25,8 @@ public class Logout extends Fragment {
         final View root = inflater.inflate(R.layout.pr_logout, container, false);
         final Button B = root.findViewById(R.id.button);
 
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Confirmation PopUp!").
+                builder.setTitle("Confirmation Log Out").
                         setMessage("You sure, that you want to logout?");
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {

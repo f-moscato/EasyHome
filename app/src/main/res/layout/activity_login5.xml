@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -128,18 +129,6 @@
             android:layout_marginBottom="55dp"
             android:background="@drawable/blue_border_rounded_cornwe"
             android:text="FORGOT PASSWORD ?"
-            android:textColor="#1566e0"
-            android:textSize="10.5sp" />
-
-        <Button
-            android:id="@+id/B_register"
-            android:layout_width="135dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="55dp"
-            android:background="@drawable/blue_border_rounded_cornwe"
-            android:text="REGISTER"
             android:textColor="#1566e0"
             android:textSize="10.5sp" />
 
