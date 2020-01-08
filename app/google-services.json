@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "658795475116-dffs4olv2mo7kijchvodee42lns6n1d2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.uniba.di.easyhome",
+            "certificate_hash": "a24d67bc2c26c380dba6880624dbb548a11284a3"
+          }
+        },
+        {
+          "client_id": "658795475116-u76se26m9jbeklqu3ni1v84st46m4eg2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.uniba.di.easyhome",
+            "certificate_hash": "00f4aa3db213559f5741c9529026281dadf1abb3"
+          }
+        },
+        {
           "client_id": "658795475116-dkl4j726k7j1b38lo7339t4d52ij0ctr.apps.googleusercontent.com",
           "client_type": 3
         }
