@@ -22,8 +22,8 @@ public class InfoFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         infoViewModel =
                 ViewModelProviders.of(this).get(InfoViewModel.class);
-        View root = inflater.inflate(R.layout.pr_fragment_send, container, false);
-        final TextView textView = root.findViewById(R.id.text_send);
+        View root = inflater.inflate(R.layout.pr_fragment_info, container, false);
+        final TextView textView = root.findViewById(R.id.text_info);
         infoViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

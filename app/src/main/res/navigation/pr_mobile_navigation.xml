@@ -39,5 +39,5 @@
         android:id="@+id/nav_send"
         android:name="it.uniba.di.easyhome.pr_ui.info.InfoFragment"
         android:label="@string/info"
-        tools:layout="@layout/pr_fragment_send" />
+        tools:layout="@layout/pr_fragment_info" />
 </navigation>

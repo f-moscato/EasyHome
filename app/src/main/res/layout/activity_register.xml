@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@drawable/rectangle">
+    android:background="@drawable/rectangle"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-1dp">
 
 
         <FrameLayout
@@ -83,12 +86,12 @@
                 android:background="@android:color/transparent"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="#aeaeae"
                 android:maxLength="10"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
+                android:textColor="#aeaeae"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -113,27 +116,27 @@
             android:background="@drawable/blue_border_rounded_cornwe">
 
             <!-- INPUT -->
+
+            <!-- ICON -->
             <EditText
                 android:id="@+id/repassToRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/icon"
+                android:layout_marginLeft="-1dp"
+                android:layout_toRightOf="@+id/repassicon"
                 android:background="@android:color/transparent"
-                android:hint=" Re-enter Password"
+                android:hint="Re-Password"
                 android:inputType="textPassword"
-                android:textColor="#aeaeae"
-                android:maxLength="10"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
+                android:textColor="#aeaeae"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="12sp"
-                tools:ignore="NotSibling" />
+                android:textSize="12sp" />
 
-            <!-- ICON -->
             <ImageView
-                android:id="@+id/re-pass-icon"
+                android:id="@+id/repassicon"
                 android:layout_width="14.7dp"
                 android:layout_height="10.3dp"
                 android:layout_centerVertical="true"
@@ -142,10 +145,113 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12.7dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/blue_border_rounded_cornwe">
+
+            <EditText
+                android:id="@+id/nameToRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-1dp"
+                android:layout_toRightOf="@+id/name_icon"
+                android:background="@android:color/transparent"
+                android:hint="Name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="17dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textColor="#aeaeae"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/name_icon"
+                android:layout_width="18dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17dp"
+                android:src="@drawable/nameicon24dp" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12.7dp"
+            android:layout_marginRight="62dp"
+            android:background="@drawable/blue_border_rounded_cornwe">
+
+            <EditText
+                android:id="@+id/surnameToRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-1dp"
+                android:layout_toRightOf="@+id/surname_icon"
+                android:background="@android:color/transparent"
+                android:hint="Surname"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="17dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textColor="#aeaeae"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/surname_icon"
+                android:layout_width="18dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17dp"
+                android:src="@drawable/nameicon24dp" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12.7dp"
+            android:layout_marginRight="62dp">
+            <TextView
+                android:id="@+id/role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Role:"
+                android:layout_marginLeft="17dp"
+                />
+
+
+            <RadioButton
+                android:id="@+id/PrButton"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/role"
+                android:text="Proprietario" />
+
+            <RadioButton
+                android:id="@+id/InqButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inquilino"
+                android:layout_toRightOf="@+id/PrButton"
+                android:layout_marginLeft="12dp"
+                />
+
+        </RelativeLayout>
+
         <Button
             android:id="@+id/buttonToRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="center"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="18.7dp"
@@ -158,6 +264,9 @@
             android:textColor="#ffffff"
             android:textSize="12sp" />
 
+
+
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
