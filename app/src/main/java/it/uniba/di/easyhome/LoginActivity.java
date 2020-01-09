@@ -23,10 +23,10 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     // [END declare_auth]
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login5);
 
         Button login= findViewById(R.id.B_login);
@@ -73,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
+
     // [START on_start_check_user]
     @Override
     public void onStart() {//controlla le credenziali all'avvio dell'app
@@ -86,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         if(account != null){
             Toast.makeText(this,"U Signed In successfully",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this,ProprietarioActivity.class));
+            finish();
         }
     }
 }

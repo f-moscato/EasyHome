@@ -35,6 +35,8 @@ public class Logout extends Fragment {
                                 Intent i = new Intent(getActivity(),
                                         LoginActivity.class);
                                 startActivity(i);
+                                getActivity().finish();
+
                             }
                         });
                 builder.setNegativeButton("No",
