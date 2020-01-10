@@ -5,6 +5,7 @@ public class User {
 
     private String email;
 
+
     private String pass;
     private String role;
     private String name;
@@ -16,7 +17,7 @@ public class User {
     }
 
     public User( String email,String pass, String name, String surname, String role) {
-       this.pass=pass;
+        this.pass=pass;
         this.email = email;
         this.role=role;
         this.name=name;
@@ -42,4 +43,7 @@ public class User {
     }
 
 
+    public String getPass() {
+        return pass;
+    }
 }

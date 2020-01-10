@@ -17,8 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "REGISTER";
@@ -43,7 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText ET_name=findViewById(R.id.nameToRegister);
         final EditText ET_surname=findViewById(R.id.surnameToRegister);
         final RadioButton RB_Inq= findViewById(R.id.InqButton);
+        RB_Inq.setChecked(false);
         final RadioButton RB_Pr= findViewById(R.id.PrButton);
+        RB_Pr.setChecked(false);
         Button BT_register=findViewById(R.id.buttonToRegister);
 
 
@@ -80,10 +85,11 @@ public class RegisterActivity extends AppCompatActivity {
                                         } else{
                                             FirebaseUser user = mAuth.getCurrentUser();
                                             updateUI(user);
+
                                             if(RB_Inq.isChecked()){
-                                                writeNewUser("6",mail,pass,name,surname,"I");
+                                                writeNewUser(UUID.randomUUID().toString(),mail,pass,name,surname,"I");
                                             }else{
-                                                writeNewUser("6", mail,pass,name,surname,"P");
+                                                writeNewUser(UUID.randomUUID().toString(),mail,pass,name,surname,"P");
                                             }
 
 
@@ -106,26 +112,46 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        RB_Inq.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((RadioButton) v).isChecked();
+                if(checked){
+                    RB_Pr.setChecked(false);
+                }
+            }
+        });
+
+        RB_Pr.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((RadioButton) v).isChecked();
+                if(checked){
+                    RB_Inq.setChecked(false);
+                }
+            }
+        });
+
     }
 
 
     private void writeNewUser(String userId, String email,String pass, String name, String surname, String role) {
-        User user = new User(email, pass,name,surname,role);
+        User user = new User(email,pass,name,surname,role);
 
         mDatabase.child("users").child(userId).setValue(user);
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
+
 
     public void  updateUI(FirebaseUser account){
         if(account != null){
             Toast.makeText(this,"U Signed In successfully",Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this,LoginActivity.class));
+            Intent i = new Intent(this,LoginActivity.class);
+            i.putExtra("fromRegister","yes");
+            startActivity(i);
+            finish();
         }
     }
 }
