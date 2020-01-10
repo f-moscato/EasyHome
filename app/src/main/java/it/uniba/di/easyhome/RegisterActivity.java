@@ -130,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean checked = ((RadioButton) v).isChecked();
                 if(checked){
                     RB_Inq.setChecked(false);
-                }
+                }    
             }
         });
 
