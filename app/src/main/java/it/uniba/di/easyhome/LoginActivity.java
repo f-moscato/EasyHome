@@ -16,7 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
@@ -90,42 +94,41 @@ public class LoginActivity extends AppCompatActivity {
     public void  updateUI(FirebaseUser account) {// controlla se l'utente ha già fatto l'accesso e se è vero salta il form login
 
 
-        Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-/*
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("users");
+
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         final User utente=new User();
 
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User u = dataSnapshot.getValue(User.class);
-                utente.setEmail(u.getEmail());
-                utente.setName(u.getName());
-                utente.setPass(u.getPass());
-                utente.setRole(u.getRole());
-                utente.setSurname(u.getSurname());
+
+        if(account!=null) {
+            rootRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot ds:dataSnapshot.getChildren()){
+                        utente.setEmail(ds.child(currentUser.getUid()).getValue(User.class).getEmail());
+                        utente.setName(ds.child(currentUser.getUid()).getValue(User.class).getName());
+                        utente.setPass(ds.child(currentUser.getUid()).getValue(User.class).getPass());
+                        utente.setRole(ds.child(currentUser.getUid()).getValue(User.class).getRole());
+                        utente.setSurname(ds.child(currentUser.getUid()).getValue(User.class).getSurname());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            Toast.makeText(this, "U Signed In successfully "+ utente.getName(), Toast.LENGTH_LONG).show();
+            if (utente.getRole().equals("P")) {
+                startActivity(new Intent(this, ProprietarioActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(this, InquilinoActivity.class));
+                finish();
+
             }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-
-        rootRef.addValueEventListener(eventListener);
-
-        if (utente.getRole().equals("P")) {
-            startActivity(new Intent(this,ProprietarioActivity.class));
-            finish();
-        }else{
-            startActivity(new Intent(this,InquilinoActivity.class));
-            finish();
-
-        }*/
-if(account!=null) {
-    startActivity(new Intent(this, ProprietarioActivity.class));
-    finish();
-}
     }
 }
