@@ -24,7 +24,25 @@ public class User {
         this.surname=surname;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getEmail() {
         return email;

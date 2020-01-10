@@ -21,7 +21,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "REGISTER";
@@ -87,9 +86,9 @@ public class RegisterActivity extends AppCompatActivity {
                                             updateUI(user);
 
                                             if(RB_Inq.isChecked()){
-                                                writeNewUser(UUID.randomUUID().toString(),mail,pass,name,surname,"I");
+                                                writeNewUser(user.getUid(),mail,pass,name,surname,"I");
                                             }else{
-                                                writeNewUser(UUID.randomUUID().toString(),mail,pass,name,surname,"P");
+                                                writeNewUser(user.getUid(),mail,pass,name,surname,"P");
                                             }
 
 
