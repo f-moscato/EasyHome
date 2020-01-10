@@ -16,13 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
@@ -97,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
-        /*FirebaseUser currentUser = mAuth.getCurrentUser();
-
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+/*
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("users");
         final User utente=new User();
 
@@ -129,9 +123,9 @@ public class LoginActivity extends AppCompatActivity {
             finish();
 
         }*/
-
-        startActivity(new Intent(this,ProprietarioActivity.class));
-        finish();
-
+if(account!=null) {
+    startActivity(new Intent(this, ProprietarioActivity.class));
+    finish();
+}
     }
 }

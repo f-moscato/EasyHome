@@ -22,10 +22,6 @@
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-        <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
