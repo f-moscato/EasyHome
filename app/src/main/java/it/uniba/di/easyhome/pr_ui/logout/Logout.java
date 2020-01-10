@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import it.uniba.di.easyhome.LoginActivity;
@@ -18,11 +19,12 @@ import it.uniba.di.easyhome.R;
 
 public class Logout extends Fragment {
 
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
+        fab.hide();
+        fab.setClickable(false);
         final View root = inflater.inflate(R.layout.pr_logout, container, false);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
