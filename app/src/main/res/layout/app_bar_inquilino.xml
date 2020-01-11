@@ -23,11 +23,59 @@
     <include layout="@layout/content_inquilino" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="180dp"
+        android:src="@drawable/ic_person_add"
+        android:elevation="6dp"
+        android:id="@+id/fab3_plus"
+        app:pressedTranslationZ="12dp"
+        android:backgroundTint="@color/fab1_color"
+        android:visibility="invisible"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="100dp"
+        android:src="@drawable/add_bill"
+        android:elevation="6dp"
+        android:id="@+id/fab2_plus"
+        app:pressedTranslationZ="12dp"
+        android:backgroundTint="@color/fab2_color"
+        android:visibility="invisible"
+        />
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:contentDescription="ciao"
+        android:text="bello"
+        android:src="@drawable/ic_fab_principale"
+        android:elevation="6dp"
+        android:id="@+id/fab_plus"
+        app:pressedTranslationZ="12dp"
+        />
+
+    <TextView
+        android:id="@+id/agg_boll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bolletta"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="95dp"
+        android:layout_marginBottom="120dp"
+        android:elevation="6dp"
+        android:visibility="invisible"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,28 +1,29 @@
 package it.uniba.di.easyhome;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
 
 public class InquilinoActivity extends AppCompatActivity {
 
+    FloatingActionButton fab1,fab2,fab3;
+    Animation FabOpen,FabClose,FabClock,FabAntiClock;
+    TextView boll;
+    boolean isOpen=false;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -31,14 +32,38 @@ public class InquilinoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inquilino);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab1= findViewById(R.id.fab_plus);
+        fab2= findViewById(R.id.fab2_plus);
+        fab3= findViewById(R.id.fab3_plus);
+        boll=findViewById(R.id.agg_boll);
+        FabOpen= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
+        FabClose= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
+        FabClock= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
+        FabAntiClock= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
+        fab1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                if(isOpen){
+                    fab3.startAnimation(FabClose);
+                    fab2.startAnimation(FabClose);
+                    boll.startAnimation(FabClose);
+                    fab1.startAnimation(FabAntiClock);
+                    fab3.setClickable(false);
+                    fab2.setClickable(false);
+                    isOpen=false;
+                }else{
+                    fab3.startAnimation(FabOpen);
+                    fab2.startAnimation(FabOpen);
+                    boll.startAnimation(FabOpen);
+                    fab1.startAnimation(FabClock);
+                    fab3.setClickable(true);
+                    fab2.setClickable(true);
+                    isOpen=true;
+                }
             }
         });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

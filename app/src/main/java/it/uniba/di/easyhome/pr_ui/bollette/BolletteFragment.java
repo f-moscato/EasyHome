@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.pr_ui.slideshow;
+package it.uniba.di.easyhome.pr_ui.bollette;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import it.uniba.di.easyhome.R;
 
-public class SlideshowFragment extends Fragment {
+public class BolletteFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private BolletteViewModel bolletteViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.pr_fragment_slideshow, container, false);
+        bolletteViewModel =
+                ViewModelProviders.of(this).get(BolletteViewModel.class);
+        View root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(this, new Observer<String>() {
+        bolletteViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

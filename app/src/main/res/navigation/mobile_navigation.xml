@@ -24,20 +24,20 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="it.uniba.di.easyhome.pr_ui.tools.ToolsFragment"
+        android:id="@+id/inq_nav_tools"
+        android:name="it.uniba.di.easyhome.ui.tools.ToolsFragment"
         android:label="@string/impostazioni"
         tools:layout="@layout/pr_fragment_tools" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="it.uniba.di.easyhome.pr_ui.logout.Logout"
+        android:id="@+id/inq_nav_logout"
+        android:name="it.uniba.di.easyhome.ui.logout.Logout"
         android:label="@string/logout"
-        tools:layout="@layout/pr_logout" />
+        tools:layout="@layout/inq_logout" />
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="it.uniba.di.easyhome.pr_ui.info.InfoFragment"
+        android:id="@+id/inq_nav_send"
+        android:name="it.uniba.di.easyhome.ui.info.InfoFragment"
         android:label="@string/info"
         tools:layout="@layout/pr_fragment_info" />
 </navigation>
