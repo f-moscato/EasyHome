@@ -39,27 +39,22 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         Handler handler = new Handler();
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        ImageView imageView =  findViewById(R.id.imageView);
         AnimatedVectorDrawable animatedVectorDrawable =
                 (AnimatedVectorDrawable) getDrawable(R.drawable.avd_anim);
         imageView.setImageDrawable(animatedVectorDrawable);
         animatedVectorDrawable.start();
         handler.postDelayed(new Runnable() {
             @Override
-            public void run() {}
+            public void run() {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                updateUI(currentUser);
+            }
         }, 4000);
 
     }
 
-    // [START on_start_check_user]
-    @Override
-    public void onStart() {//controlla le credenziali all'avvio dell'app
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-    // [END on_start_check_user]
+
     public void  updateUI(FirebaseUser account) {// controlla se l'utente ha già fatto l'accesso e se è vero salta il form login
 
 
