@@ -20,19 +20,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
-
-
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,15 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    // [START on_start_check_user]
-    @Override
-    public void onStart() {//controlla le credenziali all'avvio dell'app
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            updateUI(currentUser);
-    }
-    // [END on_start_check_user]
+
     public void  updateUI(FirebaseUser account) {// controlla se l'utente ha già fatto l'accesso e se è vero salta il form login
 
 
@@ -101,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        final ArrayList <User> utente = new ArrayList<User>();
         DatabaseReference query= rootRef.child("users");
 
         if(account!=null) {
@@ -124,16 +109,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
 
-
-                   /* Toast.makeText(LoginActivity.this, "U Signed In successfully " +utente.get(0).getName(), Toast.LENGTH_LONG).show();
-                    if (utente.get(0).getRole().equalsIgnoreCase("P")) {
-                        startActivity(new Intent(LoginActivity.this, ProprietarioActivity.class));
-                        finish();
-                    } else {
-                        startActivity(new Intent(LoginActivity.this, InquilinoActivity.class));
-                        finish();
-
-                    }*/
 
 
 
