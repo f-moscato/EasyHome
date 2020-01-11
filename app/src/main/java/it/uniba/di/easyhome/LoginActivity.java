@@ -20,7 +20,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
@@ -98,36 +101,54 @@ public class LoginActivity extends AppCompatActivity {
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        final User utente=new User();
-
+        final ArrayList <User> utente = new ArrayList<User>();
+        DatabaseReference query= rootRef.child("users");
 
         if(account!=null) {
-            rootRef.addValueEventListener(new ValueEventListener() {
+
+            ValueEventListener eventListener=new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot ds:dataSnapshot.getChildren()){
-                        utente.setEmail(ds.child(currentUser.getUid()).getValue(User.class).getEmail());
-                        utente.setName(ds.child(currentUser.getUid()).getValue(User.class).getName());
-                        utente.setPass(ds.child(currentUser.getUid()).getValue(User.class).getPass());
-                        utente.setRole(ds.child(currentUser.getUid()).getValue(User.class).getRole());
-                        utente.setSurname(ds.child(currentUser.getUid()).getValue(User.class).getSurname());
+
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if(ds.getValue(User.class).getEmail().equalsIgnoreCase(currentUser.getEmail())){
+                            Toast.makeText(LoginActivity.this, "U Signed In successfully " +ds.getValue(User.class).getName(), Toast.LENGTH_LONG).show();
+                            if (ds.getValue(User.class).getRole().equalsIgnoreCase("P")) {
+                                startActivity(new Intent(LoginActivity.this, ProprietarioActivity.class));
+                                finish();
+                            } else {
+                                startActivity(new Intent(LoginActivity.this, InquilinoActivity.class));
+                                finish();
+
+                            }
+                        }
                     }
+
+
+                   /* Toast.makeText(LoginActivity.this, "U Signed In successfully " +utente.get(0).getName(), Toast.LENGTH_LONG).show();
+                    if (utente.get(0).getRole().equalsIgnoreCase("P")) {
+                        startActivity(new Intent(LoginActivity.this, ProprietarioActivity.class));
+                        finish();
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, InquilinoActivity.class));
+                        finish();
+
+                    }*/
+
+
+
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            });
-            Toast.makeText(this, "U Signed In successfully "+ utente.getName(), Toast.LENGTH_LONG).show();
-            if (utente.getRole().equals("P")) {
-                startActivity(new Intent(this, ProprietarioActivity.class));
-                finish();
-            } else {
-                startActivity(new Intent(this, InquilinoActivity.class));
-                finish();
+            };
+            query.addListenerForSingleValueEvent(eventListener);
 
-            }
+
+
+
         }
 
     }
