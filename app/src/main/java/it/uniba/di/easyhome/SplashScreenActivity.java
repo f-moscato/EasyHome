@@ -50,7 +50,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 updateUI(currentUser);
             }
-        }, 4000);
+        }, 3000);
 
     }
 
