@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_gallery" />
         <item
-            android:id="@+id/nav_bollette"
+            android:id="@+id/pr_nav_bills"
             android:icon="@drawable/add_bill"
             android:title="@string/menu_bollette" />
         <item

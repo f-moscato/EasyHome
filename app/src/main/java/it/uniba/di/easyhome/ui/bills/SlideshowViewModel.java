@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.ui.slideshow;
+package it.uniba.di.easyhome.ui.bills;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

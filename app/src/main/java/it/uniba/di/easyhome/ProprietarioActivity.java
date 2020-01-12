@@ -70,7 +70,7 @@ public class ProprietarioActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.nav_home, R.id.nav_gallery, R.id.pr_nav_bills,
                 R.id.pr_nav_tools, R.id.pr_nav_logout, R.id.pr_nav_info)
                 .setDrawerLayout(drawer)
                 .build();

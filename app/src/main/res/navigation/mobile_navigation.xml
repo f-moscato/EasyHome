@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="it.uniba.di.easyhome.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/inq_nav_bollette"
+        android:name="it.uniba.di.easyhome.ui.bills.BillsFragment"
+        android:label="@string/menu_bollette"
+        tools:layout="@layout/inq_fragment_bills" />
 
     <fragment
         android:id="@+id/inq_nav_tools"

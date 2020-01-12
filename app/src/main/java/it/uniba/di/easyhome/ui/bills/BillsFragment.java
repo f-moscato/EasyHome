@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.pr_ui.bollette;
+package it.uniba.di.easyhome.ui.bills;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,8 +12,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.pr_ui.bollette.BolletteViewModel;
 
-public class BolletteFragment extends Fragment {
+public class BillsFragment extends Fragment {
 
     private BolletteViewModel bolletteViewModel;
 
@@ -24,7 +25,7 @@ public class BolletteFragment extends Fragment {
         fab.setClickable(false);
         bolletteViewModel =
                 ViewModelProviders.of(this).get(BolletteViewModel.class);
-        View root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
+        View root = inflater.inflate(R.layout.inq_fragment_bills, container, false);
 
         return root;
     }
