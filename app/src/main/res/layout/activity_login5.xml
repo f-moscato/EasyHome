@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.uniba.di.easyhome.LoginActivity"
-    android:background="@drawable/rectangle">
+    android:background="@drawable/rectangle"
+    tools:context="it.uniba.di.easyhome.LoginActivity">
 
 
     <LinearLayout
@@ -51,7 +51,7 @@
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:textColor="#aeaeae"
+                android:textColor="@color/colorPrimary"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -61,7 +61,8 @@
                 android:layout_height="10.3dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
-                android:src="@drawable/email" />
+                android:src="@drawable/email"
+                android:tint="@color/colorPrimary" />
 
         </RelativeLayout>
 
@@ -83,12 +84,12 @@
                 android:background="@android:color/transparent"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="#aeaeae"
                 android:maxLength="10"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
+                android:textColor="@color/colorPrimary"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -99,7 +100,8 @@
                 android:layout_height="10.3dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
-                android:src="@drawable/password" />
+                android:src="@drawable/password"
+                android:tint="@color/colorPrimary"/>
 
         </RelativeLayout>
 
@@ -129,7 +131,7 @@
             android:layout_marginBottom="75dp"
             android:background="@null"
             android:text="FORGOT PASSWORD ?"
-            android:textColor="#1566e0"
+            android:textColor="@color/colorPrimary"
             android:textSize="10.5sp" />
 
         <Button
@@ -141,7 +143,7 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/blue_border_rounded_cornwe"
             android:text="REGISTER"
-            android:textColor="#1566e0"
+            android:textColor="@color/colorPrimary"
             android:textSize="10.5sp" />
 
 
@@ -156,19 +158,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginBottom="13.7dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13.3sp"
-                android:textColor="#aeaeae"
                 android:gravity="center_horizontal"
                 android:text="or"
-                />
+                android:textColor="#aeaeae"
+                android:textSize="13.3sp" />
 
 
         </LinearLayout>
@@ -176,35 +177,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginBottom="35dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="26.7dp"
                 android:layout_height="26.7dp"
-                android:src="@drawable/fb"/>
+                android:src="@drawable/fb" />
 
             <ImageView
                 android:layout_width="26.7dp"
                 android:layout_height="26.7dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/instagram"/>
+                android:layout_marginRight="20dp"
+                android:src="@drawable/instagram" />
 
             <ImageView
                 android:layout_width="26.7dp"
                 android:layout_height="26.7dp"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/twitter"/>
+                android:src="@drawable/twitter" />
 
             <ImageView
                 android:layout_width="26.7dp"
                 android:layout_height="26.7dp"
-                android:src="@drawable/linkedin"/>
+                android:src="@drawable/linkedin" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

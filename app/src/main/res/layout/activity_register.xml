@@ -54,7 +54,7 @@
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:textColor="#aeaeae"
+                android:textColor="@color/colorPrimary"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -64,6 +64,7 @@
                 android:layout_height="10.3dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
+                android:tint="@color/colorPrimary"
                 android:src="@drawable/email" />
 
         </RelativeLayout>
@@ -91,7 +92,7 @@
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:textColor="#aeaeae"
+                android:textColor="@color/colorPrimary"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -102,6 +103,7 @@
                 android:layout_height="10.3dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
+                android:tint="@color/colorPrimary"
                 android:src="@drawable/password" />
 
         </RelativeLayout>
@@ -131,7 +133,7 @@
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:textColor="#aeaeae"
+                android:textColor="@color/colorPrimary"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -141,6 +143,7 @@
                 android:layout_height="10.3dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
+                android:tint="@color/colorPrimary"
                 android:src="@drawable/password" />
 
         </RelativeLayout>
@@ -166,7 +169,7 @@
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:textColor="#aeaeae"
+                android:textColor="@color/colorPrimary"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -176,6 +179,7 @@
                 android:layout_height="14dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
+                android:tint="@color/colorPrimary"
                 android:src="@drawable/nameicon24dp" />
 
         </RelativeLayout>
@@ -200,7 +204,7 @@
                 android:paddingLeft="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:textColor="#aeaeae"
+                android:textColor="@color/colorPrimary"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
@@ -210,6 +214,7 @@
                 android:layout_height="14dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
+                android:tint="@color/colorPrimary"
                 android:src="@drawable/nameicon24dp" />
 
         </RelativeLayout>
@@ -219,14 +224,16 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="12.7dp"
             android:layout_marginRight="62dp">
+
+
             <TextView
                 android:id="@+id/role"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Role:"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="17dp"
-                />
-
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="Role:" />
 
             <RadioButton
                 android:id="@+id/PrButton"
@@ -234,16 +241,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/role"
-                android:text="Proprietario" />
+                android:text="Owner" />
 
             <RadioButton
                 android:id="@+id/InqButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Inquilino"
+                android:layout_marginLeft="1dp"
                 android:layout_toRightOf="@+id/PrButton"
-                android:layout_marginLeft="12dp"
-                />
+                android:text="Occupant" />
 
         </RelativeLayout>
 
