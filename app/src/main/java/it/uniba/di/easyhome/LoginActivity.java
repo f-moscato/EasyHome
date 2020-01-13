@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
     // [START declare_auth]
@@ -99,10 +101,10 @@ public class LoginActivity extends AppCompatActivity {
                         if(ds.getValue(User.class).getEmail().equalsIgnoreCase(currentUser.getEmail())){
                             Toast.makeText(LoginActivity.this, "U Signed In successfully " +ds.getValue(User.class).getName(), Toast.LENGTH_LONG).show();
                             if (ds.getValue(User.class).getRole().equalsIgnoreCase("P")) {
-                                startActivity(new Intent(LoginActivity.this, ProprietarioActivity.class));
+                                startActivity(new Intent(LoginActivity.this, ProprietarioActivity.class).putExtra("Utente",ds.getValue(User.class)));
                                 finish();
                             } else {
-                                startActivity(new Intent(LoginActivity.this, InquilinoActivity.class));
+                                startActivity(new Intent(LoginActivity.this, InquilinoActivity.class).putExtra("Utente",ds.getValue(User.class)));
                                 finish();
 
                             }
