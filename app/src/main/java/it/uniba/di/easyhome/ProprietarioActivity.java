@@ -74,7 +74,7 @@ public class ProprietarioActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.nameUser);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.nameUserProprietario);
         User utente= (User) getIntent().getSerializableExtra("Utente");
         navUsername.setText(utente.getName());
 
