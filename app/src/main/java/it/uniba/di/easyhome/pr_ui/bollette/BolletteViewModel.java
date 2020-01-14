@@ -10,7 +10,7 @@ public class BolletteViewModel extends ViewModel {
 
     public BolletteViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        
     }
 
     public LiveData<String> getText() {
