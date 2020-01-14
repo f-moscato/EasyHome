@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
 
 
 
-       /* query.addListenerForSingleValueEvent(new ValueEventListener() {
+        /*query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 caseProprietario.clear();

@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
@@ -102,4 +101,5 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
     }
+
 }
