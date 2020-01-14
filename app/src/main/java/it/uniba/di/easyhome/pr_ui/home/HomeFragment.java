@@ -1,10 +1,13 @@
 package it.uniba.di.easyhome.pr_ui.home;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import it.uniba.di.easyhome.Bill;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.User;
@@ -32,9 +36,12 @@ import it.uniba.di.easyhome.User;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    final ArrayList<House> caseProprietario= new ArrayList<>();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
         fab.show();
         fab.setClickable(true);
@@ -51,22 +58,71 @@ public class HomeFragment extends Fragment {
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+        final Query query=rootRef.orderByChild("owner").equalTo("mdL9Gbzk0LR4I8NFiJov19yVk2a2");
 
 
-        ArrayList<House> caseProprietario= new ArrayList<>();
 
-       /* rootRef.child("owner").addValueEventListener(new ValueEventListener() {
+       /* query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Query query =root.orderByChild
+                caseProprietario.clear();
+                Button b1= root.findViewById(R.id.button1);
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot ds: dataSnapshot.getChildren()){
+                       final House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getProprietario());
+                        Query queryBill=query.orderByChild("bills");
+                        queryBill.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    for(DataSnapshot ds:dataSnapshot.getChildren()){
+                                        h.addBill(ds.getValue(Bill.class).getTipo(),ds.getValue(Bill.class).getTotale(),ds.getValue(Bill.class).getDescrizione(),ds.getValue(Bill.class).getExpiration(),ds.getValue(Bill.class).isPayed());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        Query queryOccupant=query.orderByChild("inquilini");
+                        queryOccupant.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        caseProprietario.add(h);
+                    }
+                    OnComplete(b1);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        })*/
+        });*/
+
+
+
 
         return root;
+    }
+
+
+    private void OnComplete(Button b1) {
+
+
+        b1.setText(caseProprietario.get(0).getName());
+
+
     }
 }

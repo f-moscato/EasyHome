@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +20,8 @@ import it.uniba.di.easyhome.R;
 
 public class Logout extends Fragment {
 
+    private LogoutViewModel logoutViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -26,10 +29,10 @@ public class Logout extends Fragment {
         fab.hide();
         fab.setClickable(false);
         final View root = inflater.inflate(R.layout.pr_logout, container, false);
-
+        logoutViewModel= ViewModelProviders.of(this).get(LogoutViewModel.class);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Confirmation Log Out").
-                        setMessage("You sure, that you want to logout?");
+                        setMessage(logoutViewModel.getText()+" You sure, that you want to logout?");
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {

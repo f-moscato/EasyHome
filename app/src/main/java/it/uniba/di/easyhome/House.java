@@ -8,6 +8,44 @@ public class House {
     private ArrayList<User> inquilini;
     private ArrayList<Bill>bollette;
 
+    public House(){}
+
+    public void addBill(String type, double tot, String descr,String expiration,boolean pay){
+        bollette.add(new Bill(type,tot,descr,expiration,pay));
+    }
+
+    public ArrayList<User> getInquilini() {
+        return inquilini;
+    }
+
+    public ArrayList<Bill> getBollette() {
+        return bollette;
+    }
+
+    public void setBollette(ArrayList<Bill> bollette) {
+        this.bollette = bollette;
+    }
+
+    public void setInquilini(ArrayList<User> inquilini) {
+        this.inquilini = inquilini;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(User proprietario) {
+        this.proprietario = proprietario;
+    }
+
     public House(String nome, User u){
         this.name=nome;
         this.proprietario=u;
@@ -15,53 +53,4 @@ public class House {
         bollette=new ArrayList<>();
     }
 
-    private static class Bill{
-       enum Type{ENERGY,WATER,GAS,OTHER}
-       Type tipo;
-       double totale;
-       String descrizione;
-
-       public Bill(String type, double tot, String descr){
-           switch(type.toUpperCase()){
-               case "ENERGY":
-                   tipo=Type.ENERGY;
-                   break;
-               case "WATER" :
-                   tipo=Type.WATER;
-                   break;
-               case "GAS" :
-                   tipo=Type.GAS;
-                   break;
-               case "OTHER" :
-                   tipo=Type.OTHER;
-                   break;
-           }
-           this.totale=tot;
-           this.descrizione=descr;
-       }
-
-        public String getDescrizione() {
-            return descrizione;
-        }
-
-        public void setDescrizione(String descrizione) {
-            this.descrizione = descrizione;
-        }
-
-        public double getTotale() {
-            return totale;
-        }
-
-        public void setTotale(double totale) {
-            this.totale = totale;
-        }
-
-        public Type getTipo() {
-            return tipo;
-        }
-
-        public void setTipo(Type tipo) {
-            this.tipo = tipo;
-        }
-    }
 }
