@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+           >
+
+            <ImageView
+                android:id="@+id/MMINF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mminf" />
+
+            <TextView
+                android:id="@+id/VersTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="14dp"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:text="@string/version"
+                android:background="@drawable/sfondo_view"/>
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:orientation="horizontal"
+       >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <TextView
+                android:id="@+id/conTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="249dp"
+                android:background="@drawable/sfondo_view"
+                android:text="@string/contact"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+            android:id="@+id/ver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/versione"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:textColor="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/num"
+                android:layout_toEndOf="@+id/ver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  xxxxx.1"
+                android:textColor="@color/colorPrimary"/>
+
+            <EditText
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/conTitle"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="xxxxx@yyyy.it"
+                android:background="@null"
+                android:textAlignment="center"
+                android:layout_marginBottom="195dp"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorPrimary"/>
+
+            <EditText
+                android:id="@+id/adress"
+                android:layout_width="296dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginBottom="108dp"
+                android:ems="10"
+                android:inputType="textPostalAddress"
+                android:text="via Peppino Di Capri, 85, Milano, MI"
+                android:background="@null"
+                android:textColor="@color/colorPrimary"/>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="26.7dp"
+            android:layout_height="26.7dp"
+            android:src="@drawable/fb" />
+
+        <ImageView
+            android:layout_width="26.7dp"
+            android:layout_height="26.7dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/instagram" />
+
+        <ImageView
+            android:layout_width="26.7dp"
+            android:layout_height="26.7dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/twitter" />
+
+        <ImageView
+            android:layout_width="26.7dp"
+            android:layout_height="26.7dp"
+            android:src="@drawable/linkedin" />
+
+    </LinearLayout>
+
+</LinearLayout>

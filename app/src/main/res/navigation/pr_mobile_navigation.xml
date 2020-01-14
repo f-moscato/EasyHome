@@ -36,8 +36,8 @@
         tools:layout="@layout/pr_logout" />
 
     <fragment
-        android:id="@+id/nav_send"
+        android:id="@+id/nav_info"
         android:name="it.uniba.di.easyhome.pr_ui.info.InfoFragment"
         android:label="@string/info"
-        tools:layout="@layout/pr_fragment_info" />
+        tools:layout="@layout/fragment_info" />
 </navigation>
