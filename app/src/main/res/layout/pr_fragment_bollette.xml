@@ -17,14 +17,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:background="@color/colorPrimary">
+           >
 
             <ImageButton
-                android:id="@+id/luceButton"
+                android:id="@+id/pr_luceButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:background="@drawable/sfondo_button"
                 android:src="@drawable/luce" />
+
+            <TextView
+                android:id="@+id/pr_luceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginBottom="83dp"
+                android:text="@string/luce"
+                android:textColor="@color/colorAccent"
+                android:textSize="26dp" />
 
         </RelativeLayout>
 
@@ -32,14 +46,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".5"
-            android:background="@color/colorAccent">
+            >
 
             <ImageButton
-                android:id="@+id/acquaButton"
+                android:id="@+id/pr_acquaButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/cursor_color"
+                android:layout_centerInParent="true"
+                android:background="@drawable/sfondo_button"
                 android:src="@drawable/acqua" />
+
+            <TextView
+                android:id="@+id/pr_acquaView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="71dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginBottom="83dp"
+                android:text="@string/acqua"
+                android:textColor="@color/colorAccent"
+                android:textSize="26dp" />
+
         </RelativeLayout>
     </LinearLayout>
 
@@ -53,13 +83,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:background="@drawable/cursor_color">
+            >
             <ImageButton
-                android:id="@+id/casaButton"
+                android:id="@+id/pr_casaButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FF4734"
+                android:background="@drawable/sfondo_button"
                 android:src="@drawable/casa" />
+
+            <TextView
+                android:id="@+id/pr_casaView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="71dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginBottom="83dp"
+                android:text="@string/extra"
+                android:textColor="@color/colorAccent"
+                android:textSize="26dp" />
 
         </RelativeLayout>
 
@@ -67,14 +111,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".5"
-            android:background="@color/black">
+            >
 
             <ImageButton
-                android:id="@+id/gasButton"
+                android:id="@+id/pr_gasButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#2337E8"
-                android:src="@drawable/gas" />
+                android:background="@drawable/sfondo_button"
+                android:forceDarkAllowed="false"
+                android:src="@drawable/gas"
+               />
+            <TextView
+                android:id="@+id/pr_gasView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="71dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginBottom="83dp"
+                android:text="@string/gas"
+                android:textColor="@color/colorAccent"
+                android:textSize="26dp" />
 
         </RelativeLayout>
     </LinearLayout>
