@@ -20,7 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import it.uniba.di.easyhome.InquilinoActivity;
 import it.uniba.di.easyhome.LoginActivity;
+import it.uniba.di.easyhome.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.User;
 
@@ -61,7 +63,7 @@ public class Logout extends Fragment {
                                 user = ds.getValue(User.class);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("Confirmation Log Out").
-                                        setMessage(user.getName()+" You sure, that you want to logout?");
+                                        setMessage(user.getName()+", you sure, that you want to logout?");
                                 builder.setPositiveButton("Yes",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
@@ -76,7 +78,14 @@ public class Logout extends Fragment {
                                 builder.setNegativeButton("No",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
+                                                if (user.getRole().equalsIgnoreCase("P")) {
+                                                    startActivity(new Intent(getActivity(), ProprietarioActivity.class).putExtra("Utente",user));
+                                                    getActivity().finish();
+                                                } else {
+                                                    startActivity(new Intent(getActivity(), InquilinoActivity.class).putExtra("Utente",user));
+                                                    getActivity().finish();
+
+                                                }
                                             }
                                         });
                                 AlertDialog alert11 = builder.create();
