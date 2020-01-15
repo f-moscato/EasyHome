@@ -7,5 +7,20 @@
     <string name="invalid_username">Username non valido</string>
     <string name="invalid_password">Password deve essre >8 caratteri</string>
     <string name="login_failed">"Accesso fallito"</string>
+    <string name="acqua">Acqua</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="contact">Informazioni Contatti</string>
+    <string name="extra">Altro</string>
+    <string name="info">Infromazioni App</string>
+    <string name="impostazioni">Impostazioni</string>
+    <string name="logout">Disconessione</string>
+    <string name="luce">Luce</string>
+    <string name="menu_bollette">Bollette</string>
+    <string name="menu_gallery">Gallerie</string>
+    <string name="pop_up_logout_text">, sei sicuro di disconetterti?</string>
+    <string name="pop_up_logout_title">Conferma disconessione</string>
+    <string name="pop_up_logout_yes">Si</string>
+    <string name="version">Informazione Versione</string>
+    <string name="versione">Versione:</string>
 
 </resources>

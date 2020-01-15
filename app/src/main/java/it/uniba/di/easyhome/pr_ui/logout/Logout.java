@@ -62,9 +62,9 @@ public class Logout extends Fragment {
                             if (ds.getValue(User.class).getEmail().equalsIgnoreCase(currentUser.getEmail())) {
                                 user = ds.getValue(User.class);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setTitle("Confirmation Log Out").
-                                        setMessage(user.getName()+", you sure, that you want to logout?");
-                                builder.setPositiveButton("Yes",
+                                builder.setTitle(R.string.pop_up_logout_title).
+                                        setMessage(user.getName()+getString(R.string.pop_up_logout_text));
+                                builder.setPositiveButton(R.string.pop_up_logout_yes,
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 FirebaseAuth.getInstance().signOut();
@@ -75,7 +75,7 @@ public class Logout extends Fragment {
 
                                             }
                                         });
-                                builder.setNegativeButton("No",
+                                builder.setNegativeButton(R.string.pop_out_logout_no,
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 if (user.getRole().equalsIgnoreCase("P")) {
