@@ -6,46 +6,27 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ly_home_proprietario"
         android:orientation="vertical"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/button1"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="Button1"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:text="House List:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:layout_marginBottom="25dp"/>
 
-        <Button
-            android:id="@+id/button2"
-            android:text="Button2"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
+        <ListView
+            android:id="@+id/listViewHouse"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:layout_weight="1"
-            android:layout_marginBottom="20dp" />
-
-        <Button
-            android:id="@+id/button3"
-            android:text="Button3"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:layout_weight="1"
-            android:layout_marginBottom="20dp" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

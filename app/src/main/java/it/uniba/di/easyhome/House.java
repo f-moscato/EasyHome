@@ -1,16 +1,17 @@
 package it.uniba.di.easyhome;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class House {
     private String name;
-    private User proprietario;
-    private ArrayList<User> inquilini;
-    private ArrayList<Bill>bollette;
+    private String owner;
+    //private ArrayList<User> inquilini= new ArrayList<>();
+   // private ArrayList<Bill> bollette=new ArrayList<>();
 
     public House(){}
 
-    public void addBill(String type, double tot, String descr,String expiration,boolean pay){
+    /*public void addBill(String type, double tot, String descr,String expiration,boolean pay){
         bollette.add(new Bill(type,tot,descr,expiration,pay));
     }
 
@@ -28,7 +29,7 @@ public class House {
 
     public void setInquilini(ArrayList<User> inquilini) {
         this.inquilini = inquilini;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -38,19 +39,17 @@ public class House {
         this.name = name;
     }
 
-    public User getProprietario() {
-        return proprietario;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setProprietario(User proprietario) {
-        this.proprietario = proprietario;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
-    public House(String nome, User u){
+    public House(String nome, String u){
         this.name=nome;
-        this.proprietario=u;
-        inquilini=new ArrayList<>();
-        bollette=new ArrayList<>();
+        this.owner=u;
     }
 
 }
