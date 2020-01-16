@@ -86,6 +86,7 @@ public class HomeFragment extends Fragment {
                         LinearLayout.LayoutParams lly=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         lly.setMargins(0,0,0,50);
                         btnShow.setHeight(200);
+                        btnShow.setTextSize(25);
                         btnShow.setLayoutParams(lly);
                         btnShow.setOnClickListener(new View.OnClickListener() {
                             @Override

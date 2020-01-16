@@ -6,30 +6,15 @@ import java.util.HashMap;
 public class House {
     private String name;
     private String owner;
-    //private ArrayList<User> inquilini= new ArrayList<>();
-   // private ArrayList<Bill> bollette=new ArrayList<>();
+    private HashMap<String,String> inquilini= new HashMap<>();
+   private HashMap<String,String> bills=new HashMap<>();
 
     public House(){}
 
-    /*public void addBill(String type, double tot, String descr,String expiration,boolean pay){
+   /* public void addBill(String type, double tot, String descr,String expiration,boolean pay){
         bollette.add(new Bill(type,tot,descr,expiration,pay));
-    }
-
-    public ArrayList<User> getInquilini() {
-        return inquilini;
-    }
-
-    public ArrayList<Bill> getBollette() {
-        return bollette;
-    }
-
-    public void setBollette(ArrayList<Bill> bollette) {
-        this.bollette = bollette;
-    }
-
-    public void setInquilini(ArrayList<User> inquilini) {
-        this.inquilini = inquilini;
     }*/
+
 
     public String getName() {
         return name;
