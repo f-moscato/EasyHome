@@ -28,6 +28,16 @@
         android:name="it.uniba.di.easyhome.pr_ui.tools.ToolsFragment"
         android:label="@string/impostazioni"
         tools:layout="@layout/pr_fragment_tools" />
+    <fragment
+    android:id="@+id/nav_card"
+    android:name="it.uniba.di.easyhome.pr_ui.homecard.HomeCardFragment"
+    android:label="Luce"
+    tools:layout="@layout/home_card_fragment" />
+    <fragment
+        android:id="@+id/nav_fornitura"
+        android:name="it.uniba.di.easyhome.pr_ui.fornitura.FornituraFragment"
+        android:label="Fornitura"
+        tools:layout="@layout/fornitura_fragment" />
 
     <fragment
         android:id="@+id/pr_nav_logout"
