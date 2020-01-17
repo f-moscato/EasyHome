@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
-        final Query query=rootRef.orderByChild("inquilini");
+
 
         ValueEventListener vel= new ValueEventListener() {
             @Override
@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
                             if(cod.equals(currentUser.getUid())){
                                 TextView tw_NomeCasa= root.findViewById(R.id.text_home);
                                 tw_NomeCasa.setText(h.getName());
+                                break;
                             }
                         }
                     }

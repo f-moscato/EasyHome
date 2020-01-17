@@ -65,7 +65,6 @@ public class HomeFragment extends Fragment {
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
-        final Query query=rootRef.orderByChild("owner").equalTo(currentUser.getUid());
 
 
 
@@ -142,7 +141,7 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        query.addListenerForSingleValueEvent(vel);
+        rootRef.addListenerForSingleValueEvent(vel);
 
 
 

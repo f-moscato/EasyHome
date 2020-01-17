@@ -22,5 +22,7 @@
     <string name="pop_up_logout_yes">Si</string>
     <string name="version">Informazione Versione</string>
     <string name="versione">Versione:</string>
+    <string name="register">REGISTRATI</string>
+    <string name="forgot_password">PASSWORD DIMENTICATA?</string>
 
 </resources>

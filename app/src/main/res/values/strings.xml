@@ -36,4 +36,6 @@
     <string name="pop_up_logout_text">, are you sure that you want to logout?</string>
     <string name="pop_up_logout_yes">Yes</string>
     <string name="pop_out_logout_no" translatable="false">No</string>
+    <string name="register">REGISTER</string>
+    <string name="forgot_password">FORGOT PASSWORD ?</string>
 </resources>
