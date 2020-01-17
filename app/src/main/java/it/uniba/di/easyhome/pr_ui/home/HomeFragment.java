@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -43,8 +44,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    final ArrayList<House> caseProprietario= new ArrayList<>();
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
@@ -52,16 +51,9 @@ public class HomeFragment extends Fragment {
         FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
         fab.show();
         fab.setClickable(true);
-        homeViewModel =ViewModelProviders.of(this).get(HomeViewModel.class);
 
         final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        /*homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
+
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
@@ -72,31 +64,46 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final LinearLayout ly=root.findViewById(R.id.ly_home_proprietario);
-                //Button b1= root.findViewById(R.id.button1);
                 if(dataSnapshot.exists()){
                     for(DataSnapshot ds: dataSnapshot.getChildren()){
                         House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini());
                         Log.d(TAG, h.getName() + " / " +h.getOwner());
 
-                        Button btnShow = new Button(getActivity());
+                        LinearLayout lyl= new LinearLayout(getActivity());
+                        lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                        LinearLayout.LayoutParams lly_button=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        
+                        ImageView img= new ImageView(getActivity());
+                        img.setImageResource(R.drawable.bill_inquilino);
+                        TextView tw= new TextView(getActivity());
+                        tw.setText(h.getName());
+
+                        tw.setGravity(15);
+
+
+
+                       /* Button btnShow = new Button(getActivity());
                         btnShow.setText(h.getName());
                         btnShow.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                         btnShow.setTextColor(getResources().getColor(R.color.fab1_color));
-                        LinearLayout.LayoutParams lly=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        lly.setMargins(0,0,0,50);
+                        LinearLayout.LayoutParams lly_button=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        lly_button.setMargins(0,0,0,50);
                         btnShow.setHeight(200);
                         btnShow.setTextSize(25);
-                        btnShow.setLayoutParams(lly);
+                        btnShow.setLayoutParams(lly_button);
                         btnShow.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Toast.makeText(getActivity(),"ok", Toast.LENGTH_LONG).show();
                             }
-                        });
+                        });*/
 
                         // Add Button to LinearLayout
                         if (ly != null) {
-                            ly.addView(btnShow);
+                            //lyl.addView(btnShow);
+                            lyl.addView(img);
+                            lyl.addView(tw);
+                            ly.addView(lyl);
                         }
                         /*Query queryBill=query.orderByChild("bills");
                         queryBill.addListenerForSingleValueEvent(new ValueEventListener() {

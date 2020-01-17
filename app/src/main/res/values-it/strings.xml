@@ -26,5 +26,6 @@
     <string name="forgot_password">PASSWORD DIMENTICATA?</string>
     <string name="annunci">Annunci</string>
     <string name="cleaning">Pulizie</string>
+    <string name="house_list">Lista case:</string>
 
 </resources>
