@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class House {
     private String name;
     private String owner;
-    private HashMap<String,String> inquilini= new HashMap<>();
+    private HashMap<String,Boolean> inquilini= new HashMap<>();
    private HashMap<String,String> bills=new HashMap<>();
 
     public House(){}
@@ -32,9 +32,18 @@ public class House {
         this.owner = owner;
     }
 
-    public House(String nome, String u){
+    public HashMap<String, Boolean> getInquilini() {
+        return inquilini;
+    }
+
+    public void setInquilini(HashMap<String, Boolean> inquilini) {
+        this.inquilini = inquilini;
+    }
+
+    public House(String nome, String u,HashMap<String,Boolean> inq){
         this.name=nome;
         this.owner=u;
+        this.setInquilini(inq);
     }
 
 }

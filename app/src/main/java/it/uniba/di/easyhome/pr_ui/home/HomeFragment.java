@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
                 //Button b1= root.findViewById(R.id.button1);
                 if(dataSnapshot.exists()){
                     for(DataSnapshot ds: dataSnapshot.getChildren()){
-                        House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner());
+                        House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini());
                         Log.d(TAG, h.getName() + " / " +h.getOwner());
 
                         Button btnShow = new Button(getActivity());
