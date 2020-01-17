@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
                         LinearLayout lyl= new LinearLayout(getActivity());
                         lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
                         LinearLayout.LayoutParams lly_button=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        
+
                         ImageView img= new ImageView(getActivity());
                         img.setImageResource(R.drawable.bill_inquilino);
                         TextView tw= new TextView(getActivity());
