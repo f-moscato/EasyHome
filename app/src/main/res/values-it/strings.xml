@@ -11,7 +11,7 @@
     <string name="action_settings">Impostazioni</string>
     <string name="contact">Informazioni Contatti</string>
     <string name="extra">Altro</string>
-    <string name="info">Infromazioni App</string>
+    <string name="info">Informazioni App</string>
     <string name="impostazioni">Impostazioni</string>
     <string name="logout">Disconessione</string>
     <string name="luce">Luce</string>
@@ -24,5 +24,7 @@
     <string name="versione">Versione:</string>
     <string name="register">REGISTRATI</string>
     <string name="forgot_password">PASSWORD DIMENTICATA?</string>
+    <string name="annunci">Annunci</string>
+    <string name="cleaning">Pulizie</string>
 
 </resources>

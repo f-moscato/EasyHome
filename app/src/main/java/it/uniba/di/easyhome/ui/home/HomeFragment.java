@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SplashScreenActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -37,6 +39,36 @@ public class HomeFragment extends Fragment {
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+
+        LinearLayout ly_ButtonBill= (LinearLayout) root.findViewById(R.id.ly_bill_inquilino);
+        ly_ButtonBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SplashScreenActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+        LinearLayout ly_ButtonCleaning= (LinearLayout) root.findViewById(R.id.ly_cleaning_inquilino);
+        ly_ButtonCleaning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SplashScreenActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+        LinearLayout ly_ButtonChat= (LinearLayout) root.findViewById(R.id.ly_chat_inquilino);
+        ly_ButtonChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SplashScreenActivity.class);
+                startActivity(i);
+            }
+        });
+
 
 
         ValueEventListener vel= new ValueEventListener() {

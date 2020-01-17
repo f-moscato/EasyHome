@@ -38,4 +38,6 @@
     <string name="pop_out_logout_no" translatable="false">No</string>
     <string name="register">REGISTER</string>
     <string name="forgot_password">FORGOT PASSWORD ?</string>
+    <string name="cleaning">Cleaning</string>
+    <string name="annunci">Notices</string>
 </resources>
