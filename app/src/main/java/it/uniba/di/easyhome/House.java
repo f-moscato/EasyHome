@@ -1,13 +1,12 @@
 package it.uniba.di.easyhome;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class House {
     private String name;
     private String owner;
     private HashMap<String,Boolean> inquilini= new HashMap<>();
-   private HashMap<String,String> bills=new HashMap<>();
+   private HashMap<String,HashMap<String,String>> bills=new HashMap<>();
 
     public House(){}
 
@@ -15,6 +14,13 @@ public class House {
         bollette.add(new Bill(type,tot,descr,expiration,pay));
     }*/
 
+    public HashMap<String, HashMap<String, String>> getBills() {
+        return bills;
+    }
+
+    public void setBills(HashMap<String, HashMap<String, String>> bills) {
+        this.bills = bills;
+    }
 
     public String getName() {
         return name;
@@ -40,10 +46,11 @@ public class House {
         this.inquilini = inquilini;
     }
 
-    public House(String nome, String u,HashMap<String,Boolean> inq){
+    public House(String nome, String u,HashMap<String,Boolean> inq,HashMap<String,HashMap<String,String>> b){
         this.name=nome;
         this.owner=u;
         this.setInquilini(inq);
+        this.setBills(b);
     }
 
 }

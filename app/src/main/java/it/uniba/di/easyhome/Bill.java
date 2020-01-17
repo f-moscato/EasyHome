@@ -6,38 +6,39 @@ public class Bill {
     }
 
     enum Type{ENERGY,WATER,GAS,OTHER}
-    Type tipo;
-    double total;
+    String type;
+    String total;
     String description;
     String expiration;
-    boolean payed;
+    String payed;
 
-    public Bill(String type, double tot, String descr,String expiration,boolean payed){
-        switch(type.toUpperCase()){
+    public Bill(String type, String tot, String descr, String expiration, String payed){
+        /*switch(type.toUpperCase()){
             case "ENERGY":
-                tipo=Type.ENERGY;
+                type=Type.ENERGY;
                 break;
             case "WATER" :
-                tipo=Type.WATER;
+                type=Type.WATER;
                 break;
             case "GAS" :
-                tipo=Type.GAS;
+                type=Type.GAS;
                 break;
             case "OTHER" :
-                tipo=Type.OTHER;
+                type=Type.OTHER;
                 break;
-        }
+        }*/
+        this.type=type;
         this.total=tot;
         this.description=descr;
         this.expiration=expiration;
         this.payed=payed;
     }
 
-    public boolean isPayed() {
+    public String isPayed() {
         return payed;
     }
 
-    public void setPayed(boolean payed) {
+    public void setPayed(String payed) {
         this.payed = payed;
     }
 
@@ -57,26 +58,25 @@ public class Bill {
         this.description = descrizione;
     }
 
-    public double getTotale() {
+    public String getTotale() {
         return total;
     }
 
-    public void setTotale(double totale) {
+    public void setTotale(String totale) {
         this.total= totale;
     }
 
-    public String getTipo() {
-        return tipo.toString();
+    public String getType() {
+        return type;
     }
 
-    public void setTipo(Type tipo) {
-        this.tipo = tipo;
+    public void setType(String type) {
+        this.type = type;
     }
-
 
     public String toString(){
 
-        return this.getTipo()+" - "+this.getTotale()+" - "+this.getDescrizione()+" - "+this.getExpiration()+" - "+this.isPayed();
+        return this.getType()+" - "+this.getTotale()+" - "+this.getDescrizione()+" - "+this.getExpiration()+" - "+this.isPayed();
     }
 
 }
