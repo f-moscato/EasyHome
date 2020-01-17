@@ -1,6 +1,10 @@
 package it.uniba.di.easyhome;
 
 public class Bill {
+    public Bill() {
+
+    }
+
     enum Type{ENERGY,WATER,GAS,OTHER}
     Type tipo;
     double total;
@@ -68,4 +72,11 @@ public class Bill {
     public void setTipo(Type tipo) {
         this.tipo = tipo;
     }
+
+
+    public String toString(){
+
+        return this.getTipo()+" - "+this.getTotale()+" - "+this.getDescrizione()+" - "+this.getExpiration()+" - "+this.isPayed();
+    }
+
 }
