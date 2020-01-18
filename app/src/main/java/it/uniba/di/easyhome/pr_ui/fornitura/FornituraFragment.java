@@ -27,7 +27,7 @@ public class FornituraFragment extends Fragment {
         FloatingActionButton fab = getActivity().findViewById(R.id.fab_plus);
         fab.hide();
         fab.setClickable(false);
-        ((ProprietarioActivity) getActivity()).setActionBarTitle("Your title");//cambiare il nome nell'actionBar in base alla casa oppure all'ente
+        ((ProprietarioActivity) getActivity()).setActionBarTitle("Your title");//cambiare il nome nell'actionBar in base alla other oppure all'ente
          return inflater.inflate(R.layout.fornitura_fragment, container, false);
     }
 
