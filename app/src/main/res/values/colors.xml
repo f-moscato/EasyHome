@@ -7,4 +7,6 @@
     <color name="black">#000000</color>
     <color name="fab2_color">#FFFFFF</color>
     <color name="fab1_color">#FFFFFF</color>
+
+    <color name="white">#ffffff</color>
 </resources>

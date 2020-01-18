@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.pr_ui.bollette;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +47,9 @@ public class BolletteFragment extends Fragment {
         final Button buttonHistory= root.findViewById(R.id.buttonHystoriBills);
 
         final LinearLayout ly= root.findViewById(R.id.pr_boll_layout);
-ly.removeAllViews();
+        ly.removeAllViews();
+        buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
+        buttonNotPayed.setBackgroundColor(Color.TRANSPARENT);
         final ValueEventListener vel=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,23 +67,26 @@ ly.removeAllViews();
                                 lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
                                 lyl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 ImageView img = new ImageView(getActivity());
-                                switch (info[3].toLowerCase()) {
-                                    case "gas":
-                                        img.setImageResource(R.drawable.gas);
-                                        break;
-                                    case "energy":
-                                        img.setImageResource(R.drawable.luce);
-                                        break;
-                                    case "water":
-                                        img.setImageResource(R.drawable.acqua);
-                                        break;
-                                    case "other":
-                                        img.setImageResource(R.drawable.other);
-                                        break;
-                                    default:
-                                        img.setImageResource(R.drawable.info);
-                                        break;
-                                }
+
+                                    switch (info[3].toLowerCase()) {
+                                        case "gas":
+                                            img.setImageResource(R.drawable.gas_no);
+                                            break;
+                                        case "energy":
+                                            img.setImageResource(R.drawable.energy_no);
+                                            break;
+                                        case "water":
+                                            img.setImageResource(R.drawable.acqua_no);
+                                            break;
+                                        case "other":
+                                            img.setImageResource(R.drawable.other_no);
+                                            break;
+                                        default:
+                                            img.setImageResource(R.drawable.info);
+                                            break;
+                                    }
+
+
 
 
                                 TextView tw_importo = new TextView(getActivity());
@@ -122,7 +128,14 @@ ly.removeAllViews();
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            ly.removeAllViews();
+
+                buttonHistory.setTextColor(getResources().getColor(R.color.colorPrimary));
+                buttonHistory.setBackgroundColor(Color.TRANSPARENT);
+                buttonNotPayed.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                buttonNotPayed.setTextColor(getResources().getColor(R.color.white));
+
+
+                ly.removeAllViews();
                 FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -140,27 +153,45 @@ ly.removeAllViews();
                                         lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
                                         lyl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                         ImageView img = new ImageView(getActivity());
+                                    if (info[4].equalsIgnoreCase("true")) {
                                         switch (info[3].toLowerCase()) {
                                             case "gas":
-                                                img.setImageResource(R.drawable.gas);
+                                                img.setImageResource(R.drawable.gas_yes);
                                                 break;
                                             case "energy":
-                                                img.setImageResource(R.drawable.luce);
+                                                img.setImageResource(R.drawable.energy_yes);
                                                 break;
                                             case "water":
-                                                img.setImageResource(R.drawable.acqua);
+                                                img.setImageResource(R.drawable.acqua_yes);
                                                 break;
                                             case "other":
-                                                img.setImageResource(R.drawable.other);
+                                                img.setImageResource(R.drawable.other_yes);
                                                 break;
                                             default:
                                                 img.setImageResource(R.drawable.info);
                                                 break;
                                         }
-
+                                    }else{
+                                        switch (info[3].toLowerCase()) {
+                                            case "gas":
+                                                img.setImageResource(R.drawable.gas_no);
+                                                break;
+                                            case "energy":
+                                                img.setImageResource(R.drawable.energy_no);
+                                                break;
+                                            case "water":
+                                                img.setImageResource(R.drawable.acqua_no);
+                                                break;
+                                            case "other":
+                                                img.setImageResource(R.drawable.other_no);
+                                                break;
+                                            default:
+                                                img.setImageResource(R.drawable.info);
+                                                break;
+                                        }
+                                    }
 
                                         TextView tw_importo = new TextView(getActivity());
-
                                     tw_importo.setText(info[0]);
                                     tw_importo.setGravity(15);
                                     TextView tw_pay = new TextView(getActivity());
@@ -198,6 +229,11 @@ ly.removeAllViews();
         buttonNotPayed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
+                buttonNotPayed.setBackgroundColor(Color.TRANSPARENT);
+                buttonHistory.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                buttonHistory.setTextColor(getResources().getColor(R.color.white));
+
                 ly.removeAllViews();
                 FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
 
@@ -219,16 +255,16 @@ ly.removeAllViews();
                                         ImageView img = new ImageView(getActivity());
                                         switch (info[3].toLowerCase()) {
                                             case "gas":
-                                                img.setImageResource(R.drawable.gas);
+                                                img.setImageResource(R.drawable.gas_no);
                                                 break;
                                             case "energy":
-                                                img.setImageResource(R.drawable.luce);
+                                                img.setImageResource(R.drawable.energy_no);
                                                 break;
                                             case "water":
-                                                img.setImageResource(R.drawable.acqua);
+                                                img.setImageResource(R.drawable.acqua_no);
                                                 break;
                                             case "other":
-                                                img.setImageResource(R.drawable.other);
+                                                img.setImageResource(R.drawable.other_no);
                                                 break;
                                             default:
                                                 img.setImageResource(R.drawable.info);

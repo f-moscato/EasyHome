@@ -10,21 +10,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp">
 
         <Button
             android:id="@+id/buttonNotPayed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffff"
             android:layout_weight=".5"
-            android:text="@string/sospeso" />
+            android:text="@string/sospeso"/>
 
         <Button
             android:id="@+id/buttonHystoriBills"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="@string/storico" />
+            android:layout_marginLeft="3dp"
+            android:text="@string/storico"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffff"/>
     </LinearLayout>
 <ScrollView
     android:layout_width="match_parent"
