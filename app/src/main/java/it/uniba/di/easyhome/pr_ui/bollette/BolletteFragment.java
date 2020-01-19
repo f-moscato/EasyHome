@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,9 +66,13 @@ public class BolletteFragment extends Fragment {
                             if(info[4].equalsIgnoreCase("false")){
                                 LinearLayout lyl = new LinearLayout(getActivity());
                                 lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                                lyl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                margin.setMargins(15,20,15,0);
+                                lyl.setLayoutParams(margin);
+                                LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                marginImg.setMargins(20,8,15,8);
                                 ImageView img = new ImageView(getActivity());
-
+                                img.setLayoutParams(marginImg);
                                     switch (info[3].toLowerCase()) {
                                         case "gas":
                                             img.setImageResource(R.drawable.gas_no);
@@ -87,37 +92,33 @@ public class BolletteFragment extends Fragment {
                                     }
 
 
-
-
+                                LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                tW.setMargins(45,70,45,0);
                                 TextView tw_importo = new TextView(getActivity());
-
-                                tw_importo.setText(info[0]);
-                                tw_importo.setGravity(15);
-                                TextView tw_pay = new TextView(getActivity());
-                                tw_pay.setText(info[4]);
-                                tw_pay.setGravity(15);
+                                tw_importo.setLayoutParams(tW);
+                                tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
                                 TextView tw_datascadenza = new TextView(getActivity());
-                                tw_datascadenza.setText(info[2]);
-                                tw_datascadenza.setGravity(15);
+                                tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                tw_datascadenza.setLayoutParams(tW);
+                                tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                 TextView tw_descr = new TextView(getActivity());
-                                tw_descr.setText(info[1]);
-                                tw_descr.setGravity(15);
+                                tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                tw_descr.setLayoutParams(tW);
+                                tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
                                 lyl.addView(img);
                                 lyl.addView(tw_datascadenza);
                                 lyl.addView(tw_descr);
                                 lyl.addView(tw_importo);
-                                lyl.addView(tw_pay);
                                 ly.addView(lyl);
                             }
 
 
                     }
-
-
-                    }
                 }
+            }
 
-                    }
+        }
 
 
             @Override
@@ -136,6 +137,7 @@ public class BolletteFragment extends Fragment {
 
 
                 ly.removeAllViews();
+
                 FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -148,11 +150,18 @@ public class BolletteFragment extends Fragment {
                                 for (HashMap<String, String> dettagli : h.getBills().values()) {
                                     String[] info = dettagli.values().toArray(new String[0]);
 
-                                        Log.d(TAG, h.getName() + " / " + dettagli.values());
-                                        LinearLayout lyl = new LinearLayout(getActivity());
-                                        lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                                        lyl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                                        ImageView img = new ImageView(getActivity());
+                                    Log.d(TAG, h.getName() + " / " + dettagli.values());
+                                    //creazione linearlayout principale della bolletta con settaggio dei margini
+                                    LinearLayout lyl = new LinearLayout(getActivity());
+                                    lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                                    LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    margin.setMargins(15,20,15,0);
+                                    lyl.setLayoutParams(margin);
+
+                                    LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    marginImg.setMargins(20,8,15,8);
+                                    ImageView img = new ImageView(getActivity());
+                                    img.setLayoutParams(marginImg);
                                     if (info[4].equalsIgnoreCase("true")) {
                                         switch (info[3].toLowerCase()) {
                                             case "gas":
@@ -191,23 +200,24 @@ public class BolletteFragment extends Fragment {
                                         }
                                     }
 
-                                        TextView tw_importo = new TextView(getActivity());
-                                    tw_importo.setText(info[0]);
-                                    tw_importo.setGravity(15);
-                                    TextView tw_pay = new TextView(getActivity());
-                                    tw_pay.setText(info[4]);
-                                    tw_pay.setGravity(15);
+                                    LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    tW.setMargins(45,70,45,0);
+                                    TextView tw_importo = new TextView(getActivity());
+                                    tw_importo.setLayoutParams(tW);
+                                    tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                    tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
                                     TextView tw_datascadenza = new TextView(getActivity());
-                                    tw_datascadenza.setText(info[2]);
-                                    tw_datascadenza.setGravity(15);
+                                    tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                    tw_datascadenza.setLayoutParams(tW);
+                                    tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                     TextView tw_descr = new TextView(getActivity());
-                                    tw_descr.setText(info[1]);
-                                    tw_descr.setGravity(15);
+                                    tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                    tw_descr.setLayoutParams(tW);
+                                    tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
                                     lyl.addView(img);
                                     lyl.addView(tw_datascadenza);
                                     lyl.addView(tw_descr);
                                     lyl.addView(tw_importo);
-                                    lyl.addView(tw_pay);
                                     ly.addView(lyl);
                                     }
                                 }
@@ -251,8 +261,13 @@ public class BolletteFragment extends Fragment {
                                     if (info[4].equalsIgnoreCase("false")) {
                                         LinearLayout lyl = new LinearLayout(getActivity());
                                         lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                                        lyl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                        LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        margin.setMargins(15,20,15,0);
+                                        lyl.setLayoutParams(margin);
+                                        LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        marginImg.setMargins(20,8,15,8);
                                         ImageView img = new ImageView(getActivity());
+                                        img.setLayoutParams(marginImg);
                                         switch (info[3].toLowerCase()) {
                                             case "gas":
                                                 img.setImageResource(R.drawable.gas_no);
@@ -272,24 +287,24 @@ public class BolletteFragment extends Fragment {
                                         }
 
 
+                                        LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        tW.setMargins(45,70,45,0);
                                         TextView tw_importo = new TextView(getActivity());
-
-                                        tw_importo.setText(info[0]);
-                                        tw_importo.setGravity(15);
-                                        TextView tw_pay = new TextView(getActivity());
-                                        tw_pay.setText(info[4]);
-                                        tw_pay.setGravity(15);
+                                        tw_importo.setLayoutParams(tW);
+                                        tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
                                         TextView tw_datascadenza = new TextView(getActivity());
-                                        tw_datascadenza.setText(info[2]);
-                                        tw_datascadenza.setGravity(15);
+                                        tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                        tw_datascadenza.setLayoutParams(tW);
+                                        tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                         TextView tw_descr = new TextView(getActivity());
-                                        tw_descr.setText(info[1]);
-                                        tw_descr.setGravity(15);
+                                        tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                        tw_descr.setLayoutParams(tW);
+                                        tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
                                         lyl.addView(img);
                                         lyl.addView(tw_datascadenza);
                                         lyl.addView(tw_descr);
                                         lyl.addView(tw_importo);
-                                        lyl.addView(tw_pay);
                                         ly.addView(lyl);
                                     }
 

@@ -29,5 +29,8 @@
     <string name="annunci">Annunci</string>
     <string name="cleaning">Pulizie</string>
     <string name="house_list">Lista case:</string>
+    <string name="description_bollette">"Descrizione: "</string>
+    <string name="expiration_bollette">"Scadenza: "</string>
+    <string name="import_bollette">"Importo: "</string>
 
 </resources>

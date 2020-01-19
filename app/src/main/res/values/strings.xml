@@ -42,4 +42,7 @@
     <string name="forgot_password">FORGOT PASSWORD ?</string>
     <string name="cleaning">Cleaning</string>
     <string name="annunci">Notices</string>
+    <string name="import_bollette">Import:</string>
+    <string name="expiration_bollette">Expriration:</string>
+    <string name="description_bollette">Description:</string>
 </resources>

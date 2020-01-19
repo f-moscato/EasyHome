@@ -55,14 +55,23 @@ public class HomeFragment extends Fragment {
 
                         LinearLayout lyl= new LinearLayout(getActivity());
                         lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                        LinearLayout.LayoutParams lly_button=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        margin.setMargins(15,20,15,0);
+                        lyl.setLayoutParams(margin);
 
-                        ImageView img= new ImageView(getActivity());
-                        img.setImageResource(R.drawable.bill_inquilino);
+                        LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        marginImg.setMargins(30,8,15,8);
+                        ImageView img = new ImageView(getActivity());
+                        img.setLayoutParams(marginImg);
+                        img.setImageResource(R.drawable.casa);
+
+                        LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        tW.setMargins(90,70,0,0);
                         TextView tw= new TextView(getActivity());
                         tw.setText(h.getName());
+                        tw.setLayoutParams(tW);
+                        tw.setTextColor(getResources().getColor(R.color.colorPrimary));
 
-                        tw.setGravity(15);
 
 
 
