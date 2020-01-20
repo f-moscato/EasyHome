@@ -3,6 +3,7 @@
     package="it.uniba.di.easyhome">
 
     <application
+        android:name=".Notifica"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,6 +36,7 @@
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <receiver android:name=".NtReceiver"/>
     </application>
 
 </manifest>
