@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.pr_ui.home;
+package it.uniba.di.easyhome.proprietario.home;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         ValueEventListener vel=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final LinearLayout ly=root.findViewById(R.id.ly_home_proprietario);
+                final LinearLayout ly=root.findViewById(R.id.ly_home_inquilino);
                 if(dataSnapshot.exists()){
                     for(DataSnapshot ds: dataSnapshot.getChildren()){
                         House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini(),ds.getValue(House.class).getBills());

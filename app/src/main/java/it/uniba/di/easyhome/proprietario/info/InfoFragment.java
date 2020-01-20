@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.pr_ui.info;
+package it.uniba.di.easyhome.proprietario.info;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

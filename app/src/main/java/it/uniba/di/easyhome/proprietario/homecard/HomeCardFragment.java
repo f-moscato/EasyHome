@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.pr_ui.homecard;
+package it.uniba.di.easyhome.proprietario.homecard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="it.uniba.di.easyhome.ui.home.HomeFragment"
+        android:name="it.uniba.di.easyhome.inquilino.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="it.uniba.di.easyhome.ui.gallery.GalleryFragment"
+        android:name="it.uniba.di.easyhome.inquilino.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/inq_nav_bills"
-        android:name="it.uniba.di.easyhome.pr_ui.bollette.BolletteFragment"
+        android:name="it.uniba.di.easyhome.proprietario.bollette.BolletteFragment"
         android:label="@string/menu_bollette"
         tools:layout="@layout/pr_fragment_bollette" />
 
     <fragment
         android:id="@+id/inq_nav_tools"
-        android:name="it.uniba.di.easyhome.ui.tools.ToolsFragment"
+        android:name="it.uniba.di.easyhome.inquilino.tools.ToolsFragment"
         android:label="@string/impostazioni"
         tools:layout="@layout/pr_fragment_tools" />
 
     <fragment
         android:id="@+id/inq_nav_logout"
-        android:name="it.uniba.di.easyhome.pr_ui.logout.Logout"
+        android:name="it.uniba.di.easyhome.proprietario.logout.Logout"
         android:label="@string/logout"
         tools:layout="@layout/inq_logout" />
 
     <fragment
         android:id="@+id/inq_nav_info"
-        android:name="it.uniba.di.easyhome.pr_ui.info.InfoFragment"
+        android:name="it.uniba.di.easyhome.proprietario.info.InfoFragment"
         android:label="@string/info"
         tools:layout="@layout/fragment_info" />
 </navigation>

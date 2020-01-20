@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.ui.home;
+package it.uniba.di.easyhome.proprietario.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.pr_ui.bollette;
+package it.uniba.di.easyhome.proprietario.bollette;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,8 +31,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class BolletteFragment extends Fragment {
 
     private View root;
-    int x;
-
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,6 +44,8 @@ public class BolletteFragment extends Fragment {
         final Button buttonNotPayed= root.findViewById(R.id.buttonNotPayed);
         final Button buttonHistory= root.findViewById(R.id.buttonHystoriBills);
 
+        final Bundle bundle=getArguments();
+
         final LinearLayout ly= root.findViewById(R.id.pr_boll_layout);
         ly.removeAllViews();
         buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -59,20 +58,20 @@ public class BolletteFragment extends Fragment {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot ds: dataSnapshot.getChildren()) {
                         House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
-
-                        for (HashMap<String, String> dettagli : h.getBills().values()) {
-                            String[] info = dettagli.values().toArray(new String[0]);
-                            Log.d(TAG, h.getName() + " / " + dettagli.values());
-                            if(info[4].equalsIgnoreCase("false")){
-                                LinearLayout lyl = new LinearLayout(getActivity());
-                                lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                                LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                margin.setMargins(15,20,15,0);
-                                lyl.setLayoutParams(margin);
-                                LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                marginImg.setMargins(20,8,15,8);
-                                ImageView img = new ImageView(getActivity());
-                                img.setLayoutParams(marginImg);
+                        if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
+                            for (HashMap<String, String> dettagli : h.getBills().values()) {
+                                String[] info = dettagli.values().toArray(new String[0]);
+                                Log.d(TAG, h.getName() + " / " + dettagli.values());
+                                if(info[4].equalsIgnoreCase("false")){
+                                    LinearLayout lyl = new LinearLayout(getActivity());
+                                    lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                                    LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    margin.setMargins(15,20,15,0);
+                                    lyl.setLayoutParams(margin);
+                                    LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    marginImg.setMargins(20,8,15,8);
+                                    ImageView img = new ImageView(getActivity());
+                                    img.setLayoutParams(marginImg);
                                     switch (info[3].toLowerCase()) {
                                         case "gas":
                                             img.setImageResource(R.drawable.gas_no);
@@ -92,29 +91,32 @@ public class BolletteFragment extends Fragment {
                                     }
 
 
-                                LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                tW.setMargins(45,70,45,0);
-                                TextView tw_importo = new TextView(getActivity());
-                                tw_importo.setLayoutParams(tW);
-                                tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
-                                TextView tw_datascadenza = new TextView(getActivity());
-                                tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
-                                tw_datascadenza.setLayoutParams(tW);
-                                tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                TextView tw_descr = new TextView(getActivity());
-                                tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
-                                tw_descr.setLayoutParams(tW);
-                                tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                lyl.addView(img);
-                                lyl.addView(tw_datascadenza);
-                                lyl.addView(tw_descr);
-                                lyl.addView(tw_importo);
-                                ly.addView(lyl);
+                                    LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    tW.setMargins(45,70,45,0);
+                                    TextView tw_importo = new TextView(getActivity());
+                                    tw_importo.setLayoutParams(tW);
+                                    tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                    tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
+                                    TextView tw_datascadenza = new TextView(getActivity());
+                                    tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                    tw_datascadenza.setLayoutParams(tW);
+                                    tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                    TextView tw_descr = new TextView(getActivity());
+                                    tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                    tw_descr.setLayoutParams(tW);
+                                    tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                    lyl.addView(img);
+                                    lyl.addView(tw_datascadenza);
+                                    lyl.addView(tw_descr);
+                                    lyl.addView(tw_importo);
+                                    ly.addView(lyl);
+                                }
+
+
+
                             }
-
-
-                    }
+                            break;
+                        }
                 }
             }
 

@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.ui.tools;
+package it.uniba.di.easyhome.inquilino.tools;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

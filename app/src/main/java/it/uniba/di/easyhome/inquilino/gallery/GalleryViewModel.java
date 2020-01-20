@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.ui.gallery;
+package it.uniba.di.easyhome.inquilino.gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
