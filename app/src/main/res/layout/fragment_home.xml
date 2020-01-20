@@ -5,13 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/ly_home_inquilino">
+
     <LinearLayout
+        android:id="@+id/ly_home_inquilino"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -114,7 +112,6 @@
 
         </LinearLayout>
     </LinearLayout>
-</FrameLayout>
 
     <EditText
         android:id="@+id/editText"
@@ -128,7 +125,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.431"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ly_home_proprietario"
+        app:layout_constraintTop_toBottomOf="@+id/ly_home_inquilino"
         app:layout_constraintVertical_bias="0.132" />
 
     <EditText
@@ -154,7 +151,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ly_home_proprietario"
+        app:layout_constraintTop_toBottomOf="@+id/ly_home_inquilino"
         app:layout_constraintVertical_bias="0.045" />
 
 

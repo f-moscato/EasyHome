@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.ui.home;
+package it.uniba.di.easyhome.inquilino.home;
 
 import android.app.Notification;
 import android.app.PendingIntent;

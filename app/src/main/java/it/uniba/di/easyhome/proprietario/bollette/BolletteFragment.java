@@ -148,81 +148,83 @@ public class BolletteFragment extends Fragment {
                         if(dataSnapshot.exists()){
                             for(DataSnapshot ds: dataSnapshot.getChildren()) {
                                 House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                                if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
+                                    for (HashMap<String, String> dettagli : h.getBills().values()) {
+                                        String[] info = dettagli.values().toArray(new String[0]);
 
-                                for (HashMap<String, String> dettagli : h.getBills().values()) {
-                                    String[] info = dettagli.values().toArray(new String[0]);
+                                        Log.d(TAG, h.getName() + " / " + dettagli.values());
+                                        //creazione linearlayout principale della bolletta con settaggio dei margini
+                                        LinearLayout lyl = new LinearLayout(getActivity());
+                                        lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                                        LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        margin.setMargins(15,20,15,0);
+                                        lyl.setLayoutParams(margin);
 
-                                    Log.d(TAG, h.getName() + " / " + dettagli.values());
-                                    //creazione linearlayout principale della bolletta con settaggio dei margini
-                                    LinearLayout lyl = new LinearLayout(getActivity());
-                                    lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                                    LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    margin.setMargins(15,20,15,0);
-                                    lyl.setLayoutParams(margin);
-
-                                    LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    marginImg.setMargins(20,8,15,8);
-                                    ImageView img = new ImageView(getActivity());
-                                    img.setLayoutParams(marginImg);
-                                    if (info[4].equalsIgnoreCase("true")) {
-                                        switch (info[3].toLowerCase()) {
-                                            case "gas":
-                                                img.setImageResource(R.drawable.gas_yes);
-                                                break;
-                                            case "energy":
-                                                img.setImageResource(R.drawable.energy_yes);
-                                                break;
-                                            case "water":
-                                                img.setImageResource(R.drawable.acqua_yes);
-                                                break;
-                                            case "other":
-                                                img.setImageResource(R.drawable.other_yes);
-                                                break;
-                                            default:
-                                                img.setImageResource(R.drawable.info);
-                                                break;
+                                        LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        marginImg.setMargins(20,8,15,8);
+                                        ImageView img = new ImageView(getActivity());
+                                        img.setLayoutParams(marginImg);
+                                        if (info[4].equalsIgnoreCase("true")) {
+                                            switch (info[3].toLowerCase()) {
+                                                case "gas":
+                                                    img.setImageResource(R.drawable.gas_yes);
+                                                    break;
+                                                case "energy":
+                                                    img.setImageResource(R.drawable.energy_yes);
+                                                    break;
+                                                case "water":
+                                                    img.setImageResource(R.drawable.acqua_yes);
+                                                    break;
+                                                case "other":
+                                                    img.setImageResource(R.drawable.other_yes);
+                                                    break;
+                                                default:
+                                                    img.setImageResource(R.drawable.info);
+                                                    break;
+                                            }
+                                        }else{
+                                            switch (info[3].toLowerCase()) {
+                                                case "gas":
+                                                    img.setImageResource(R.drawable.gas_no);
+                                                    break;
+                                                case "energy":
+                                                    img.setImageResource(R.drawable.energy_no);
+                                                    break;
+                                                case "water":
+                                                    img.setImageResource(R.drawable.acqua_no);
+                                                    break;
+                                                case "other":
+                                                    img.setImageResource(R.drawable.other_no);
+                                                    break;
+                                                default:
+                                                    img.setImageResource(R.drawable.info);
+                                                    break;
+                                            }
                                         }
-                                    }else{
-                                        switch (info[3].toLowerCase()) {
-                                            case "gas":
-                                                img.setImageResource(R.drawable.gas_no);
-                                                break;
-                                            case "energy":
-                                                img.setImageResource(R.drawable.energy_no);
-                                                break;
-                                            case "water":
-                                                img.setImageResource(R.drawable.acqua_no);
-                                                break;
-                                            case "other":
-                                                img.setImageResource(R.drawable.other_no);
-                                                break;
-                                            default:
-                                                img.setImageResource(R.drawable.info);
-                                                break;
-                                        }
-                                    }
 
-                                    LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    tW.setMargins(45,70,45,0);
-                                    TextView tw_importo = new TextView(getActivity());
-                                    tw_importo.setLayoutParams(tW);
-                                    tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                    tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
-                                    TextView tw_datascadenza = new TextView(getActivity());
-                                    tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
-                                    tw_datascadenza.setLayoutParams(tW);
-                                    tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                    TextView tw_descr = new TextView(getActivity());
-                                    tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
-                                    tw_descr.setLayoutParams(tW);
-                                    tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                    lyl.addView(img);
-                                    lyl.addView(tw_datascadenza);
-                                    lyl.addView(tw_descr);
-                                    lyl.addView(tw_importo);
-                                    ly.addView(lyl);
+                                        LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        tW.setMargins(45,70,45,0);
+                                        TextView tw_importo = new TextView(getActivity());
+                                        tw_importo.setLayoutParams(tW);
+                                        tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
+                                        TextView tw_datascadenza = new TextView(getActivity());
+                                        tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                        tw_datascadenza.setLayoutParams(tW);
+                                        tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        TextView tw_descr = new TextView(getActivity());
+                                        tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                        tw_descr.setLayoutParams(tW);
+                                        tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        lyl.addView(img);
+                                        lyl.addView(tw_datascadenza);
+                                        lyl.addView(tw_descr);
+                                        lyl.addView(tw_importo);
+                                        ly.addView(lyl);
                                     }
                                 }
+
+                            }
 
 
 
@@ -256,61 +258,63 @@ public class BolletteFragment extends Fragment {
                         if(dataSnapshot.exists()) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                                if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
+                                    for (HashMap<String, String> dettagli : h.getBills().values()) {
+                                        String[] info = dettagli.values().toArray(new String[0]);
+                                        Log.d(TAG, h.getName() + " / " + dettagli.values());
+                                        if (info[4].equalsIgnoreCase("false")) {
+                                            LinearLayout lyl = new LinearLayout(getActivity());
+                                            lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                                            LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                            margin.setMargins(15,20,15,0);
+                                            lyl.setLayoutParams(margin);
+                                            LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                            marginImg.setMargins(20,8,15,8);
+                                            ImageView img = new ImageView(getActivity());
+                                            img.setLayoutParams(marginImg);
+                                            switch (info[3].toLowerCase()) {
+                                                case "gas":
+                                                    img.setImageResource(R.drawable.gas_no);
+                                                    break;
+                                                case "energy":
+                                                    img.setImageResource(R.drawable.energy_no);
+                                                    break;
+                                                case "water":
+                                                    img.setImageResource(R.drawable.acqua_no);
+                                                    break;
+                                                case "other":
+                                                    img.setImageResource(R.drawable.other_no);
+                                                    break;
+                                                default:
+                                                    img.setImageResource(R.drawable.info);
+                                                    break;
+                                            }
 
-                                for (HashMap<String, String> dettagli : h.getBills().values()) {
-                                    String[] info = dettagli.values().toArray(new String[0]);
-                                    Log.d(TAG, h.getName() + " / " + dettagli.values());
-                                    if (info[4].equalsIgnoreCase("false")) {
-                                        LinearLayout lyl = new LinearLayout(getActivity());
-                                        lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                                        LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                        margin.setMargins(15,20,15,0);
-                                        lyl.setLayoutParams(margin);
-                                        LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                        marginImg.setMargins(20,8,15,8);
-                                        ImageView img = new ImageView(getActivity());
-                                        img.setLayoutParams(marginImg);
-                                        switch (info[3].toLowerCase()) {
-                                            case "gas":
-                                                img.setImageResource(R.drawable.gas_no);
-                                                break;
-                                            case "energy":
-                                                img.setImageResource(R.drawable.energy_no);
-                                                break;
-                                            case "water":
-                                                img.setImageResource(R.drawable.acqua_no);
-                                                break;
-                                            case "other":
-                                                img.setImageResource(R.drawable.other_no);
-                                                break;
-                                            default:
-                                                img.setImageResource(R.drawable.info);
-                                                break;
+
+                                            LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                            tW.setMargins(45,70,45,0);
+                                            TextView tw_importo = new TextView(getActivity());
+                                            tw_importo.setLayoutParams(tW);
+                                            tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                            tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
+                                            TextView tw_datascadenza = new TextView(getActivity());
+                                            tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                            tw_datascadenza.setLayoutParams(tW);
+                                            tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                            TextView tw_descr = new TextView(getActivity());
+                                            tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                            tw_descr.setLayoutParams(tW);
+                                            tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                            lyl.addView(img);
+                                            lyl.addView(tw_datascadenza);
+                                            lyl.addView(tw_descr);
+                                            lyl.addView(tw_importo);
+                                            ly.addView(lyl);
                                         }
 
-
-                                        LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                        tW.setMargins(45,70,45,0);
-                                        TextView tw_importo = new TextView(getActivity());
-                                        tw_importo.setLayoutParams(tW);
-                                        tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                        tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
-                                        TextView tw_datascadenza = new TextView(getActivity());
-                                        tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
-                                        tw_datascadenza.setLayoutParams(tW);
-                                        tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                        TextView tw_descr = new TextView(getActivity());
-                                        tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
-                                        tw_descr.setLayoutParams(tW);
-                                        tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                        lyl.addView(img);
-                                        lyl.addView(tw_datascadenza);
-                                        lyl.addView(tw_descr);
-                                        lyl.addView(tw_importo);
-                                        ly.addView(lyl);
                                     }
-
                                 }
+
                             }
                         }
                     }
