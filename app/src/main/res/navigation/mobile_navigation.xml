@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/inq_nav_bollette"
-        android:name="it.uniba.di.easyhome.ui.bills.BillsFragment"
+        android:id="@+id/inq_nav_bills"
+        android:name="it.uniba.di.easyhome.pr_ui.bollette.BolletteFragment"
         android:label="@string/menu_bollette"
-        tools:layout="@layout/inq_fragment_bills" />
+        tools:layout="@layout/pr_fragment_bollette" />
 
     <fragment
         android:id="@+id/inq_nav_tools"
