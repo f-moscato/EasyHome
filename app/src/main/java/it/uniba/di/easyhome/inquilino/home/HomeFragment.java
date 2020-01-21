@@ -1,9 +1,7 @@
 package it.uniba.di.easyhome.inquilino.home;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,14 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.InquilinoActivity;
-import it.uniba.di.easyhome.InquilinoActivity;
-import it.uniba.di.easyhome.NtReceiver;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SplashScreenActivity;
 import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static it.uniba.di.easyhome.Notifica.CHANNEL_1;
 
 public class HomeFragment extends Fragment {
     private NotificationManagerCompat notificationManager;
@@ -101,13 +94,14 @@ body=root.findViewById(R.id.editText2);
                Intent activityIntent = new Intent(getActivity(), InquilinoActivity.class);
                PendingIntent content=PendingIntent.getActivity(getActivity(),0,activityIntent,0);
                String bd=body.getText().toString();
-               Intent broadcastIntent=new Intent(getActivity(), NtReceiver.class);
-               broadcastIntent.putExtra("prova1",bd);
-               PendingIntent action = PendingIntent.getBroadcast(getActivity(),0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-               Notification notification = new NotificationCompat.Builder(getActivity(),CHANNEL_1)
+              /* Intent broadcastIntent=new Intent(getActivity(), NtReceiver.class);
+              // broadcastIntent.putExtra("prova1",bd);
+             //  PendingIntent action = PendingIntent.getBroadcast(getActivity(),0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+              // Notification notification = new NotificationCompat.Builder(getActivity(),CHANNEL_1)
                        .setSmallIcon(R.drawable.easyhome)
                        .setContentTitle(tit)
                        .setContentText(bd)
+
                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                        .setContentIntent(content)
@@ -116,7 +110,7 @@ body=root.findViewById(R.id.editText2);
                        .setColor(Color.BLUE)
                        .addAction(R.mipmap.ic_launcher,"Toast",action)
                        .build();
-               notificationManager.notify(1,notification);
+               notificationManager.notify(1,notification);*/
            }
        });
 
