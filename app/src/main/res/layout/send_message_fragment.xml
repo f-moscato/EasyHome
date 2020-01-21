@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SendMessageFragment">
+
+    <EditText
+        android:id="@+id/titolo"
+        android:layout_width="334dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:layout_height="46dp"
+        android:textAlignment="center"
+        android:background="@drawable/blue_border_rounded_cornwe"
+        android:elevation="6dp"
+        android:ems="10"
+        android:hint="@string/titolo"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/messaggio"
+        android:layout_width="385dp"
+        android:layout_height="506dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="149dp"
+        android:layout_marginBottom="192dp"
+        android:background="@drawable/blue_border_rounded_cornwe"
+        android:elevation="6dp"
+        android:ems="10"
+        android:textAlignment="center"
+        android:gravity="start|top"
+        android:hint="@string/messaggio"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/messaggio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-145dp"
+        android:text="Button" />
+
+</RelativeLayout>

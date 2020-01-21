@@ -20,6 +20,8 @@
     <string name="gas" translatable="false">Gas</string>
     <string name="acqua">Water</string>
     <string name="extra">Other</string>
+    <string name="titolo">Message Title</string>
+    <string name="messaggio">Message</string>
     <string name="versione">Version:</string>
     <string name="version">Info Version</string>
     <string name="contact">Info Contact</string>

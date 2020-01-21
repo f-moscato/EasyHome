@@ -80,7 +80,7 @@ public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
     NotificationCompat.Builder notificationBuilder=new NotificationCompat.Builder(this,NOTIFACTION_CHANNEL_ID);
     notificationBuilder.setAutoCancel(true)
-            .setSmallIcon(R.drawable.easyhome)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setAutoCancel(true)
