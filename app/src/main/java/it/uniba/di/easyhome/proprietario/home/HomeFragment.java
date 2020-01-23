@@ -63,6 +63,7 @@ public class HomeFragment extends Fragment {
                         marginImg.setMargins(30,8,15,8);
                         ImageView img = new ImageView(getActivity());
                         img.setLayoutParams(marginImg);
+                        img.setColorFilter(getResources().getColor(R.color.colorPrimary));
                         img.setImageResource(R.drawable.casa);
 
                         LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);

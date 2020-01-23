@@ -46,15 +46,15 @@ public class BolletteFragment extends Fragment {
 
         final Bundle bundle=getArguments();
 
-        final LinearLayout ly= root.findViewById(R.id.pr_boll_layout);
-        ly.removeAllViews();
+        final LinearLayout lyPrincipale= root.findViewById(R.id.pr_boll_layout);
+        lyPrincipale.removeAllViews();
         buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
         buttonNotPayed.setBackgroundColor(Color.TRANSPARENT);
+        //Creazione del Value Listener; oggetto che permette l'acquisizione dei dati dal database su Firebase
+        //il codice seguente mostra la sezione bollette non pagate al primo avvio del fragment
         final ValueEventListener vel=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
                 if(dataSnapshot.exists()){
                     for(DataSnapshot ds: dataSnapshot.getChildren()) {
                         House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
@@ -63,36 +63,50 @@ public class BolletteFragment extends Fragment {
                                 String[] info = dettagli.values().toArray(new String[0]);
                                 Log.d(TAG, h.getName() + " / " + dettagli.values());
                                 if(info[4].equalsIgnoreCase("false")){
-                                    LinearLayout lyl = new LinearLayout(getActivity());
-                                    lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+
+                                    //Creazione Layout dinamico con inserimento dei vari elementi quali textbox e immagini
+                                    LinearLayout lySingolaBolletta = new LinearLayout(getActivity());
+                                    lySingolaBolletta.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
                                     LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    margin.setMargins(15,20,15,0);
-                                    lyl.setLayoutParams(margin);
+                                    margin.setMargins(20,20,15,0);
+                                    lySingolaBolletta.setLayoutParams(margin);
+
+                                    //Settaggio margini immagine bolletta e caratteristiche
                                     LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    marginImg.setMargins(20,8,15,8);
+                                    marginImg.setMargins(30,78,15,8);
                                     ImageView img = new ImageView(getActivity());
+                                    marginImg.height=80;
+                                    marginImg.width=80;
                                     img.setLayoutParams(marginImg);
+                                    img.setColorFilter(getResources().getColor(R.color.colorPrimary));
+
                                     switch (info[3].toLowerCase()) {
                                         case "gas":
-                                            img.setImageResource(R.drawable.gas_no);
+                                            img.setImageResource(R.drawable.gas);
                                             break;
                                         case "energy":
-                                            img.setImageResource(R.drawable.energy_no);
+                                            img.setImageResource(R.drawable.energy);
                                             break;
                                         case "water":
-                                            img.setImageResource(R.drawable.acqua_no);
+                                            img.setImageResource(R.drawable.acqua);
                                             break;
                                         case "other":
-                                            img.setImageResource(R.drawable.other_no);
+                                            img.setImageResource(R.drawable.other);
                                             break;
                                         default:
                                             img.setImageResource(R.drawable.info);
                                             break;
                                     }
 
+                                    //Settaggio immagine alert per le bollette non pagate
+                                    ImageView imgAlert=new ImageView(getActivity());
+                                    imgAlert.setImageResource(R.drawable.alert);
+                                    imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
+                                    imgAlert.setLayoutParams(marginImg);
 
+                                    //settaggio textbox che contengono le caratteristiche delle bollette
                                     LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    tW.setMargins(45,70,45,0);
+                                    tW.setMargins(35,60,35,0);
                                     TextView tw_importo = new TextView(getActivity());
                                     tw_importo.setLayoutParams(tW);
                                     tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -105,11 +119,14 @@ public class BolletteFragment extends Fragment {
                                     tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
                                     tw_descr.setLayoutParams(tW);
                                     tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                    lyl.addView(img);
-                                    lyl.addView(tw_datascadenza);
-                                    lyl.addView(tw_descr);
-                                    lyl.addView(tw_importo);
-                                    ly.addView(lyl);
+
+                                    //inserimento delle immagini e delle text box nel linear layout principale
+                                    lySingolaBolletta.addView(img);
+                                    lySingolaBolletta.addView(tw_datascadenza);
+                                    lySingolaBolletta.addView(tw_descr);
+                                    lySingolaBolletta.addView(tw_importo);
+                                    lySingolaBolletta.addView(imgAlert);
+                                    lyPrincipale.addView(lySingolaBolletta);
                                 }
 
 
@@ -128,22 +145,25 @@ public class BolletteFragment extends Fragment {
 
             }
         };
+
+        //Visualizzazione dello storico delle bollette
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //cambio di visualizzazione dei button raffiguranti lo storico delle bollette e le bollette non pagate
                 buttonHistory.setTextColor(getResources().getColor(R.color.colorPrimary));
                 buttonHistory.setBackgroundColor(Color.TRANSPARENT);
                 buttonNotPayed.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 buttonNotPayed.setTextColor(getResources().getColor(R.color.white));
 
-
-                ly.removeAllViews();
+                //"pulizia" del layout
+                lyPrincipale.removeAllViews();
 
                 FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        final LinearLayout ly=root.findViewById(R.id.pr_boll_layout);
+                        final LinearLayout lyPrincipale=root.findViewById(R.id.pr_boll_layout);
 
                         if(dataSnapshot.exists()){
                             for(DataSnapshot ds: dataSnapshot.getChildren()) {
@@ -154,56 +174,24 @@ public class BolletteFragment extends Fragment {
 
                                         Log.d(TAG, h.getName() + " / " + dettagli.values());
                                         //creazione linearlayout principale della bolletta con settaggio dei margini
-                                        LinearLayout lyl = new LinearLayout(getActivity());
-                                        lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                                        LinearLayout lySingolaBolletta = new LinearLayout(getActivity());
+                                        lySingolaBolletta.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
                                         LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                        margin.setMargins(15,20,15,0);
-                                        lyl.setLayoutParams(margin);
+                                        margin.setMargins(20,20,15,0);
+                                        lySingolaBolletta.setLayoutParams(margin);
 
+                                        //Settaggio margini immagine bolletta e caratteristiche
                                         LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                        marginImg.setMargins(20,8,15,8);
+                                        marginImg.setMargins(30,78,15,8);
+                                        marginImg.height=80;
+                                        marginImg.width=80;
                                         ImageView img = new ImageView(getActivity());
                                         img.setLayoutParams(marginImg);
-                                        if (info[4].equalsIgnoreCase("true")) {
-                                            switch (info[3].toLowerCase()) {
-                                                case "gas":
-                                                    img.setImageResource(R.drawable.gas_yes);
-                                                    break;
-                                                case "energy":
-                                                    img.setImageResource(R.drawable.energy_yes);
-                                                    break;
-                                                case "water":
-                                                    img.setImageResource(R.drawable.acqua_yes);
-                                                    break;
-                                                case "other":
-                                                    img.setImageResource(R.drawable.other_yes);
-                                                    break;
-                                                default:
-                                                    img.setImageResource(R.drawable.info);
-                                                    break;
-                                            }
-                                        }else{
-                                            switch (info[3].toLowerCase()) {
-                                                case "gas":
-                                                    img.setImageResource(R.drawable.gas_no);
-                                                    break;
-                                                case "energy":
-                                                    img.setImageResource(R.drawable.energy_no);
-                                                    break;
-                                                case "water":
-                                                    img.setImageResource(R.drawable.acqua_no);
-                                                    break;
-                                                case "other":
-                                                    img.setImageResource(R.drawable.other_no);
-                                                    break;
-                                                default:
-                                                    img.setImageResource(R.drawable.info);
-                                                    break;
-                                            }
-                                        }
+                                        img.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
+                                        //settaggio textbox che contengono le caratteristiche delle bollette
                                         LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                        tW.setMargins(45,70,45,0);
+                                        tW.setMargins(35,60,35,0);
                                         TextView tw_importo = new TextView(getActivity());
                                         tw_importo.setLayoutParams(tW);
                                         tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -216,11 +204,62 @@ public class BolletteFragment extends Fragment {
                                         tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
                                         tw_descr.setLayoutParams(tW);
                                         tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                        lyl.addView(img);
-                                        lyl.addView(tw_datascadenza);
-                                        lyl.addView(tw_descr);
-                                        lyl.addView(tw_importo);
-                                        ly.addView(lyl);
+
+                                        //inserimento immagini in base alla loro natura e conseguente aggiunta di tutti gli elementi nel linear layout principale
+                                        if (info[4].equalsIgnoreCase("true")) {
+
+                                            switch (info[3].toLowerCase()) {
+                                                case "gas":
+                                                    img.setImageResource(R.drawable.gas);
+                                                    break;
+                                                case "energy":
+                                                    img.setImageResource(R.drawable.energy);
+                                                    break;
+                                                case "water":
+                                                    img.setImageResource(R.drawable.acqua);
+                                                    break;
+                                                case "other":
+                                                    img.setImageResource(R.drawable.other);
+                                                    break;
+                                                default:
+                                                    img.setImageResource(R.drawable.info);
+                                                    break;
+                                            }
+                                            lySingolaBolletta.addView(img);
+                                            lySingolaBolletta.addView(tw_datascadenza);
+                                            lySingolaBolletta.addView(tw_descr);
+                                            lySingolaBolletta.addView(tw_importo);
+                                            lyPrincipale.addView(lySingolaBolletta);
+                                        }else{
+                                            ImageView imgAlert=new ImageView(getActivity());
+                                            imgAlert.setImageResource(R.drawable.alert);
+                                            imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
+                                            imgAlert.setLayoutParams(marginImg);
+                                            switch (info[3].toLowerCase()) {
+                                                case "gas":
+                                                    img.setImageResource(R.drawable.gas);
+                                                    break;
+                                                case "energy":
+                                                    img.setImageResource(R.drawable.energy);
+                                                    break;
+                                                case "water":
+                                                    img.setImageResource(R.drawable.acqua);
+                                                    break;
+                                                case "other":
+                                                    img.setImageResource(R.drawable.other);
+                                                    break;
+                                                default:
+                                                    img.setImageResource(R.drawable.info);
+                                                    break;
+                                            }
+                                            lySingolaBolletta.addView(img);
+                                            lySingolaBolletta.addView(tw_datascadenza);
+                                            lySingolaBolletta.addView(tw_descr);
+                                            lySingolaBolletta.addView(tw_importo);
+                                            lySingolaBolletta.addView(imgAlert);
+                                            lyPrincipale.addView(lySingolaBolletta);
+                                        }
+
                                     }
                                 }
 
@@ -240,20 +279,26 @@ public class BolletteFragment extends Fragment {
                 });
             }
         });
+
+        //Visualizzazione delle bollette non pagate
         buttonNotPayed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //cambio di visualizzazione dei button raffiguranti lo storico delle bollette e le bollette non pagate
                 buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
                 buttonNotPayed.setBackgroundColor(Color.TRANSPARENT);
                 buttonHistory.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 buttonHistory.setTextColor(getResources().getColor(R.color.white));
 
-                ly.removeAllViews();
+                //"pulizia" del layout
+                lyPrincipale.removeAllViews();
+
                 FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        final LinearLayout ly= root.findViewById(R.id.pr_boll_layout);
+                        final LinearLayout lyPrincipale= root.findViewById(R.id.pr_boll_layout);
 
                         if(dataSnapshot.exists()) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -263,36 +308,49 @@ public class BolletteFragment extends Fragment {
                                         String[] info = dettagli.values().toArray(new String[0]);
                                         Log.d(TAG, h.getName() + " / " + dettagli.values());
                                         if (info[4].equalsIgnoreCase("false")) {
-                                            LinearLayout lyl = new LinearLayout(getActivity());
-                                            lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                                            //Creazione Layout dinamico con inserimento dei vari elementi quali textbox e immagini
+                                            LinearLayout lySingolaBolletta = new LinearLayout(getActivity());
+                                            lySingolaBolletta.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
                                             LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            margin.setMargins(15,20,15,0);
-                                            lyl.setLayoutParams(margin);
+                                            margin.setMargins(20,20,15,0);
+                                            lySingolaBolletta.setLayoutParams(margin);
+
+                                            //Settaggio margini immagine bolletta e caratteristiche
                                             LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            marginImg.setMargins(20,8,15,8);
+                                            marginImg.setMargins(30,78,15,8);
+                                            marginImg.height=80;
+                                            marginImg.width=80;
                                             ImageView img = new ImageView(getActivity());
                                             img.setLayoutParams(marginImg);
+                                            img.setColorFilter(getResources().getColor(R.color.colorPrimary));
+
                                             switch (info[3].toLowerCase()) {
                                                 case "gas":
-                                                    img.setImageResource(R.drawable.gas_no);
+                                                    img.setImageResource(R.drawable.gas);
                                                     break;
                                                 case "energy":
-                                                    img.setImageResource(R.drawable.energy_no);
+                                                    img.setImageResource(R.drawable.energy);
                                                     break;
                                                 case "water":
-                                                    img.setImageResource(R.drawable.acqua_no);
+                                                    img.setImageResource(R.drawable.acqua);
                                                     break;
                                                 case "other":
-                                                    img.setImageResource(R.drawable.other_no);
+                                                    img.setImageResource(R.drawable.other);
                                                     break;
                                                 default:
                                                     img.setImageResource(R.drawable.info);
                                                     break;
                                             }
 
+                                            //Settaggio immagine alert per le bollette non pagate
+                                            ImageView imgAlert=new ImageView(getActivity());
+                                            imgAlert.setImageResource(R.drawable.alert);
+                                            imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
+                                            imgAlert.setLayoutParams(marginImg);
 
+                                            //settaggio textbox che contengono le caratteristiche delle bollette
                                             LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            tW.setMargins(45,70,45,0);
+                                            tW.setMargins(35,60,35,0);
                                             TextView tw_importo = new TextView(getActivity());
                                             tw_importo.setLayoutParams(tW);
                                             tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -305,11 +363,14 @@ public class BolletteFragment extends Fragment {
                                             tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
                                             tw_descr.setLayoutParams(tW);
                                             tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                            lyl.addView(img);
-                                            lyl.addView(tw_datascadenza);
-                                            lyl.addView(tw_descr);
-                                            lyl.addView(tw_importo);
-                                            ly.addView(lyl);
+
+                                            //inserimento delle immagini e delle text box nel linear layout principale
+                                            lySingolaBolletta.addView(img);
+                                            lySingolaBolletta.addView(tw_datascadenza);
+                                            lySingolaBolletta.addView(tw_descr);
+                                            lySingolaBolletta.addView(tw_importo);
+                                            lySingolaBolletta.addView(imgAlert);
+                                            lyPrincipale.addView(lySingolaBolletta);
                                         }
 
                                     }
@@ -328,6 +389,8 @@ public class BolletteFragment extends Fragment {
             }
 
         });
+
+        //chiamata del Listener per l'esecuzione della query
         rootRef.addListenerForSingleValueEvent(vel);
 
         return root;

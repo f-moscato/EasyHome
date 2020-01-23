@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "658795475116-c3uupf5s7v1b0kr9nmsarova93jcfsgf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.uniba.di.easyhome",
+            "certificate_hash": "3a2169d9d842f17a0f24818703842f95035f5553"
+          }
+        },
+        {
           "client_id": "658795475116-dffs4olv2mo7kijchvodee42lns6n1d2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

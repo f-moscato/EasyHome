@@ -45,7 +45,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/bill_inquilino"
+                android:background="@drawable/bill"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20dp" />
 
@@ -68,10 +68,11 @@
             android:padding="10dp">
 
             <ImageView
+                android:id="@+id/inqImgPulizie"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/pulizie"
-                android:textColor="@color/colorPrimary"
+                android:visibility="invisible"
                 android:textSize="20dp" />
 
             <TextView
@@ -96,11 +97,11 @@
             android:focusable="true">
 
             <ImageView
+                android:id="@+id/inqImgAnnunci"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/annunci"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20dp"/>
+                android:visibility="invisible"/>
 
             <TextView
                 android:layout_width="wrap_content"

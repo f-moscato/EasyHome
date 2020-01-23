@@ -14,7 +14,7 @@
             android:title="@string/menu_gallery" />
         <item
             android:id="@+id/pr_nav_bills"
-            android:icon="@drawable/add_bill"
+            android:icon="@drawable/bill"
             android:title="@string/menu_bollette" />
         <item
             android:id="@+id/pr_nav_tools"
