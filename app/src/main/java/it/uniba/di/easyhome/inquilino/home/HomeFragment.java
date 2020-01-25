@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
 
         imgChat.setColorFilter(getResources().getColor(R.color.colorPrimary));
         imgClean.setColorFilter(getResources().getColor(R.color.colorPrimary));
-        
+
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         LinearLayout ly_ButtonBill= (LinearLayout) root.findViewById(R.id.ly_bill_inquilino);
