@@ -17,11 +17,7 @@
         android:label="@string/menu_gallery"
         tools:layout="@layout/pr_fragment_gallery" />
 
-    <fragment
-        android:id="@+id/pr_nav_bills"
-        android:name="it.uniba.di.easyhome.proprietario.bollette.BolletteFragment"
-        android:label="@string/menu_bollette"
-        tools:layout="@layout/pr_fragment_bollette" />
+
 
     <fragment
         android:id="@+id/nav_tools"
