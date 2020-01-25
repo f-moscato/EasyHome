@@ -66,8 +66,7 @@
                 android:id="@+id/inqImgAnnunci"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/annunci"
-                android:visibility="invisible"/>
+                android:background="@drawable/annunci"/>
 
             <TextView
                 android:layout_width="wrap_content"
