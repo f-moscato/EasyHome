@@ -16,17 +16,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Objects;
+
 import it.uniba.di.easyhome.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
+import it.uniba.di.easyhome.proprietario.home.HomeFragment;
 
 public class HomeCardFragment extends Fragment{
-
-
-
-    public static HomeCardFragment newInstance() {
-        return new HomeCardFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -36,7 +33,7 @@ public class HomeCardFragment extends Fragment{
 
         final Bundle bundle=getArguments();
 
-        FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
+        FloatingActionButton fab = (Objects.requireNonNull(getActivity()).findViewById(R.id.fab_plus));
         fab.hide();
         fab.setClickable(false);
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
@@ -51,7 +48,8 @@ public class HomeCardFragment extends Fragment{
                 BolletteFragment bolletteFragment=new BolletteFragment() ;
                 bolletteFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"PROVA");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"Bills");
                 fragmentTransaction.commit();
             }
         });

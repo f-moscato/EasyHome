@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
                 BolletteFragment bolletteFragment=new BolletteFragment() ;
                 bolletteFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+                fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
                 fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"PROVA");
                 fragmentTransaction.commit();
             }
