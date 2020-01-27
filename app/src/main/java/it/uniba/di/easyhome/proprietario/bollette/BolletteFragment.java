@@ -39,7 +39,7 @@ public class BolletteFragment extends Fragment {
         FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
         fab.hide();
         fab.setClickable(false);
-         root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
+        root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
 
         final Button buttonNotPayed= root.findViewById(R.id.buttonNotPayed);
         final Button buttonHistory= root.findViewById(R.id.buttonHystoriBills);

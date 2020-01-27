@@ -1,19 +1,20 @@
 package it.uniba.di.easyhome;
 
-import android.annotation.SuppressLint;
+
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,13 +22,18 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import it.uniba.di.easyhome.inquilino.home.HomeFragment;
-import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class InquilinoActivity extends AppCompatActivity {
+
+public class InquilinoActivity extends AppCompatActivity  {
 
     FloatingActionButton fab1,fab2,fab3;
     Animation FabOpen,FabClose,FabClock,FabAntiClock;
@@ -91,6 +97,7 @@ public class InquilinoActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override
@@ -118,5 +125,47 @@ public class InquilinoActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+        switch (item.getItemId()) {
+            case R.id.inq_nav_bills:
+                ValueEventListener vel= new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        NavController navController = Navigation.findNavController(InquilinoActivity.this, R.id.nav_host_fragment);
+                        if(dataSnapshot.exists()){
+                            for (DataSnapshot ds:dataSnapshot.getChildren()){
+                                House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini(),ds.getValue(House.class).getBills());
+                                Log.v(TAG, h.getName() + " / " +h.getInquilini().size()+"/"+currentUser.getDisplayName());
+                                for(String cod:h.getInquilini().keySet()){
+                                    if(cod.equals(currentUser.getUid())){
+                                        Bundle bundle=new Bundle();
+                                        bundle.putString("nomeCasa",h.getName());
+                                        navController.navigate(R.id.inq_nav_bills,bundle);
+                                        DrawerLayout mDrawerLayout;
+                                        mDrawerLayout = findViewById(R.id.drawer_layout);
+                                        mDrawerLayout.closeDrawers();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+
+                rootRef.addListenerForSingleValueEvent(vel);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
