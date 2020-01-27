@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,11 @@ public class HomeFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);
+        ImageView imgChat=root.findViewById(R.id.inqImgAnnunci);
+        ImageView imgClean=root.findViewById(R.id.inqImgPulizie);
+
+        imgChat.setColorFilter(getResources().getColor(R.color.colorPrimary));
+        imgClean.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
@@ -50,6 +56,7 @@ public class HomeFragment extends Fragment {
                 BolletteFragment bolletteFragment=new BolletteFragment() ;
                 bolletteFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+                fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
                 fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"PROVA");
                 fragmentTransaction.commit();
             }

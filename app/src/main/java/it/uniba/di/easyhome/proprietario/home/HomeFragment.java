@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.proprietario.home;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -59,20 +63,36 @@ public class HomeFragment extends Fragment {
                         margin.setMargins(15,20,15,0);
                         lyl.setLayoutParams(margin);
 
+                        lyl.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.effect_button));
+
                         LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         marginImg.setMargins(30,8,15,8);
                         ImageView img = new ImageView(getActivity());
                         img.setLayoutParams(marginImg);
+                        img.setColorFilter(getResources().getColor(R.color.colorPrimary));
                         img.setImageResource(R.drawable.casa);
 
                         LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
                         tW.setMargins(90,70,0,0);
-                        TextView tw= new TextView(getActivity());
+                        final TextView tw= new TextView(getActivity());
                         tw.setText(h.getName());
                         tw.setLayoutParams(tW);
                         tw.setTextColor(getResources().getColor(R.color.colorPrimary));
 
 
+                        lyl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Bundle bundle=new Bundle();
+                                bundle.putString("nomeCasa",tw.getText().toString());
+                                HomeCardFragment homeCardFragment=new HomeCardFragment();
+                                homeCardFragment.setArguments(bundle);
+                                FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+                                fragmentTransaction.add(new HomeFragment(),"ListaCase").addToBackStack(HomeFragment.class.getName());
+                                fragmentTransaction.replace(R.id.nav_host_fragment,homeCardFragment,"PROVA");
+                                fragmentTransaction.commit();
+                            }
+                        });
 
 
                        /* Button btnShow = new Button(getActivity());

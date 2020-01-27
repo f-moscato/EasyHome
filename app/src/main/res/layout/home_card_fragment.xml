@@ -4,11 +4,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".proprietario.homecard.HomeCardFragment">
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/ly_homeCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello"
-        android:id="@+id/hello"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/nomeCasaProprietario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="50dp"/>
+
+        <LinearLayout
+            android:id="@+id/ly_bill_casa_proprietario"
+            android:background="@drawable/effect_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bill"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/menu_bollette"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ly_chat_inquilino"
+            android:background="@drawable/effect_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/inqImgAnnunci"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/annunci"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/annunci"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

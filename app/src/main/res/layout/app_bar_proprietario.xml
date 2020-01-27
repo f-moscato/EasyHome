@@ -44,7 +44,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_marginBottom="100dp"
-        android:src="@drawable/add_bill"
+        android:src="@drawable/bill"
         android:elevation="6dp"
         android:id="@+id/fab2_plus"
         app:pressedTranslationZ="12dp"
