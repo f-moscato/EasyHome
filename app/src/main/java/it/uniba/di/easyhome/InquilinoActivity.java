@@ -1,6 +1,5 @@
 package it.uniba.di.easyhome;
 
-import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,11 +19,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import it.uniba.di.easyhome.inquilino.home.HomeFragment;
-import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class InquilinoActivity extends AppCompatActivity {
 
@@ -38,7 +31,6 @@ public class InquilinoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_inquilino);
         Toolbar toolbar = findViewById(R.id.toolbar);

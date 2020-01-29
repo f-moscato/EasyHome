@@ -22,6 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.NetworkInterface;
+import java.util.Collections;
+import java.util.List;
+
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SendMessageFragment;
@@ -36,8 +40,17 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
+TextView mac= root.findViewById(R.id.mac);
+
+        mac.setText(getMacAddr());
+
+
+
+
+
+
+
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);
         ImageView imgChat=root.findViewById(R.id.inqImgAnnunci);
         ImageView imgClean=root.findViewById(R.id.inqImgPulizie);
@@ -108,9 +121,35 @@ public class HomeFragment extends Fragment {
             }
         };
 
+
         rootRef.addListenerForSingleValueEvent(vel);
 
 
         return root;
+    }
+    public static String getMacAddr() {
+        try {
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface nif: all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+                byte[] macBytes = nif.getHardwareAddress();
+                if (macBytes == null) {
+                    return "";
+                }
+
+                StringBuilder res1 = new StringBuilder();
+                for (byte b: macBytes) {
+                    //res1.append(Integer.toHexString(b & 0xFF) + ":");
+                    res1.append(String.format("%02X:", b));
+                }
+
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                return res1.toString();
+            }
+        } catch (Exception ex) {}
+        return "02:00:00:00:00:00";
     }
 }
