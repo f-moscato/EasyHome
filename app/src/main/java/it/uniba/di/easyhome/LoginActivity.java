@@ -1,11 +1,15 @@
 package it.uniba.di.easyhome;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +41,12 @@ public class LoginActivity extends AppCompatActivity {
         Button register= findViewById(R.id.B_register);
         final EditText ET_email=findViewById(R.id.username_input);
         final EditText ET_password= findViewById(R.id.pass);
+        TextView mac= findViewById(R.id.mac_1);
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService (Context.WIFI_SERVICE);
+        WifiInfo info = wifiManager.getConnectionInfo ();
+        String ssid  = info.getSSID();
+            mac.setText(ssid);
+
 
         // [START initialize_auth]
         // Initialize Firebase Auth

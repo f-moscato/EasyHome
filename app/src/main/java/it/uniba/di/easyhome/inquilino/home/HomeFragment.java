@@ -43,12 +43,6 @@ public class HomeFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
 TextView mac= root.findViewById(R.id.mac);
 
-        mac.setText(getMacAddr());
-
-
-
-
-
 
 
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);

@@ -21,7 +21,9 @@
         android:id="@+id/inq_nav_bills"
         android:name="it.uniba.di.easyhome.proprietario.bollette.BolletteFragment"
         android:label="@string/menu_bollette"
-        tools:layout="@layout/pr_fragment_bollette" />
+        tools:layout="@layout/pr_fragment_bollette" >
+
+    </fragment>
 
     <fragment
         android:id="@+id/inq_nav_tools"
@@ -40,4 +42,6 @@
         android:name="it.uniba.di.easyhome.proprietario.info.InfoFragment"
         android:label="@string/info"
         tools:layout="@layout/fragment_info" />
+
+
 </navigation>

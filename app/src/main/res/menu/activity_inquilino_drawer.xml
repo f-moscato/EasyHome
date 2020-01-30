@@ -15,7 +15,8 @@
         <item
             android:id="@+id/inq_nav_bills"
             android:icon="@drawable/bill"
-            android:title="@string/menu_bollette" />
+            android:title="@string/menu_bollette"
+            android:onClick="onOptionsItemSelected"/>
         <item
             android:id="@+id/inq_nav_tools"
             android:icon="@drawable/ic_menu_manage"
