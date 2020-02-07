@@ -6,7 +6,7 @@
     tools:context=".SendMessageFragment">
 
     <EditText
-        android:id="@+id/titolo"
+        android:id="@+id/messageTitle"
         android:layout_width="334dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
@@ -19,7 +19,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/messaggio"
+        android:id="@+id/messageToSend"
         android:layout_width="385dp"
         android:layout_height="506dp"
         android:layout_alignParentTop="true"
@@ -36,12 +36,18 @@
         android:inputType="textMultiLine" />
 
     <Button
-        android:id="@+id/sendButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonSendMessage"
+        android:layout_width="172dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/messaggio"
+        android:layout_below="@+id/messageToSend"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-145dp"
-        android:text="Button" />
+        android:background="@drawable/blue_fill__rounded_color"
+        android:gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:text="@string/send_message"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp" />
 
 </RelativeLayout>
