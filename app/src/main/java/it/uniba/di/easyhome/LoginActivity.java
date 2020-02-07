@@ -1,7 +1,9 @@
 package it.uniba.di.easyhome;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.wifi.WifiInfo;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +38,7 @@ import java.util.Locale;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
     private FirebaseAuth mAuth;
+    private static final int LOCATION = 1;
     SharedPref sharedpref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         if(sharedpref.loadNightModeState()==true){
             this.setTheme(R.style.darktheme);
         }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION);}
         setContentView(R.layout.activity_login5);
         Button login= findViewById(R.id.B_login);
         Button register= findViewById(R.id.B_register);
