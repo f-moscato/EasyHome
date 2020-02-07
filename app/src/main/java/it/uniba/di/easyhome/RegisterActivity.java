@@ -1,17 +1,16 @@
 package it.uniba.di.easyhome;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,26 +27,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.net.NetworkInterface;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "REGISTER";
-
+    SharedPref sharedpref;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref=new SharedPref(this);
+        if(sharedpref.loadLang().equals("en")){
+            this.setAppLocale("en");
+        }else{
+            this.setAppLocale("it");
+        }
+        if(sharedpref.loadNightModeState()==true){
+            this.setTheme(R.style.darktheme);
+        }
         setContentView(R.layout.activity_register);
-
         mAuth = FirebaseAuth.getInstance();
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
-
-
-        final EditText ET_mail= findViewById(R.id.usernameToRegister);
+         final EditText ET_mail= findViewById(R.id.usernameToRegister);
         final EditText ET_pass= findViewById(R.id.passToRegister);
         final EditText ET_repass= findViewById(R.id.repassToRegister);
         final EditText ET_name=findViewById(R.id.nameToRegister);
@@ -144,7 +150,17 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-
+    public  void setAppLocale(String localeCode){
+        Resources res = getResources();
+        DisplayMetrics dm=res.getDisplayMetrics();
+        Configuration conf =res.getConfiguration();
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        }else{
+            conf.locale=new Locale(localeCode.toLowerCase());
+        }
+        res.updateConfiguration(conf,dm);
+    }
 
     private void writeNewUser(String userId, String email,String pass, String name, String surname, String role,String mac) {
         User user = new User(email,pass,name,surname,role,mac);

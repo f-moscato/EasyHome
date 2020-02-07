@@ -1,7 +1,11 @@
 package it.uniba.di.easyhome;
 
 import android.app.FragmentManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -20,23 +24,32 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Locale;
 
 
 public class ProprietarioActivity extends AppCompatActivity {
     FloatingActionButton fab1,fab2,fab3;
     Animation FabOpen,FabClose,FabClock,FabAntiClock;
     TextView boll;
+    SharedPref sharedpref;
     boolean isOpen=false;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref=new SharedPref(this);
+        if(sharedpref.loadLang().equals("en")){
+            this.setAppLocale("en");
+        }else{
+            this.setAppLocale("it");
+        }
         setContentView(R.layout.activity_proprietario);
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if(sharedpref.loadNightModeState()==true){
+            this.setTheme(R.style.darktheme);
+        }
         fab1= findViewById(R.id.fab_plus);
         fab2= findViewById(R.id.fab2_plus);
         fab3= findViewById(R.id.fab3_plus);
@@ -85,7 +98,7 @@ public class ProprietarioActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery,
-                R.id.pr_nav_tools, R.id.pr_nav_logout, R.id.pr_nav_info)
+                R.id.nav_tools, R.id.pr_nav_logout, R.id.pr_nav_info)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);// collega il menu laterale con il "selettore" dei fragment
@@ -117,6 +130,17 @@ public class ProprietarioActivity extends AppCompatActivity {
             Log.i("MainActivity", "nothing on backstack, calling super");
             super.onBackPressed();
         }
+    }
+    public  void setAppLocale(String localeCode){
+        Resources res = getResources();
+        DisplayMetrics dm=res.getDisplayMetrics();
+        Configuration conf =res.getConfiguration();
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        }else{
+            conf.locale=new Locale(localeCode.toLowerCase());
+        }
+        res.updateConfiguration(conf,dm);
     }
 
     public void setActionBarTitle(String title) {

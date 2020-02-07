@@ -17,13 +17,12 @@
         android:label="@string/menu_gallery"
         tools:layout="@layout/pr_fragment_gallery" />
 
-
-
     <fragment
         android:id="@+id/nav_tools"
-        android:name="it.uniba.di.easyhome.proprietario.tools.ToolsFragment"
+        android:name="it.uniba.di.easyhome.inquilino.tools.ToolsFragment"
         android:label="@string/impostazioni"
-        tools:layout="@layout/pr_fragment_tools" />
+        tools:layout="@layout/fragment_tools" /> />
+
     <fragment
     android:id="@+id/nav_card"
     android:name="it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment"
