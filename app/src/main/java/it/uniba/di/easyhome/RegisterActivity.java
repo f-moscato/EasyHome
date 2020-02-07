@@ -24,9 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -82,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     String pass=ET_pass.getText().toString().trim();
                                     String repass=ET_repass.getText().toString().trim();
                                     String surname=ET_surname.getText().toString().trim();
-                                    String mac=getMacAddr();
+
 
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
@@ -101,9 +98,9 @@ public class RegisterActivity extends AppCompatActivity {
                                             updateUI(user);
 
                                             if(RB_Inq.isChecked()){
-                                                writeNewUser(user.getUid(),mail,pass,name,surname,"I",mac);
+                                                writeNewUser(user.getUid(),mail,pass,name,surname,"I");
                                             }else{
-                                                writeNewUser(user.getUid(),mail,pass,name,surname,"P",mac);
+                                                writeNewUser(user.getUid(),mail,pass,name,surname,"P");
                                             }
 
 
@@ -162,8 +159,8 @@ public class RegisterActivity extends AppCompatActivity {
         res.updateConfiguration(conf,dm);
     }
 
-    private void writeNewUser(String userId, String email,String pass, String name, String surname, String role,String mac) {
-        User user = new User(email,pass,name,surname,role,mac);
+    private void writeNewUser(String userId, String email,String pass, String name, String surname, String role ) {
+        User user = new User(email,pass,name,surname,role);
 
         mDatabase.child("users").child(userId).setValue(user);
     }
@@ -177,30 +174,5 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         }
-    }
-    public static String getMacAddr() {
-        try {
-            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
-            for (NetworkInterface nif: all) {
-                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
-
-                byte[] macBytes = nif.getHardwareAddress();
-                if (macBytes == null) {
-                    return "";
-                }
-
-                StringBuilder res1 = new StringBuilder();
-                for (byte b: macBytes) {
-                    //res1.append(Integer.toHexString(b & 0xFF) + ":");
-                    res1.append(String.format("%02X:", b));
-                }
-
-                if (res1.length() > 0) {
-                    res1.deleteCharAt(res1.length() - 1);
-                }
-                return res1.toString();
-            }
-        } catch (Exception ex) {}
-        return "02:00:00:00:00:00";
     }
 }
