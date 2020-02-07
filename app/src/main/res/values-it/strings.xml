@@ -34,5 +34,7 @@
     <string name="import_bollette">"Importo: "</string>
     <string name="messaggio">Messaggio</string>
     <string name="titolo">Titolo Messaggio</string>
+    <string name="send_message">Invio Messaggio</string>
+    <string name="lingua">Lingua:</string>
 
 </resources>

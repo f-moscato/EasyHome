@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="1dp"
-                android:text="Lingua:" />
+                android:text="@string/lingua" />
 
             <ImageButton
                 android:id="@+id/ButtonItalia"
