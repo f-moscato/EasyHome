@@ -84,10 +84,15 @@ TextView mac= root.findViewById(R.id.mac);
         ly_ButtonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendMessageFragment sendMessageFragment= new SendMessageFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("nomeCasa",tw_NomeCasa.getText().toString());
+                SendMessageFragment sendMessageFragment=new SendMessageFragment() ;
+                sendMessageFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, sendMessageFragment,"mex");
+                fragmentTransaction.add(new SendMessageFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
+                fragmentTransaction.replace(R.id.nav_host_fragment,sendMessageFragment,"PROVA");
                 fragmentTransaction.commit();
+
             }
         });
 
@@ -100,12 +105,12 @@ TextView mac= root.findViewById(R.id.mac);
                         Log.v(TAG, h.getName() + " / " +h.getInquilini().size()+"/"+currentUser.getDisplayName());
                         for(String cod:h.getInquilini().keySet()){
                             if(cod.equals(currentUser.getUid())){
-
                                 tw_NomeCasa.setText(h.getName());
                                 break;
                             }
                         }
                     }
+
                 }
             }
 
