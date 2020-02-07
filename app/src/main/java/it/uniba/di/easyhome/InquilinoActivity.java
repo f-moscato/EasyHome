@@ -2,7 +2,11 @@ package it.uniba.di.easyhome;
 
 
 import android.app.FragmentManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +26,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Locale;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -39,16 +44,26 @@ public class InquilinoActivity extends AppCompatActivity  {
     FloatingActionButton fab1,fab2,fab3;
     Animation FabOpen,FabClose,FabClock,FabAntiClock;
     TextView boll;
+    SharedPref sharedpref;
     boolean isOpen=false;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        sharedpref=new SharedPref(this);
+        if(sharedpref.loadLang().equals("en")){
+            this.setAppLocale("en");
+        }else{
+            this.setAppLocale("it");
+        }
         setContentView(R.layout.activity_inquilino);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if(sharedpref.loadNightModeState()==true){
+            this.setTheme(R.style.darktheme);
+        }
+
         fab1= findViewById(R.id.fab_plus);
         fab2= findViewById(R.id.fab2_plus);
         fab3= findViewById(R.id.fab3_plus);
@@ -124,7 +139,17 @@ public class InquilinoActivity extends AppCompatActivity  {
             super.onBackPressed();
         }
     }
-
+    public  void setAppLocale(String localeCode){
+        Resources res = getResources();
+        DisplayMetrics dm=res.getDisplayMetrics();
+        Configuration conf =res.getConfiguration();
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        }else{
+            conf.locale=new Locale(localeCode.toLowerCase());
+        }
+        res.updateConfiguration(conf,dm);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

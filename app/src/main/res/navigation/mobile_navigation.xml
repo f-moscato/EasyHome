@@ -29,7 +29,7 @@
         android:id="@+id/inq_nav_tools"
         android:name="it.uniba.di.easyhome.inquilino.tools.ToolsFragment"
         android:label="@string/impostazioni"
-        tools:layout="@layout/pr_fragment_tools" />
+        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/inq_nav_logout"

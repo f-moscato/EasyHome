@@ -1,17 +1,16 @@
 package it.uniba.di.easyhome;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,29 +24,33 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
+import java.util.Locale;
 
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "REGISTER";
-
+    SharedPref sharedpref;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref=new SharedPref(this);
+        if(sharedpref.loadLang().equals("en")){
+            this.setAppLocale("en");
+        }else{
+            this.setAppLocale("it");
+        }
+        if(sharedpref.loadNightModeState()==true){
+            this.setTheme(R.style.darktheme);
+        }
         setContentView(R.layout.activity_register);
-
         mAuth = FirebaseAuth.getInstance();
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
-
-
-        final EditText ET_mail= findViewById(R.id.usernameToRegister);
+         final EditText ET_mail= findViewById(R.id.usernameToRegister);
         final EditText ET_pass= findViewById(R.id.passToRegister);
         final EditText ET_repass= findViewById(R.id.repassToRegister);
         final EditText ET_name=findViewById(R.id.nameToRegister);
@@ -76,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     String pass=ET_pass.getText().toString().trim();
                                     String repass=ET_repass.getText().toString().trim();
                                     String surname=ET_surname.getText().toString().trim();
-                                    String mac=getMacAddr();
+
 
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
@@ -95,9 +98,9 @@ public class RegisterActivity extends AppCompatActivity {
                                             updateUI(user);
 
                                             if(RB_Inq.isChecked()){
-                                                writeNewUser(user.getUid(),mail,pass,name,surname,"I",mac);
+                                                writeNewUser(user.getUid(),mail,pass,name,surname,"I");
                                             }else{
-                                                writeNewUser(user.getUid(),mail,pass,name,surname,"P",mac);
+                                                writeNewUser(user.getUid(),mail,pass,name,surname,"P");
                                             }
 
 
@@ -144,10 +147,20 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
+    public  void setAppLocale(String localeCode){
+        Resources res = getResources();
+        DisplayMetrics dm=res.getDisplayMetrics();
+        Configuration conf =res.getConfiguration();
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        }else{
+            conf.locale=new Locale(localeCode.toLowerCase());
+        }
+        res.updateConfiguration(conf,dm);
+    }
 
-
-    private void writeNewUser(String userId, String email,String pass, String name, String surname, String role,String mac) {
-        User user = new User(email,pass,name,surname,role,mac);
+    private void writeNewUser(String userId, String email,String pass, String name, String surname, String role ) {
+        User user = new User(email,pass,name,surname,role);
 
         mDatabase.child("users").child(userId).setValue(user);
     }
@@ -161,30 +174,5 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         }
-    }
-    public static String getMacAddr() {
-        try {
-            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
-            for (NetworkInterface nif: all) {
-                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
-
-                byte[] macBytes = nif.getHardwareAddress();
-                if (macBytes == null) {
-                    return "";
-                }
-
-                StringBuilder res1 = new StringBuilder();
-                for (byte b: macBytes) {
-                    //res1.append(Integer.toHexString(b & 0xFF) + ":");
-                    res1.append(String.format("%02X:", b));
-                }
-
-                if (res1.length() > 0) {
-                    res1.deleteCharAt(res1.length() - 1);
-                }
-                return res1.toString();
-            }
-        } catch (Exception ex) {}
-        return "02:00:00:00:00:00";
     }
 }

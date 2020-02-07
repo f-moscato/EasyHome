@@ -1,10 +1,16 @@
 package it.uniba.di.easyhome;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,17 +33,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Locale;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
-
+    private static final int LOCATION = 1;
+    SharedPref sharedpref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref=new SharedPref(this);
+        if(sharedpref.loadLang().equals("en")){
+            this.setAppLocale("en");
+        }else{
+            this.setAppLocale("it");
+        }
+        if(sharedpref.loadNightModeState()==true){
+            this.setTheme(R.style.darktheme);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION);}
         setContentView(R.layout.activity_login5);
-
         Button login= findViewById(R.id.B_login);
         Button register= findViewById(R.id.B_register);
         final EditText ET_email=findViewById(R.id.username_input);
@@ -90,24 +108,27 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-
+    public  void setAppLocale(String localeCode){
+        Resources res = getResources();
+        DisplayMetrics dm=res.getDisplayMetrics();
+        Configuration conf =res.getConfiguration();
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        }else{
+            conf.locale=new Locale(localeCode.toLowerCase());
+        }
+        res.updateConfiguration(conf,dm);
+    }
 
     public void  updateUI(FirebaseUser account) {// controlla se l'utente ha già fatto l'accesso e se è vero salta il form login
 
-
-
         final FirebaseUser currentUser = mAuth.getCurrentUser();
-
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference query= rootRef.child("users");
-
         if(account!=null) {
-
             ValueEventListener eventListener=new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                     for(DataSnapshot ds : dataSnapshot.getChildren()) {
                         if(ds.getValue(User.class).getEmail().equalsIgnoreCase(currentUser.getEmail())){
                             Toast.makeText(LoginActivity.this, "U Signed In successfully " +ds.getValue(User.class).getName(), Toast.LENGTH_LONG).show();
@@ -121,12 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     }
-
-
-
-
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
