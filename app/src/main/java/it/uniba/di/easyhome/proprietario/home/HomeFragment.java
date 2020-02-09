@@ -1,6 +1,5 @@
 package it.uniba.di.easyhome.proprietario.home;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.proprietario.bollette.AddBolletteFragment;
 import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -35,19 +35,33 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
-
-        FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
+        final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
+        final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
+        final FloatingActionButton add_fab= (getActivity().findViewById(R.id.fab2_plus));
+        final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
+        add_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
+        textIndietro.setText(getResources().getString(R.string.bill));
         fab.show();
         fab.setClickable(true);
+        add_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
+                // Create new fragment and transaction
+                Fragment newFragment = new AddBolletteFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack if needed
+                transaction.replace(R.id.nav_host_fragment, newFragment);
+                transaction.addToBackStack(null);
+            // Commit the transaction
+                transaction.commit();
 
+            }
+        });
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
-
-
-
         ValueEventListener vel=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,9 +92,7 @@ public class HomeFragment extends Fragment {
                         tw.setText(h.getName());
                         tw.setLayoutParams(tW);
                         tw.setTextColor(getResources().getColor(R.color.colorPrimary));
-
-
-                        lyl.setOnClickListener(new View.OnClickListener() {
+                         lyl.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Bundle bundle=new Bundle();
@@ -95,21 +107,7 @@ public class HomeFragment extends Fragment {
                         });
 
 
-                       /* Button btnShow = new Button(getActivity());
-                        btnShow.setText(h.getName());
-                        btnShow.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                        btnShow.setTextColor(getResources().getColor(R.color.fab1_color));
-                        LinearLayout.LayoutParams lly_button=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        lly_button.setMargins(0,0,0,50);
-                        btnShow.setHeight(200);
-                        btnShow.setTextSize(25);
-                        btnShow.setLayoutParams(lly_button);
-                        btnShow.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(getActivity(),"ok", Toast.LENGTH_LONG).show();
-                            }
-                        });*/
+
 
                         // Add Button to LinearLayout
                         if (ly != null) {
@@ -118,40 +116,7 @@ public class HomeFragment extends Fragment {
                             lyl.addView(tw);
                             ly.addView(lyl);
                         }
-                        /*Query queryBill=query.orderByChild("bills");
-                        queryBill.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    for(DataSnapshot ds:dataSnapshot.getChildren()){
-                                        h.addBill(ds.getValue(Bill.class).getTipo(),ds.getValue(Bill.class).getTotale(),ds.getValue(Bill.class).getDescrizione(),ds.getValue(Bill.class).getExpiration(),ds.getValue(Bill.class).isPayed());
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-                        Query queryOccupant=query.orderByChild("inquilini");
-                        queryOccupant.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });*/
                     }
-
-
-
-
                 }
             }
 
@@ -160,12 +125,8 @@ public class HomeFragment extends Fragment {
 
             }
         };
-
         rootRef.addListenerForSingleValueEvent(vel);
-
-
-
-        return root;
+         return root;
     }
 
 

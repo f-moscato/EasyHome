@@ -36,5 +36,7 @@
     <string name="titolo">Titolo Messaggio</string>
     <string name="send_message">Invio Messaggio</string>
     <string name="lingua">Lingua:</string>
+    <string name="bill">Bolletta</string>
+    <string name="back">Indietro</string>
 
 </resources>

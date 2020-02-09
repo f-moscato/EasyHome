@@ -8,18 +8,14 @@
     android:background="?attr/backgroundcolor"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".5"
-        android:orientation="horizontal"
-        >
+        android:layout_weight=".5">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-           >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/MMINF"
@@ -27,42 +23,43 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/mminf" />
 
-            <TextView
-                android:id="@+id/VersTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="14dp"
-                android:textAlignment="center"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:text="@string/version"
-                android:background="@drawable/sfondo_view"/>
-
-
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/VersTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/sfondo_view"
+        android:text="@string/version"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".5"
-        android:orientation="horizontal"
-       >
+        android:layout_weight=".5">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_height="351dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="28dp">
 
             <TextView
                 android:id="@+id/conTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="249dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginBottom="157dp"
                 android:background="@drawable/sfondo_view"
                 android:text="@string/contact"
                 android:textAlignment="center"
@@ -70,20 +67,20 @@
                 android:textStyle="bold" />
 
             <TextView
-            android:id="@+id/ver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/versione"
+                android:id="@+id/ver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fab_margin"
-                android:textColor="@color/colorPrimary"/>
+                android:text="@string/versione"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/num"
-                android:layout_toEndOf="@+id/ver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ver"
                 android:text="  xxxxx.1"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/emailText"
@@ -92,11 +89,11 @@
                 android:layout_alignBottom="@+id/conTitle"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="xxxxx@yyyy.it"
+                android:layout_marginBottom="118dp"
                 android:background="@null"
+                android:text="xxxxx@yyyy.it"
                 android:textAlignment="center"
-                android:layout_marginBottom="195dp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/adress"
@@ -105,50 +102,63 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="55dp"
-                android:layout_marginBottom="108dp"
-                android:ems="10"
-                android:textAlignment="center"
-                android:text="via Peppino Di Capri, 85, Milano, MI"
+                android:layout_marginStart="57dp"
+                android:layout_marginEnd="58dp"
+                android:layout_marginBottom="28dp"
                 android:background="@null"
-                android:textColor="@color/colorPrimary"/>
+                android:ems="10"
+                android:text="via Peppino Di Capri, 85, Milano, MI"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary" />
 
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="26.7dp"
-            android:layout_height="26.7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="105dp"
+            android:layout_marginEnd="243dp"
             android:src="@drawable/fb" />
 
         <ImageView
             android:layout_width="26.7dp"
             android:layout_height="26.7dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="161dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginEnd="224dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/instagram" />
 
         <ImageView
             android:layout_width="26.7dp"
             android:layout_height="26.7dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="187dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/twitter" />
 
         <ImageView
             android:layout_width="26.7dp"
             android:layout_height="26.7dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="236dp"
+            android:layout_marginEnd="149dp"
             android:src="@drawable/linkedin" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -25,6 +25,8 @@
     <string name="versione">Version:</string>
     <string name="version">Info Version</string>
     <string name="lingua">Language:</string>
+    <string name="bill">Bill</string>
+    <string name="back">Back</string>
     <string name="contact">Info Contact</string>
 <string name="house_list">House List:</string>
 <string name="sospeso">Not Payed</string>
@@ -42,11 +44,26 @@
     <string name="pop_up_logout_yes">Yes</string>
     <string name="pop_out_logout_no" translatable="false">No</string>
     <string name="register">REGISTER</string>
+    <string name="selectData">Data:</string>
     <string name="forgot_password">FORGOT PASSWORD ?</string>
     <string name="cleaning">Cleaning</string>
     <string name="annunci">Notices</string>
     <string name="import_bollette">Import:</string>
     <string name="expiration_bollette">Expriration:</string>
+    <string name="pay">Payed:</string>
     <string name="description_bollette">Description:</string>
     <string name="send_message">Send Message</string>
+    <string name="tot">Total:</string>
+    <string name="cancel">Reset</string>
+    <string name="send">Send</string>
+    <string-array name="tipo">
+        <item>Gas</item>
+        <item>Energy</item>
+        <item>Water</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="pay">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 </resources>
