@@ -42,14 +42,12 @@ import static android.content.Context.WIFI_SERVICE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
-
+    DatabaseReference mDatabase;
     private static final int LOCATION = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
-    final TextView mac= root.findViewById(R.id.mac);
-        mac.setText(tryToReadSSID());
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);
           final EditText input =new EditText(getContext());
         ImageView imgChat=root.findViewById(R.id.inqImgAnnunci);
@@ -219,44 +217,45 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        final ValueEventListener vel= new ValueEventListener() {
+        vel = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                int flag=0;
-                    for (DataSnapshot ds:dataSnapshot.getChildren()) {
+                if (dataSnapshot.exists()) {
+                    int flag = 0;
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
                         Log.v(TAG, h.getName() + " / " + h.getInquilini().size() + "/" + currentUser.getDisplayName());
                         for (String cod : h.getInquilini().keySet()) {
                             if (cod.equals(currentUser.getUid())) {
-                                flag=12;
+                                flag = 12;
                                 tw_NomeCasa.setText(h.getName());
                                 break;
                             }
                         }
-                       if( flag!=12) {
-                           AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                        if (flag != 12) {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                             alert.setTitle("Entra in una casa");
                             alert.setIcon(getResources().getDrawable(R.drawable.ic_person_add));
                             alert.setMessage("Incolla il codice della casa a cui vui aggiungerti");
-                           final EditText edittext = new EditText(getActivity());
-                           alert.setView(edittext);
-                           alert.setPositiveButton("Yes Option", new DialogInterface.OnClickListener() {
-                               public void onClick(DialogInterface dialog, int whichButton) {
-                                   //What ever you want to do with the value
-                                     String code = edittext.getText().toString();
-                                     //Add inq in Home
-                                     addToHome(code);
-                               }
-                           });
+                            final EditText edittext = new EditText(getActivity());
+                            alert.setView(edittext);
+                            alert.setPositiveButton("Yes Option", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //What ever you want to do with the value
+                                    String code = edittext.getText().toString();
+                                    //Add inq in Home
+                                    addToHome(code);
+                                }
+                            });
 
-                           alert.setNegativeButton("No Option", new DialogInterface.OnClickListener() {
-                               public void onClick(DialogInterface dialog, int whichButton) {
-                                   // what ever you want to do with No option.
-                               }
-                           });
+                            alert.setNegativeButton("No Option", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    // what ever you want to do with No option.
+                                }
+                            });
 
-                           alert.show();         }
+                            alert.show();
+                        }
                     }
                 }
             }
