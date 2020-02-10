@@ -36,17 +36,16 @@ public class Logout extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
-        fab.hide();
-        fab.setClickable(false);
+        if(getActivity().equals(ProprietarioActivity.class)) {
+            FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
+            fab.hide();
+            fab.setClickable(false);}
         final View root = inflater.inflate(R.layout.pr_logout, container, false);
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
-
         final FirebaseUser currentUser = mAuth.getCurrentUser();
-
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference query = rootRef.child("users");
 
@@ -55,8 +54,6 @@ public class Logout extends Fragment {
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
                     if(dataSnapshot.exists()){
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             if (ds.getValue(User.class).getEmail().equalsIgnoreCase(currentUser.getEmail())) {
@@ -93,25 +90,14 @@ public class Logout extends Fragment {
                             }
                         }
                     }
-
-
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-
-
             };
             query.addListenerForSingleValueEvent(eventListener);
-
         }
-
-
-
-
-
         return root;
     }
 }

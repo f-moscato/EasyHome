@@ -29,6 +29,7 @@ import java.util.Calendar;
 
 import it.uniba.di.easyhome.Bill;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.proprietario.home.AddCasaFragment;
 import it.uniba.di.easyhome.proprietario.home.HomeFragment;
 
 public class AddBolletteFragment extends Fragment {
@@ -45,6 +46,17 @@ public class AddBolletteFragment extends Fragment {
         View root = inflater.inflate(R.layout.add_bollette_fragment, container, false);
         final FloatingActionButton add_boll_fab= (getActivity().findViewById(R.id.fab2_plus));
         FloatingActionButton add_std_fab= (getActivity().findViewById(R.id.fab3_plus));
+        add_std_fab.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
+        add_std_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new AddCasaFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
         final Calendar c=Calendar.getInstance();
         final Spinner mySpinner = (Spinner) root.findViewById(R.id.spinner);

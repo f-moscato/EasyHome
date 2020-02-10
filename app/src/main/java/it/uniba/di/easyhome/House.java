@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class House {
     private String name;
     private String owner;
-    private HashMap<String,Boolean> inquilini= new HashMap<>();
+    private HashMap<String,String> inquilini= new HashMap<>();
    private HashMap<String,HashMap<String,String>> bills=new HashMap<>();
 
     public House(){}
@@ -38,15 +38,19 @@ public class House {
         this.owner = owner;
     }
 
-    public HashMap<String, Boolean> getInquilini() {
+    public HashMap<String, String> getInquilini() {
         return inquilini;
     }
 
-    public void setInquilini(HashMap<String, Boolean> inquilini) {
+    public void setInquilini(HashMap<String, String> inquilini) {
         this.inquilini = inquilini;
     }
 
-    public House(String nome, String u,HashMap<String,Boolean> inq,HashMap<String,HashMap<String,String>> b){
+    public House(HashMap<String,String> inq){
+        this.setInquilini(inq);
+    }
+
+    public House(String nome, String u,HashMap<String,String> inq,HashMap<String,HashMap<String,String>> b){
         this.name=nome;
         this.owner=u;
         this.setInquilini(inq);

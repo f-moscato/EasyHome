@@ -12,12 +12,6 @@
         tools:layout="@layout/pr_fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="it.uniba.di.easyhome.proprietario.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/pr_fragment_gallery" />
-
-    <fragment
         android:id="@+id/nav_tools"
         android:name="it.uniba.di.easyhome.inquilino.tools.ToolsFragment"
         android:label="@string/impostazioni"
@@ -28,11 +22,6 @@
     android:name="it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment"
     android:label="Luce"
     tools:layout="@layout/home_card_fragment" />
-    <fragment
-        android:id="@+id/nav_fornitura"
-        android:name="it.uniba.di.easyhome.proprietario.fornitura.FornituraFragment"
-        android:label="Fornitura"
-        tools:layout="@layout/fornitura_fragment" />
 
     <fragment
         android:id="@+id/pr_nav_logout"

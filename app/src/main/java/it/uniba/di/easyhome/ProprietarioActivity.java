@@ -97,8 +97,7 @@ public class ProprietarioActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery,
-                R.id.nav_tools, R.id.pr_nav_logout, R.id.pr_nav_info)
+                R.id.nav_home,R.id.nav_tools, R.id.pr_nav_logout, R.id.pr_nav_info)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);// collega il menu laterale con il "selettore" dei fragment

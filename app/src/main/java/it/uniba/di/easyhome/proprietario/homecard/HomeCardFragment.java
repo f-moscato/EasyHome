@@ -38,8 +38,6 @@ public class HomeCardFragment extends Fragment{
         final View root = inflater.inflate(R.layout.home_card_fragment, container, false);
         final FloatingActionButton add_bill_fab= (getActivity().findViewById(R.id.fab2_plus));
         final Bundle bundle=getArguments();
-
-
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
         twNomeCasa.setText(bundle.getString("nomeCasa"));
       final  String pr;

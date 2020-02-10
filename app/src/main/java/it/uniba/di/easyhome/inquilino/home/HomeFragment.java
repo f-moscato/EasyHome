@@ -3,7 +3,6 @@ package it.uniba.di.easyhome.inquilino.home;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
@@ -31,11 +30,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SendMessageFragment;
-import it.uniba.di.easyhome.SplashScreenActivity;
 import it.uniba.di.easyhome.User;
+import it.uniba.di.easyhome.inquilino.Pulizie.PulizieFragment;
 import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
 
 import static android.content.Context.WIFI_SERVICE;
@@ -82,13 +83,7 @@ public class HomeFragment extends Fragment {
 
             }
         };
-
-
         rootRef.addListenerForSingleValueEvent(vel);
-
-
-
-
         DatabaseReference queryRicercaCasa=FirebaseDatabase.getInstance().getReference("houses");
         queryRicercaCasa.addValueEventListener(new ValueEventListener() {
             @Override
@@ -185,7 +180,7 @@ public class HomeFragment extends Fragment {
                 bolletteFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
-                fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"PROVA");
+                fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"BILL");
                 fragmentTransaction.commit();
             }
         });
@@ -195,8 +190,14 @@ public class HomeFragment extends Fragment {
         ly_ButtonCleaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), SplashScreenActivity.class);
-                startActivity(i);
+                Bundle bundle=new Bundle();
+                bundle.putString("nomeCasa",tw_NomeCasa.getText().toString());
+                PulizieFragment pulizieFragment=new PulizieFragment();
+                pulizieFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+                fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
+                fragmentTransaction.replace(R.id.nav_host_fragment,pulizieFragment,"PULIZIE");
+                fragmentTransaction.commit();
             }
         });
 
@@ -210,8 +211,8 @@ public class HomeFragment extends Fragment {
                 SendMessageFragment sendMessageFragment=new SendMessageFragment() ;
                 sendMessageFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
-                fragmentTransaction.add(new SendMessageFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
-                fragmentTransaction.replace(R.id.nav_host_fragment,sendMessageFragment,"PROVA");
+                fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
+                fragmentTransaction.replace(R.id.nav_host_fragment,sendMessageFragment,"CHAT");
                 fragmentTransaction.commit();
 
             }
@@ -298,14 +299,16 @@ public class HomeFragment extends Fragment {
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        rootRef.addValueEventListener(new ValueEventListener() {
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
                         House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        final HashMap<String,String> inq = new HashMap<>();
+                        inq.put(currentUser.getUid(),"true");
                         if (h.getOwner().equals(code)) {
-                            User user = new User(currentUser.getUid(),"true");
+                            House user = new House(inq);
                             mDatabase.child("houses").child(ds.getKey()).child("inquilini").push().setValue(user);
                         }
                     }

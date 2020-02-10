@@ -53,6 +53,7 @@
     <string name="pay">Payed:</string>
     <string name="casa">Home name:</string>
     <string name="description_bollette">Description:</string>
+    <string name="day">Day:</string>
     <string name="send_message">Send Message</string>
     <string name="tot">Total:</string>
     <string name="cancel">Reset</string>
@@ -69,5 +70,14 @@
     <string-array name="pay">
         <item>Yes</item>
         <item>No</item>
+    </string-array>
+    <string-array name="giorni">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
     </string-array>
 </resources>

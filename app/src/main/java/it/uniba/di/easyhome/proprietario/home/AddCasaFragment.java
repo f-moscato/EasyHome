@@ -41,11 +41,11 @@ public class AddCasaFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_casa_fragment, container, false);
         final FloatingActionButton add_boll_fab= (getActivity().findViewById(R.id.fab2_plus));
+        add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_add));
         final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab3_plus));
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-        textIndietro.setText(getResources().getString(R.string.back));
+        textIndietro.setText(getResources().getString(R.string.add_inq));
         final Bundle bundle=getArguments();
-
         final Button btSendt=(Button) root.findViewById(R.id.HomeSend);
         //dichiarazione delle edit
         mDatabase = FirebaseDatabase.getInstance().getReference();
