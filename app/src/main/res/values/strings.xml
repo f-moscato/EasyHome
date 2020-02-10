@@ -57,6 +57,9 @@
     <string name="tot">Total:</string>
     <string name="cancel">Reset</string>
     <string name="send">Add</string>
+    <string name="add_inq">Add Inq</string>
+    <string name="share">Share</string>
+    <string name="id">Home code</string>
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>

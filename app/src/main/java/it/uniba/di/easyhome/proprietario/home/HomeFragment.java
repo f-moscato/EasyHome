@@ -1,5 +1,8 @@
 package it.uniba.di.easyhome.proprietario.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,21 +40,28 @@ public class HomeFragment extends Fragment {
         final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
         final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
         final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab3_plus));
+        //Start FAB AddInquilino
+        final FloatingActionButton add_inq_fab= (getActivity().findViewById(R.id.fab2_plus));
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-        textIndietro.setText(getResources().getString(R.string.bill));
+        textIndietro.setText(getResources().getString(R.string.add_inq));
+        add_inq_fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_add));
+        add_inq_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCode();
+            }
+        });
+//Start FAB AddHome
+        add_home_fab.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
         fab.show();
         fab.setClickable(true);
         add_home_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create new fragment and transaction
                 Fragment newFragment = new AddCasaFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack if needed
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);
-                // Commit the transaction
                 transaction.commit();
             }
         });
@@ -64,47 +74,42 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final LinearLayout ly=root.findViewById(R.id.ly_home_inquilino);
                 if(dataSnapshot.exists()){
-                    for(final DataSnapshot ds: dataSnapshot.getChildren()){
-                        House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini(),ds.getValue(House.class).getBills());
-                        Log.d(TAG, h.getName() + " / " +h.getOwner());
-
-                        LinearLayout lyl= new LinearLayout(getActivity());
+                    for(final DataSnapshot ds: dataSnapshot.getChildren()) {
+                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        if(h.getOwner().equals(currentUser.getUid())){
+                        Log.d(TAG, h.getName() + " / " + h.getOwner());
+                        LinearLayout lyl = new LinearLayout(getActivity());
                         lyl.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
-                        LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        margin.setMargins(15,20,15,0);
+                        LinearLayout.LayoutParams margin = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        margin.setMargins(15, 20, 15, 0);
                         lyl.setLayoutParams(margin);
-
-                        lyl.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.effect_button));
-
-                        LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        marginImg.setMargins(30,8,15,8);
+                        lyl.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.effect_button));
+                        LinearLayout.LayoutParams marginImg = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        marginImg.setMargins(30, 8, 15, 8);
                         ImageView img = new ImageView(getActivity());
                         img.setLayoutParams(marginImg);
                         img.setColorFilter(getResources().getColor(R.color.colorPrimary));
                         img.setImageResource(R.drawable.casa);
-
-                        LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                        tW.setMargins(90,70,0,0);
-                        final TextView tw= new TextView(getActivity());
+                        LinearLayout.LayoutParams tW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        tW.setMargins(90, 70, 0, 0);
+                        final TextView tw = new TextView(getActivity());
                         tw.setText(h.getName());
                         tw.setLayoutParams(tW);
                         tw.setTextColor(getResources().getColor(R.color.colorPrimary));
-                         lyl.setOnClickListener(new View.OnClickListener() {
+                        lyl.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Bundle bundle=new Bundle();
-                                bundle.putString("nomeCasa",tw.getText().toString());
-                                bundle.putString("Casa",ds.getKey());
-                                HomeCardFragment homeCardFragment=new HomeCardFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("nomeCasa", tw.getText().toString());
+                                bundle.putString("Casa", ds.getKey());
+                                HomeCardFragment homeCardFragment = new HomeCardFragment();
                                 homeCardFragment.setArguments(bundle);
-                                FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
-                                fragmentTransaction.add(new HomeFragment(),"ListaCase").addToBackStack(HomeFragment.class.getName());
-                                fragmentTransaction.replace(R.id.nav_host_fragment,homeCardFragment,"PROVA");
+                                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                                fragmentTransaction.add(new HomeFragment(), "ListaCase").addToBackStack(HomeFragment.class.getName());
+                                fragmentTransaction.replace(R.id.nav_host_fragment, homeCardFragment, "PROVA");
                                 fragmentTransaction.commit();
                             }
                         });
-
-
 
 
                         // Add Button to LinearLayout
@@ -114,6 +119,7 @@ public class HomeFragment extends Fragment {
                             lyl.addView(tw);
                             ly.addView(lyl);
                         }
+                    }
                     }
                 }
             }
@@ -126,7 +132,44 @@ public class HomeFragment extends Fragment {
         rootRef.addListenerForSingleValueEvent(vel);
          return root;
     }
+public void showCode(){
+    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+    rootRef.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(dataSnapshot.exists()){
+                for(final DataSnapshot ds: dataSnapshot.getChildren()) {
+                    House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                    if(h.getOwner().equals(currentUser.getUid())){
+                       AlertDialog.Builder mBuilder= new AlertDialog.Builder(getContext());
+                       mBuilder.setTitle(getResources().getText(R.string.id));
+                       mBuilder.setIcon(R.drawable.ic_person_add);
+                      final String code=h.getOwner();
+                       mBuilder.setMessage(code);
+                       mBuilder.setPositiveButton(getResources().getText(R.string.share), new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               Intent myIntent=new Intent(Intent.ACTION_SEND);
+                               myIntent.setType("text/plain");
+                               myIntent.putExtra(Intent.EXTRA_SUBJECT,code);
+                               myIntent.putExtra(Intent.EXTRA_TEXT,code);
+                               startActivity(Intent.createChooser(myIntent,"Share using"));
+                           }
+                       });
+                       mBuilder.show();
+                    }
+                }
+            }
+        }
 
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+
+}
 
 
 }

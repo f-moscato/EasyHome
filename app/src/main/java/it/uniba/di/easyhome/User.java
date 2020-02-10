@@ -6,12 +6,12 @@ public class User implements Serializable {
 
 
     private String email;
-
-
     private String pass;
     private String role;
     private String name;
     private String surname;
+    private String id;
+    private String present;
 
 
     public User() {
@@ -27,7 +27,28 @@ public class User implements Serializable {
 
     }
 
+    public User(String owner,String presenza) {
+       this.id=owner;
+       this.present=presenza;
 
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPresent() {
+        return present;
+    }
+
+    public void setPresent(String present) {
+        this.present = present;
+    }
 
     public void setEmail(String email) {
         this.email = email;
