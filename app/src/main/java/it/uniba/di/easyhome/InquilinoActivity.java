@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,39 +62,6 @@ public class InquilinoActivity extends AppCompatActivity  {
         if(sharedpref.loadNightModeState()==true){
             this.setTheme(R.style.darktheme);
         }
-
-        fab1= findViewById(R.id.fab_plus);
-        fab2= findViewById(R.id.fab2_plus);
-        fab3= findViewById(R.id.fab3_plus);
-        boll=findViewById(R.id.agg_boll);
-        FabOpen= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
-        FabClose= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
-        FabClock= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
-        FabAntiClock= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isOpen){
-                    fab3.startAnimation(FabClose);
-                    fab2.startAnimation(FabClose);
-                    boll.startAnimation(FabClose);
-                    fab1.startAnimation(FabAntiClock);
-                    fab3.setClickable(false);
-                    fab2.setClickable(false);
-                    isOpen=false;
-                }else{
-                    fab3.startAnimation(FabOpen);
-                    fab2.startAnimation(FabOpen);
-                    boll.startAnimation(FabOpen);
-                    fab1.startAnimation(FabClock);
-                    fab3.setClickable(true);
-                    fab2.setClickable(true);
-                    isOpen=true;
-                }
-            }
-        });
-
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

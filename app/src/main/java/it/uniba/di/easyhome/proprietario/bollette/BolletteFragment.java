@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 import it.uniba.di.easyhome.House;
+import it.uniba.di.easyhome.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -35,11 +36,12 @@ public class BolletteFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+if(getActivity().equals(ProprietarioActivity.class)) {
+    FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
+    fab.hide();
+    fab.setClickable(false);}
 
-        FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
-        fab.hide();
-        fab.setClickable(false);
-        root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
+    root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
 
         final Button buttonNotPayed= root.findViewById(R.id.buttonNotPayed);
         final Button buttonHistory= root.findViewById(R.id.buttonHystoriBills);

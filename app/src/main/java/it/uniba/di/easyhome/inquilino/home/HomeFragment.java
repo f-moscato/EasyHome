@@ -1,6 +1,8 @@
 package it.uniba.di.easyhome.inquilino.home;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.SupplicantState;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,18 +42,14 @@ import static android.content.Context.WIFI_SERVICE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
-
+    DatabaseReference mDatabase;
     private static final int LOCATION = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-
-
-
-
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);
+          final EditText input =new EditText(getContext());
         ImageView imgChat=root.findViewById(R.id.inqImgAnnunci);
         ImageView imgClean=root.findViewById(R.id.inqImgPulizie);
 
@@ -58,7 +57,7 @@ public class HomeFragment extends Fragment {
         imgClean.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
 
         ValueEventListener vel= new ValueEventListener() {
             @Override
@@ -168,7 +167,6 @@ public class HomeFragment extends Fragment {
 
 
 
-
         LinearLayout ly_ButtonBill= (LinearLayout) root.findViewById(R.id.ly_bill_inquilino);
         ly_ButtonBill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,7 +209,57 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        vel = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int flag = 0;
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        Log.v(TAG, h.getName() + " / " + h.getInquilini().size() + "/" + currentUser.getDisplayName());
+                        for (String cod : h.getInquilini().keySet()) {
+                            if (cod.equals(currentUser.getUid())) {
+                                flag = 12;
+                                tw_NomeCasa.setText(h.getName());
+                                break;
+                            }
+                        }
+                        if (flag != 12) {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                            alert.setTitle("Entra in una casa");
+                            alert.setIcon(getResources().getDrawable(R.drawable.ic_person_add));
+                            alert.setMessage("Incolla il codice della casa a cui vui aggiungerti");
+                            final EditText edittext = new EditText(getActivity());
+                            alert.setView(edittext);
+                            alert.setPositiveButton("Yes Option", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //What ever you want to do with the value
+                                    String code = edittext.getText().toString();
+                                    //Add inq in Home
+                                    addToHome(code);
+                                }
+                            });
 
+                            alert.setNegativeButton("No Option", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    // what ever you want to do with No option.
+                                }
+                            });
+
+                            alert.show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+
+        rootRef.addListenerForSingleValueEvent(vel);
 
 
         return root;
@@ -236,15 +284,31 @@ public class HomeFragment extends Fragment {
                 return ssid;
             }
         }
-    return "bo";}
-    public void restartApp() {
-        Intent intent = getActivity().getIntent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        getActivity().overridePendingTransition(0, 0);
-        getActivity().finish();
-
-        getActivity().overridePendingTransition(0, 0);
-        startActivity(intent);
+    return "bo";
     }
-}
+    private void addToHome(final String code){
+        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        rootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (final DataSnapshot ds : dataSnapshot.getChildren()) {
+                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        if (h.getOwner().equals(code)) {
+                            User user = new User(currentUser.getUid(),"true");
+                            mDatabase.child("houses").child(ds.getKey()).child("inquilini").push().setValue(user);
+                        }
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }}

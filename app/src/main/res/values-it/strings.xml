@@ -46,5 +46,8 @@
     <string name="casa">Nome casa:</string>
     <string name="message_sent">Messaggio inviato.</string>
     <string name="new_message_from">Nuovo messaggio da:</string>
+    <string name="add_inq">Aggiungi Inquilino</string>
+    <string name="share">Condividi</string>
+    <string name="id">Codice casa</string>
 
 </resources>
