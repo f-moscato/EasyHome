@@ -3,6 +3,9 @@
     <color name="colorPrimary">#344955</color>
     <color name="colorPrimaryDark">#232F34</color>
     <color name="colorAccent">#FAAB1A</color>
+
+    <color name="colorAtHome">#41ca22</color>
+    <color name="colorNotAtHome">#c42727</color>
     <!-- floating actions buttons -->
     <color name="black">#000000</color>
     <color name="fab2_color">#FFFFFF</color>
