@@ -26,6 +26,13 @@
             android:textColor="@color/colorPrimary"
             android:layout_marginBottom="50dp"/>
 
+
+        <LinearLayout
+            android:id="@+id/ly_AtHomeOwner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
         <LinearLayout
             android:id="@+id/ly_bill_casa_proprietario"
             android:background="@drawable/effect_button"

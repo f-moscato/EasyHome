@@ -7,6 +7,8 @@
     android:background="?attr/backgroundcolor"
     >
 
+
+
     <LinearLayout
         android:id="@+id/ly_home_inquilino"
         android:layout_width="match_parent"
@@ -16,6 +18,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
 
         <TextView
@@ -32,6 +35,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="50dp"/>
+
+        <LinearLayout
+            android:id="@+id/ly_AtHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ly_bill_inquilino"
@@ -113,15 +125,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/mac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ly_home_inquilino" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
