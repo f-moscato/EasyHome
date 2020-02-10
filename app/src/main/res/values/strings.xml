@@ -57,6 +57,8 @@
     <string name="tot">Total:</string>
     <string name="cancel">Reset</string>
     <string name="send">Add</string>
+    <string name="message_sent">Message sent</string>
+    <string name="new_message_from">New Message from:</string>
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>

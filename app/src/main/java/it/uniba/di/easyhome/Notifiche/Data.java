@@ -1,38 +1,31 @@
 package it.uniba.di.easyhome.Notifiche;
 
-
-import java.util.ArrayList;
-
 public class Data {
-    private String sender;
-    private String title;
+
+    private String user;
     private String body;
-    private String dest;
+    private String title;
+    private String sent;
+
+    private Integer icon;
 
     public Data() {
     }
 
-    public Data(String sender, String title, String body, String dest) {
-        this.sender = sender;
-        this.title = title;
+    public Data(String user, String body, String title, String sent, Integer icon) {
+        this.user = user;
         this.body = body;
-        this.dest = dest;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
+        this.sent = sent;
+        this.icon = icon;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getBody() {
@@ -43,11 +36,27 @@ public class Data {
         this.body = body;
     }
 
-    public String getDest() {
-        return dest;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDest(String dest) {
-        this.dest = dest;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSent() {
+        return sent;
+    }
+
+    public void setSent(String sent) {
+        this.sent = sent;
+    }
+
+    public Integer getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Integer icon) {
+        this.icon = icon;
     }
 }

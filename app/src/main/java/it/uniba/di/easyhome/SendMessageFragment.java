@@ -12,8 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,73 +23,86 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Tag;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import it.uniba.di.easyhome.Notifiche.APIService;
 import it.uniba.di.easyhome.Notifiche.Client;
 import it.uniba.di.easyhome.Notifiche.Data;
-import it.uniba.di.easyhome.Notifiche.MyRespnse;
+import it.uniba.di.easyhome.Notifiche.Response;
 import it.uniba.di.easyhome.Notifiche.Sender;
 import it.uniba.di.easyhome.Notifiche.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class SendMessageFragment extends Fragment {
 
-    private SendMessageViewModel mViewModel;
-    APIService apiService;
-    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    boolean notify = false;
 
+    private APIService apiService;
+    private boolean notify=false;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        final View root = inflater.inflate(R.layout.send_message_fragment, container, false);
 
+
+        final View root = inflater.inflate(R.layout.send_message_fragment, container, false);
         final Button btnSender= root.findViewById(R.id.buttonSendMessage);
         final EditText editTextMessage= root.findViewById(R.id.messageToSend);
         final EditText editTextTitleMessage= root.findViewById(R.id.messageTitle);
 
-        apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-        final String message= editTextMessage.getText().toString();
-        Log.v(TAG,"passo dal fragment" );
+
+
+        //creazione servizio API
+        apiService= Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
+
         btnSender.setOnClickListener(new View.OnClickListener() {
+            private void onComplete(Task<Void> task) {
+                String msg = "subs";
+                if (!task.isSuccessful()) {
+                    msg = "fail";
+                }
+            }
+
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "X", Toast.LENGTH_SHORT).show();
-                Log.v(TAG,"prima di send" );
-                final Bundle bundle=getArguments();
-                sendMessage(editTextTitleMessage.getText().toString(),message,currentUser.getUid(),bundle.getString("nomeCasa"));
-                Log.v(TAG,"dopo button" );
+                notify=true;
+                if (currentUser != null) {
+                    sendMessage(editTextTitleMessage.getText().toString(), editTextMessage.getText().toString(),currentUser.getUid());
+                }
+                editTextMessage.setText("");
+                editTextTitleMessage.setText("");
+
+                FirebaseMessaging.getInstance().subscribeToTopic("weather")
+                        .addOnCompleteListener(this::onComplete);
 
             }
         });
 
-        final String msg= message;
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("houses/").child(currentUser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                //sendNotification();
-            }
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if(!task.isSuccessful()){
+                    Log.v(TAG,"getIstanceID failed", task.getException());
+                    return;
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String msg = task.getResult().getToken();
+                Log.v(TAG, msg);
+                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
             }
         });
-
 
         return root;
     }
@@ -96,66 +110,166 @@ public class SendMessageFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(SendMessageViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
-    private void sendMessage(String title, String message, String sender,String nomeCasa){
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("houses/"+nomeCasa);
-        HashMap<String,Object> hashMap= new HashMap<>();
-        hashMap.put("sender",sender);
-        hashMap.put("title",title);
-        hashMap.put("message",message);
-        reference.child("messages").setValue(hashMap);
-
-
-        updateToken(FirebaseInstanceId.getInstance().getToken());
     }
 
 
-    private void updateToken(String token){
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Tokens");
-        Token token1=new Token(token);
-        reference.child(currentUser.getUid()).setValue(token1);
-    }
+    /**
+     * metodo che inserisce il messaggio all'interno del database Firebase e manda la notifiche agli inquilini presenti nella casa.
+     * @param title titolo del messaggio
+     * @param message corpo del messaggio
+     * @param sender mittente
+     */
+    private void sendMessage(String title, final String message, String sender ){
 
-    private void sendNotification(ArrayList<String> receiver, final String username, final String message){
-        DatabaseReference tokens=FirebaseDatabase.getInstance().getReference("token");
-        for(final String rec:receiver){
-            Query query=tokens.orderByKey().equalTo(rec);
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
-                        Token token=snapshot.getValue(Token.class);
-                        Data data= new Data(username, "new Message",message, rec);
-                        Sender sender=new Sender(data,token.getToken());
-                        apiService.sendNotification(sender)
-                                .enqueue(new Callback<MyRespnse>() {
-                                    @Override
-                                    public void onResponse(Call<MyRespnse> call, Response<MyRespnse> response) {
-                                        if(response.code()==200){
-                                            if(response.body().success!=1){
-                                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+        final DatabaseReference database=FirebaseDatabase.getInstance().getReference("users").child(sender);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                User user=dataSnapshot.getValue(User.class);
+                Log.v(TAG,"notify:"+notify);
+                if(notify){
+
+                    //ricerca del codice identificativo della casa, dato il nome prelevato dal bundle.
+                    DatabaseReference refHouse=FirebaseDatabase.getInstance().getReference("houses");
+                    refHouse.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot ds:dataSnapshot.getChildren()){
+                                final Bundle bundle=getArguments();
+                                Log.v(TAG, String.valueOf(dataSnapshot.getChildrenCount()));
+                                if(ds.getValue(House.class).getName().equals(bundle.getString("nomeCasa"))){
+                                    DatabaseReference reference= FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey());
+
+                                    /* inserimento del messaggio nel db*/
+                                    HashMap<String,Object> hashMap= new HashMap<>();
+                                    hashMap.put("sender",sender);
+                                    hashMap.put("title",title);
+                                    hashMap.put("message",message);
+                                    reference.child("messages").setValue(hashMap);
+
+                                    // ricerca degli inquilini presenti nella stessa casa
+                                    DatabaseReference refInquilini=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/inquilini");
+                                    refInquilini.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot ds1:dataSnapshot.getChildren()){
+                                                final DatabaseReference database=FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
+                                                database.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        User user=dataSnapshot.getValue(User.class);
+                                                        if(notify){
+                                                            // invio delle notifiche
+                                                            sendNotification(ds1.getKey(),user.getName(), message,title,ds.getKey());
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                    }
+                                                });
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<MyRespnse> call, Throwable t) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                    }
-                                });
-                    }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-        }
+            }
+        });
 
 
     }
+
+    /**
+     * metodo che effettua l'invio delle notifiche
+     * @param rec destinatario della notifica
+     * @param userName nome del mittente
+     * @param mess corpo del messaggio
+     * @param title titolo del messaggio
+     * @param codCasa codice identificativo della casa dove sono presenti i destinatari delle notifiche
+     */
+    private void sendNotification(String rec, final String userName, final String mess, String title, String codCasa){
+        DatabaseReference allToken=FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query=allToken.orderByKey().equalTo(rec);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds:dataSnapshot.getChildren()){
+
+                    Token token=ds.getValue(Token.class);
+
+                    //ricerca dei codici identificativi deii destinatari delle notifiche.
+                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference("houses/"+codCasa+"/inquilini");
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot ds:dataSnapshot.getChildren()) {
+
+                                //selezione di tutti gli inquilini tranne che il mittente(se il mittente è un Inquilino).
+                                if(!ds.getKey().equals(currentUser.getUid())){
+                                    String codInquilino=ds.getKey();
+                                    // craezione oggetto data contenente tutti le caratteristiche fondamentali per l'invio del messaggio.
+                                    Data data= new Data(currentUser.getUid(),title+" : "+mess, Objects.requireNonNull(getContext()).getString(R.string.new_message_from)+userName,codInquilino,R.drawable.easyhome);
+
+                                    //invio della notifica contente  il messaggio.
+                                    Sender sender=new Sender(data,token.getToken());
+                                    apiService.sendNotification(sender)
+                                            .enqueue(new Callback<Response>() {
+                                                @Override
+                                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent)+response.message(), Toast.LENGTH_SHORT).show();
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Response> call, Throwable t) {
+                                                    Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
+
+
 }

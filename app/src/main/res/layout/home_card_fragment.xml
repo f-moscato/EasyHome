@@ -60,7 +60,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ly_chat_inquilino"
+            android:id="@+id/ly_chat_Casa"
             android:background="@drawable/effect_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

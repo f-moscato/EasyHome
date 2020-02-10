@@ -44,5 +44,7 @@
     <string name="tot">Totale:</string>
     <string name="pay">Pagato:</string>
     <string name="casa">Nome casa:</string>
+    <string name="message_sent">Messaggio inviato.</string>
+    <string name="new_message_from">Nuovo messaggio da:</string>
 
 </resources>
