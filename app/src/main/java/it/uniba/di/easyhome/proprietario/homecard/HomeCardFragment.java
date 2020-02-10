@@ -1,7 +1,6 @@
 package it.uniba.di.easyhome.proprietario.homecard;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Objects;
-
-import it.uniba.di.easyhome.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.proprietario.bollette.AddBolletteFragment;
 import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
-import it.uniba.di.easyhome.proprietario.home.HomeFragment;
 
 public class HomeCardFragment extends Fragment{
 
@@ -30,14 +25,14 @@ public class HomeCardFragment extends Fragment{
                              @Nullable Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.home_card_fragment, container, false);
-
+        final FloatingActionButton add_bill_fab= (getActivity().findViewById(R.id.fab2_plus));
         final Bundle bundle=getArguments();
 
-        FloatingActionButton fab = (Objects.requireNonNull(getActivity()).findViewById(R.id.fab_plus));
-        fab.hide();
-        fab.setClickable(false);
+
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
         twNomeCasa.setText(bundle.getString("nomeCasa"));
+      final  String pr;
+       pr=bundle.getString("Casa");
 
         LinearLayout linearLayoutBills=root.findViewById(R.id.ly_bill_casa_proprietario);
         linearLayoutBills.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +46,21 @@ public class HomeCardFragment extends Fragment{
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"Bills");
                 fragmentTransaction.commit();
+            }
+        });
+        add_bill_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Bundle bundle=new Bundle();
+                bundle.putString("Casa",pr);
+                Fragment newFragment = new AddBolletteFragment();
+                newFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, newFragment,"AddBills");
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
         });
 

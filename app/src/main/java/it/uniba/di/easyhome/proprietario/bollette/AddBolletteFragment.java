@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,14 +19,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
+import it.uniba.di.easyhome.Bill;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.proprietario.home.HomeFragment;
 
 public class AddBolletteFragment extends Fragment {
     DatePickerDialog dpd;
+     DatabaseReference mDatabase;
+     String pay;
+     String type;
+     String desc;
+     String tot;
+     String date;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -35,10 +49,16 @@ public class AddBolletteFragment extends Fragment {
         final Calendar c=Calendar.getInstance();
         final Spinner mySpinner = (Spinner) root.findViewById(R.id.spinner);
         final Spinner spinnerPay = (Spinner) root.findViewById(R.id.spinnerPay);
-        final TextView desc=(TextView) root.findViewById(R.id.data);
+        final TextView data=(TextView) root.findViewById(R.id.data);
         textIndietro.setText(getResources().getString(R.string.back));
+
         final Button dataBt=(Button) root.findViewById(R.id.dataBt);
-        add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
+        //dichiarazione delle edit
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final EditText totale= root.findViewById(R.id.number);
+        final EditText descrizione=root.findViewById(R.id.desc);
+        final Button add= root.findViewById(R.id.send);
+       add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
 
         mySpinner.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.tipo) ));
@@ -53,13 +73,14 @@ public class AddBolletteFragment extends Fragment {
                 dpd=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        desc.setText(dayOfMonth+"/"+(month+1)+"/"+ year);
+                        data.setText(dayOfMonth+"/"+(month+1)+"/"+ year);
                     }
                 },day,month,year);
                 dpd.getDatePicker().setMinDate(System.currentTimeMillis());
                 dpd.show();
             }
         });
+
         add_boll_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,11 +99,50 @@ public class AddBolletteFragment extends Fragment {
             }
 
         });
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+        ValueEventListener vel=new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final Bundle bundle=getArguments();
+                add.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    pay = spinnerPay.getSelectedItem().toString();
+                                    type = mySpinner.getSelectedItem().toString();
+                                    desc = descrizione.getText().toString();
+                                    tot = totale.getText().toString();
+                                    date = data.getText().toString();
+                                    if(pay.equals("No")){
+                                  pay="false";
+                                    }else{
+                                        pay="true";
+                                    }
+                                    String pr=(bundle.getString("Casa"));
+                                    writeNewBill(date, pay, type, desc, tot,pr);
 
-        return root;
+                                    Toast.makeText(getActivity(), pr,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        rootRef.addListenerForSingleValueEvent(vel);
+
+return root;
 
     }
 
-
+    private void writeNewBill(String date, String pay ,String type, String desc, String tot,String casa ) {
+        Bill bill = new Bill( type,  tot,  desc,  date,  pay);
+        mDatabase.child("houses").child(casa).child("bills").push().setValue(bill);
+    }
 
 }

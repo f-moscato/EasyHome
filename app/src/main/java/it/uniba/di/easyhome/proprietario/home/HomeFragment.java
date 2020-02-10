@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.proprietario.bollette.AddBolletteFragment;
 import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -37,29 +36,27 @@ public class HomeFragment extends Fragment {
                              final ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
         final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
-        final FloatingActionButton add_fab= (getActivity().findViewById(R.id.fab2_plus));
+        final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab3_plus));
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-        add_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
         textIndietro.setText(getResources().getString(R.string.bill));
         fab.show();
         fab.setClickable(true);
-        add_fab.setOnClickListener(new View.OnClickListener() {
+        add_home_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Create new fragment and transaction
-                Fragment newFragment = new AddBolletteFragment();
+                Fragment newFragment = new AddCasaFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack if needed
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack if needed
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);
-            // Commit the transaction
+                // Commit the transaction
                 transaction.commit();
-
             }
         });
 
+        final Bundle bundle=getArguments();
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         ValueEventListener vel=new ValueEventListener() {
@@ -67,7 +64,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final LinearLayout ly=root.findViewById(R.id.ly_home_inquilino);
                 if(dataSnapshot.exists()){
-                    for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    for(final DataSnapshot ds: dataSnapshot.getChildren()){
                         House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini(),ds.getValue(House.class).getBills());
                         Log.d(TAG, h.getName() + " / " +h.getOwner());
 
@@ -97,6 +94,7 @@ public class HomeFragment extends Fragment {
                             public void onClick(View v) {
                                 Bundle bundle=new Bundle();
                                 bundle.putString("nomeCasa",tw.getText().toString());
+                                bundle.putString("Casa",ds.getKey());
                                 HomeCardFragment homeCardFragment=new HomeCardFragment();
                                 homeCardFragment.setArguments(bundle);
                                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();

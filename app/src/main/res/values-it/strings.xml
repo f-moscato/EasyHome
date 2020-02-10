@@ -38,5 +38,11 @@
     <string name="lingua">Lingua:</string>
     <string name="bill">Bolletta</string>
     <string name="back">Indietro</string>
+    <string name="cancel">Pulisci</string>
+    <string name="selectData">Data:</string>
+    <string name="send">Aggiungi</string>
+    <string name="tot">Totale:</string>
+    <string name="pay">Pagato:</string>
+    <string name="casa">Nome casa:</string>
 
 </resources>

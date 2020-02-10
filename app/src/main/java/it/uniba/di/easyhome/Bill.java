@@ -13,20 +13,6 @@ public class Bill {
     String payed;
 
     public Bill(String type, String tot, String descr, String expiration, String payed){
-        /*switch(type.toUpperCase()){
-            case "ENERGY":
-                type=Type.ENERGY;
-                break;
-            case "WATER" :
-                type=Type.WATER;
-                break;
-            case "GAS" :
-                type=Type.GAS;
-                break;
-            case "OTHER" :
-                type=Type.OTHER;
-                break;
-        }*/
         this.type=type;
         this.total=tot;
         this.description=descr;
@@ -50,20 +36,20 @@ public class Bill {
         this.expiration = expiration;
     }
 
-    public String getDescrizione() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.description = descrizione;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getTotale() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotale(String totale) {
-        this.total= totale;
+    public void setTotal(String total) {
+        this.total= total;
     }
 
     public String getType() {
@@ -76,7 +62,7 @@ public class Bill {
 
     public String toString(){
 
-        return this.getType()+" - "+this.getTotale()+" - "+this.getDescrizione()+" - "+this.getExpiration()+" - "+this.isPayed();
+        return this.getType()+" - "+this.getTotal()+" - "+this.getDescription()+" - "+this.getExpiration()+" - "+this.isPayed();
     }
 
 }
