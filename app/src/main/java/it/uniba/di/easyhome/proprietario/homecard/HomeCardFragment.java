@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SendMessageFragment;
 import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.proprietario.bollette.AddBolletteFragment;
 import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
@@ -126,6 +127,20 @@ public class HomeCardFragment extends Fragment{
             }
         });
 
+        LinearLayout linearLayoutNotices=root.findViewById(R.id.ly_chat_Casa);
+        linearLayoutNotices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString("nomeCasa",twNomeCasa.getText().toString());
+                SendMessageFragment sendMessageFragment=new SendMessageFragment();
+                sendMessageFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.nav_host_fragment,sendMessageFragment,"Notices");
+                fragmentTransaction.commit();
+            }
+        });
 
         LinearLayout linearLayoutBills=root.findViewById(R.id.ly_bill_casa_proprietario);
         linearLayoutBills.setOnClickListener(new View.OnClickListener() {

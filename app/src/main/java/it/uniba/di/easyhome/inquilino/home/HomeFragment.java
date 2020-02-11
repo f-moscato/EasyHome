@@ -70,38 +70,18 @@ public class HomeFragment extends Fragment {
                         for(String cod:h.getInquilini().keySet()){
                             if(cod.equals(currentUser.getUid())){
                                 tw_NomeCasa.setText(h.getName());
-                                break;
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-        rootRef.addListenerForSingleValueEvent(vel);
-        DatabaseReference queryRicercaCasa=FirebaseDatabase.getInstance().getReference("houses");
-        queryRicercaCasa.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot dsH:dataSnapshot.getChildren()){
-                    Log.v(TAG,dsH.getValue(House.class).getName()+"/"+tw_NomeCasa.getText().toString());
-                    if(dsH.getValue(House.class).getName().equals(tw_NomeCasa.getText().toString())){
-                        final DatabaseReference query = FirebaseDatabase.getInstance().getReference("houses/"+dsH.getKey()+"/inquilini");
-                        query.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.hasChildren()){
-                                    for(final DataSnapshot ds:dataSnapshot.getChildren()){
-                                        if(!ds.getKey().equals(currentUser.getUid())){
-                                            DatabaseReference queryPerNomeUtente=FirebaseDatabase.getInstance().getReference("users");
-                                            queryPerNomeUtente.addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(ds.getValue(House.class).getName().equals(tw_NomeCasa.getText().toString())){
+                                    final DatabaseReference query = FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/inquilini");
+                                    query.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.hasChildren()){
+                                                for(final DataSnapshot ds:dataSnapshot.getChildren()){
+                                                    if(!ds.getKey().equals(currentUser.getUid())){
+                                                        DatabaseReference queryPerNomeUtente=FirebaseDatabase.getInstance().getReference("users");
+                                                        queryPerNomeUtente.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                                     final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHome);
                                                     for(DataSnapshot ds1:dataSnapshot.getChildren()){
@@ -155,10 +135,19 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
+                                        }
+                                    });
 
+                                }
+
+
+
+
+                                break;
+                            }
+                        }
                     }
+
                 }
             }
 
@@ -166,7 +155,12 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
+
+
+        rootRef.addListenerForSingleValueEvent(vel);
+
+
 
 
 

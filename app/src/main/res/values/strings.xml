@@ -54,10 +54,13 @@
     <string name="casa">Home name:</string>
     <string name="description_bollette">Description:</string>
     <string name="day">Day:</string>
+    <string name="nameInquilino">Turn:</string>
     <string name="send_message">Send Message</string>
     <string name="tot">Total:</string>
     <string name="cancel">Reset</string>
     <string name="send">Add</string>
+    <string name="message_sent">Message sent</string>
+    <string name="new_message_from">New Message from:</string>
     <string name="add_inq">Add Inq</string>
     <string name="share">Share</string>
     <string name="id">Home code</string>

@@ -56,16 +56,16 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/pagato"
+                    android:id="@+id/inqName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pay" />
+                    android:text="@string/nameInquilino" />
 
                 <Spinner
-                    android:id="@+id/spinnerPay"
+                    android:id="@+id/spinnerInq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/pagato" />
+                    android:layout_toEndOf="@+id/inqName" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -88,12 +88,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/description_bollette" />
 
-                <EditText
+                <TextView
                     android:id="@+id/desc"
-                    android:layout_marginTop="25dp"
-                    android:background="?attr/cardbackground"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:background="?attr/cardbackground"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />

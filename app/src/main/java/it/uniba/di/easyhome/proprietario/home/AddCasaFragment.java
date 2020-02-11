@@ -57,14 +57,10 @@ public class AddCasaFragment extends Fragment {
             public void onClick(View v) {
                 add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
                 textIndietro.setText(getResources().getString(R.string.bill));
-                // Create new fragment and transaction
                 Fragment newFragment = new HomeFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack if needed
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);
-                // Commit the transaction
                 transaction.commit();
 
             }
@@ -74,14 +70,10 @@ public class AddCasaFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                // Create new fragment and transaction
                 Fragment newFragment = new AddBolletteFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack if needed
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);
-                // Commit the transaction
                 transaction.commit();
 
             }

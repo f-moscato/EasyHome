@@ -1,7 +1,11 @@
 package it.uniba.di.easyhome.Notifiche;
 
 public class Token {
-    private String token;
+
+    String token;
+
+    public Token() {
+    }
 
     public Token(String token) {
         this.token = token;
@@ -9,9 +13,5 @@ public class Token {
 
     public String getToken() {
         return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }
