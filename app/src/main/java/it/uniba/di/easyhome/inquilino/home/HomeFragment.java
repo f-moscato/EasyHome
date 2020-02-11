@@ -62,6 +62,14 @@ public class HomeFragment extends Fragment {
         ValueEventListener vel= new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHome);
+                ly_AtHome.removeAllViews();
+                TextView twAtHome=new TextView(getActivity());
+                twAtHome.setText(getResources().getString(R.string.atHome));
+                LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tW.setMargins(55,0,35,0);
+                twAtHome.setLayoutParams(tW);
+                ly_AtHome.addView(twAtHome);
                 if(dataSnapshot.exists()){
                     for (DataSnapshot ds:dataSnapshot.getChildren()){
                         House h=new House(
@@ -86,7 +94,7 @@ public class HomeFragment extends Fragment {
                                                             @Override
                                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                                final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHome);
+
                                                                 for(DataSnapshot ds1:dataSnapshot.getChildren()){
 
                                                                     if(ds1.getKey().equals(ds.getKey())){

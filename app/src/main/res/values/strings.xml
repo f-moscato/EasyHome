@@ -62,6 +62,7 @@
     <string name="add_inq">Add Inq</string>
     <string name="share">Share</string>
     <string name="id">Home code</string>
+    <string name="atHome">Who\'s in the house:</string>
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>
