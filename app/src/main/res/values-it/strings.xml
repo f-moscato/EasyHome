@@ -49,5 +49,6 @@
     <string name="add_inq">Aggiungi Inquilino</string>
     <string name="share">Condividi</string>
     <string name="id">Codice casa</string>
+    <string name="atHome">Chi è presente in casa:</string>
 
 </resources>

@@ -63,9 +63,21 @@ public class HomeFragment extends Fragment {
         ValueEventListener vel= new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHome);
+                ly_AtHome.removeAllViews();
+                TextView twAtHome=new TextView(getActivity());
+                twAtHome.setText(getResources().getString(R.string.atHome));
+                LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tW.setMargins(55,0,35,0);
+                twAtHome.setLayoutParams(tW);
+                ly_AtHome.addView(twAtHome);
                 if(dataSnapshot.exists()){
                     for (DataSnapshot ds:dataSnapshot.getChildren()){
-                        House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini(),ds.getValue(House.class).getBills());
+                        House h=new House(
+                                ds.getValue(House.class).getName()
+                                ,ds.getValue(House.class).getOwner()
+                                ,ds.getValue(House.class).getInquilini()
+                                ,ds.getValue(House.class).getBills());
                         Log.v(TAG, h.getName() + " / " +h.getInquilini().size()+"/"+currentUser.getDisplayName());
                         for(String cod:h.getInquilini().keySet()){
                             if(cod.equals(currentUser.getUid())){
@@ -83,57 +95,57 @@ public class HomeFragment extends Fragment {
                                                             @Override
                                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                    final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHome);
+
                                                     for(DataSnapshot ds1:dataSnapshot.getChildren()){
 
-                                                        if(ds1.getKey().equals(ds.getKey())){
-                                                            Log.v(TAG,"ciao");
-                                                            LinearLayout lyInquilino = new LinearLayout(getActivity());
-                                                            LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                                            margin.setMargins(20,20,15,0);
-                                                            lyInquilino.setLayoutParams(margin);
-                                                            LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                                            marginImg.setMargins(30,45,15,8);
-                                                            marginImg.height=80;
-                                                            marginImg.width=80;
-                                                            ImageView imgAtHome=new ImageView(getActivity());
-                                                            imgAtHome.setLayoutParams(marginImg);
-                                                            imgAtHome.setImageResource(R.drawable.athome);
-                                                            if(ds.getValue().toString().equals("true")){
-                                                                imgAtHome.setColorFilter(getResources().getColor(R.color.colorAtHome));
-                                                            }else{
-                                                                imgAtHome.setColorFilter(getResources().getColor(R.color.colorNotAtHome));
+                                                                    if(ds1.getKey().equals(ds.getKey())){
+                                                                        Log.v(TAG,"ciao");
+                                                                        LinearLayout lyInquilino = new LinearLayout(getActivity());
+                                                                        LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                                        margin.setMargins(20,20,15,0);
+                                                                        lyInquilino.setLayoutParams(margin);
+                                                                        LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                                        marginImg.setMargins(30,45,15,8);
+                                                                        marginImg.height=80;
+                                                                        marginImg.width=80;
+                                                                        ImageView imgAtHome=new ImageView(getActivity());
+                                                                        imgAtHome.setLayoutParams(marginImg);
+                                                                        imgAtHome.setImageResource(R.drawable.athome);
+                                                                        if(ds.getValue().toString().equals("true")){
+                                                                            imgAtHome.setColorFilter(getResources().getColor(R.color.colorAtHome));
+                                                                        }else{
+                                                                            imgAtHome.setColorFilter(getResources().getColor(R.color.colorNotAtHome));
+                                                                        }
+                                                                        lyInquilino.addView(imgAtHome);
+                                                                        LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                                        tW.setMargins(35,60,35,0);
+                                                                        TextView twNomeInquilino = new TextView(getActivity());
+                                                                        twNomeInquilino.setLayoutParams(tW);
+                                                                        twNomeInquilino.setText(ds1.getValue(User.class).getName()+" "+ds1.getValue(User.class).getSurname());
+                                                                        lyInquilino.addView(twNomeInquilino);
+                                                                        ly_AtHome.addView(lyInquilino);
+                                                                    }
+                                                                }
                                                             }
-                                                            lyInquilino.addView(imgAtHome);
-                                                            LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                                            tW.setMargins(35,60,35,0);
-                                                            TextView twNomeInquilino = new TextView(getActivity());
-                                                            twNomeInquilino.setLayoutParams(tW);
-                                                            twNomeInquilino.setText(ds1.getValue(User.class).getName()+" "+ds1.getValue(User.class).getSurname());
-                                                            lyInquilino.addView(twNomeInquilino);
-                                                            ly_AtHome.addView(lyInquilino);
-                                                        }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                            }
+                                                        });
+
                                                     }
-                                                }
 
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                                 }
-                                            });
+                                            }else{
+                                                Log.v(TAG,"ciao");
+                                            }
 
                                         }
 
-
-                                    }
-                                }else{
-                                    Log.v(TAG,"ciao");
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                         }
                                     });

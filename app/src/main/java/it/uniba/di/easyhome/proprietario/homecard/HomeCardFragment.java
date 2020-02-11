@@ -48,6 +48,14 @@ public class HomeCardFragment extends Fragment{
         queryRicercaCasa.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHomeOwner);
+                ly_AtHome.removeAllViews();
+                TextView twAtHome=new TextView(getActivity());
+                twAtHome.setText(getResources().getString(R.string.atHome));
+                LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tW.setMargins(55,0,35,0);
+                twAtHome.setLayoutParams(tW);
+                ly_AtHome.addView(twAtHome);
                 for(DataSnapshot dsH:dataSnapshot.getChildren()){
                     Log.v(TAG,dsH.getValue(House.class).getName()+"/"+twNomeCasa.getText().toString());
                     if(dsH.getValue(House.class).getName().equals(twNomeCasa.getText().toString())){
@@ -62,7 +70,7 @@ public class HomeCardFragment extends Fragment{
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                    final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHomeOwner);
+
                                                     for(DataSnapshot ds1:dataSnapshot.getChildren()){
 
                                                         if(ds1.getKey().equals(ds.getKey())){
