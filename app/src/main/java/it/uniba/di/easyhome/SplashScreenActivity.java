@@ -57,15 +57,15 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
-                updateUI(currentUser);
-                updateToken(FirebaseInstanceId.getInstance().getToken());
+                updateUI();
+
             }
         }, 800);
 
 
     }
 
-    public void  updateUI(FirebaseUser account) {// controlla se l'utente ha già fatto l'accesso e se è vero salta il form login
+    public void  updateUI() {// controlla se l'utente ha già fatto l'accesso e se è vero salta il form login
 
 
 
@@ -74,12 +74,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference query= rootRef.child("users");
 
-        if(account!=null) {
+        if(currentUser!=null) {
 
 
             mUID= currentUser.getUid();
             Log.v(TAG,"muid:"+mUID);
-
+            updateToken(FirebaseInstanceId.getInstance().getToken());
             //salvataggeio uid nel sharedPreferences
             SharedPreferences sp=getSharedPreferences("SP_USER",MODE_PRIVATE);
             SharedPreferences.Editor editor= sp.edit();
