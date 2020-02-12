@@ -29,8 +29,8 @@ import java.util.Calendar;
 
 import it.uniba.di.easyhome.Bill;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.proprietario.home.AddCasaFragment;
 import it.uniba.di.easyhome.proprietario.home.HomeFragment;
+import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
 
 public class AddBolletteFragment extends Fragment {
     DatePickerDialog dpd;
@@ -44,19 +44,8 @@ public class AddBolletteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_bollette_fragment, container, false);
-        final FloatingActionButton add_boll_fab= (getActivity().findViewById(R.id.fab2_plus));
-        FloatingActionButton add_std_fab= (getActivity().findViewById(R.id.fab3_plus));
-        add_std_fab.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
-        add_std_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment newFragment = new AddCasaFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        final FloatingActionButton back= (getActivity().findViewById(R.id.fab2_plus));
+
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
         final Calendar c=Calendar.getInstance();
         final Spinner mySpinner = (Spinner) root.findViewById(R.id.spinner);
@@ -70,7 +59,8 @@ public class AddBolletteFragment extends Fragment {
         final EditText totale= root.findViewById(R.id.number);
         final EditText descrizione=root.findViewById(R.id.desc);
         final Button add= root.findViewById(R.id.send);
-       add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
+
+        back.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
 
         mySpinner.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.tipo) ));
@@ -93,16 +83,18 @@ public class AddBolletteFragment extends Fragment {
             }
         });
 
-        add_boll_fab.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
+            final Bundle bd=getArguments();
             @Override
             public void onClick(View v) {
-                add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
-                textIndietro.setText(getResources().getString(R.string.bill));
-                Fragment newFragment = new HomeFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("nomeCasa",bd.getString("nomeCasa"));
+                HomeCardFragment homeCardFragment = new HomeCardFragment();
+                homeCardFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.add(new HomeFragment(), "ListaCase").addToBackStack(HomeFragment.class.getName());
+                fragmentTransaction.replace(R.id.nav_host_fragment, homeCardFragment, "PROVA");
+                fragmentTransaction.commit();
 
             }
 

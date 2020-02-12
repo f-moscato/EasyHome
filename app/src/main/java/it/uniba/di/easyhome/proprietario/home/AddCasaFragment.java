@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.Home;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.Fragments.AddBolletteFragment;
 
 public class AddCasaFragment extends Fragment {
 
@@ -40,23 +39,21 @@ public class AddCasaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_casa_fragment, container, false);
-        final FloatingActionButton add_boll_fab= (getActivity().findViewById(R.id.fab2_plus));
-        add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_add));
-        final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab3_plus));
+        final FloatingActionButton back= (getActivity().findViewById(R.id.fab2_plus));
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-        textIndietro.setText(getResources().getString(R.string.add_inq));
+        textIndietro.setText(getResources().getString(R.string.back));
         final Bundle bundle=getArguments();
         final Button btSendt=(Button) root.findViewById(R.id.HomeSend);
         //dichiarazione delle edit
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final EditText casa= root.findViewById(R.id.casa);
 
-        add_home_fab.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
-        add_home_fab.setOnClickListener(new View.OnClickListener() {
+        back.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_boll_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
-                textIndietro.setText(getResources().getString(R.string.bill));
+                back.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
+                textIndietro.setText(getResources().getString(R.string.home_add));
                 Fragment newFragment = new HomeFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
@@ -66,18 +63,7 @@ public class AddCasaFragment extends Fragment {
             }
 
         });
-        add_boll_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Fragment newFragment = new AddBolletteFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-
-            }
-        });
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         ValueEventListener vel=new ValueEventListener() {
             @Override

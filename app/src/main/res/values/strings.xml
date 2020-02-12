@@ -27,6 +27,7 @@
     <string name="lingua">Language:</string>
     <string name="bill">Bill</string>
     <string name="back">Back</string>
+    <string name="home_add">Home add</string>
     <string name="contact">Info Contact</string>
 <string name="house_list">House List:</string>
 <string name="sospeso">Not Payed</string>
@@ -63,6 +64,7 @@
     <string name="message_sent">Message sent</string>
     <string name="new_message_from">New Message from:</string>
     <string name="add_inq">Add Inq</string>
+    <string name="add_bill">Add Bill</string>
     <string name="share">Share</string>
     <string name="id">Home code</string>
     <string name="atHome">Who\'s in the house:</string>

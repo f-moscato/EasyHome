@@ -286,11 +286,10 @@ public class HomeFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
                         House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
-                        final HashMap<String,String> inq = new HashMap<>();
-                        inq.put(currentUser.getUid(),"true");
                         if (h.getOwner().equals(code)) {
-                            House user = new House(inq);
-                            mDatabase.child("houses").child(ds.getKey()).child("inquilini").push().setValue(user);
+                            final HashMap<String,String> inq = new HashMap<>();
+                            inq.put(currentUser.getUid(),"true");
+                            mDatabase.child("houses").child(ds.getKey()).child("inquilini").push().setValue(inq);
                         }
                     }
                 }

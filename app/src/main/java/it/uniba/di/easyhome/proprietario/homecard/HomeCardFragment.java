@@ -1,10 +1,14 @@
 package it.uniba.di.easyhome.proprietario.homecard;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,35 +19,43 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import it.uniba.di.easyhome.Fragments.AddBolletteFragment;
+import it.uniba.di.easyhome.Fragments.SendMessageFragment;
+import it.uniba.di.easyhome.Fragments.ViewBolletteFragment;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.User;
-import it.uniba.di.easyhome.Fragments.AddBolletteFragment;
-import it.uniba.di.easyhome.Fragments.ViewBolletteFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeCardFragment extends Fragment{
-
+    Animation FabOpen,FabClose;
+    boolean isOpen=false;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.home_card_fragment, container, false);
         final FloatingActionButton add_bill_fab= (getActivity().findViewById(R.id.fab2_plus));
+        final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
+
+        //Setting Back's Button
+        add_bill_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
+        textIndietro.setText(getResources().getString(R.string.add_bill));
+
         final Bundle bundle=getArguments();
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
         twNomeCasa.setText(bundle.getString("nomeCasa"));
-      final  String pr;
+          final  String pr;
        pr=bundle.getString("Casa");
-
         DatabaseReference queryRicercaCasa= FirebaseDatabase.getInstance().getReference("houses");
         queryRicercaCasa.addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,7 +86,6 @@ public class HomeCardFragment extends Fragment{
                                                     for(DataSnapshot ds1:dataSnapshot.getChildren()){
 
                                                         if(ds1.getKey().equals(ds.getKey())){
-                                                            Log.v(TAG,"ciao");
                                                             LinearLayout lyInquilino = new LinearLayout(getActivity());
                                                             LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                                             margin.setMargins(20,20,15,0);
@@ -164,11 +175,12 @@ public class HomeCardFragment extends Fragment{
                 fragmentTransaction.commit();
             }
         });
+
         add_bill_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Bundle bundle=new Bundle();
+                bundle.putString("nomeCasa",twNomeCasa.getText().toString());
                 bundle.putString("Casa",pr);
                 Fragment newFragment = new AddBolletteFragment();
                 newFragment.setArguments(bundle);
@@ -182,6 +194,44 @@ public class HomeCardFragment extends Fragment{
 
         return root;
 
+
+    }
+    public void showCode(){
+        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+        rootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(final DataSnapshot ds: dataSnapshot.getChildren()) {
+                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        if(h.getOwner().equals(currentUser.getUid())){
+                            AlertDialog.Builder mBuilder= new AlertDialog.Builder(getContext());
+                            mBuilder.setTitle(getResources().getText(R.string.id));
+                            mBuilder.setIcon(R.drawable.ic_person_add);
+                            final String code=h.getOwner();
+                            mBuilder.setMessage(code);
+                            mBuilder.setPositiveButton(getResources().getText(R.string.share), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent myIntent=new Intent(Intent.ACTION_SEND);
+                                    myIntent.setType("text/plain");
+                                    myIntent.putExtra(Intent.EXTRA_SUBJECT,code);
+                                    myIntent.putExtra(Intent.EXTRA_TEXT,code);
+                                    startActivity(Intent.createChooser(myIntent,"Share using"));
+                                }
+                            });
+                            mBuilder.show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

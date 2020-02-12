@@ -76,7 +76,7 @@ public class InquilinoActivity extends AppCompatActivity  {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.inq_nav_bills,
+                R.id.nav_home, R.id.nav_annunci, R.id.inq_nav_bills,
                 R.id.inq_nav_tools, R.id.inq_nav_logout, R.id.inq_nav_info)
                 .setDrawerLayout(drawer)
                 .build();
@@ -127,6 +127,38 @@ public class InquilinoActivity extends AppCompatActivity  {
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         switch (item.getItemId()) {
+            case R.id.nav_annunci:
+                ValueEventListener vel1= new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        NavController navController = Navigation.findNavController(InquilinoActivity.this, R.id.nav_host_fragment);
+                        if(dataSnapshot.exists()){
+                            for (DataSnapshot ds:dataSnapshot.getChildren()){
+                                House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini(),ds.getValue(House.class).getBills());
+                                Log.v(TAG, h.getName() + " / " +h.getInquilini().size()+"/"+currentUser.getDisplayName());
+                                for(String cod:h.getInquilini().keySet()){
+                                    if(cod.equals(currentUser.getUid())){
+                                        Bundle bundle=new Bundle();
+                                        bundle.putString("nomeCasa",h.getName());
+                                        navController.navigate(R.id.nav_annunci,bundle);
+                                        DrawerLayout mDrawerLayout;
+                                        mDrawerLayout = findViewById(R.id.drawer_layout);
+                                        mDrawerLayout.closeDrawers();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                rootRef.addListenerForSingleValueEvent(vel1);
+
+                return true;
             case R.id.inq_nav_bills:
                 ValueEventListener vel= new ValueEventListener() {
                     @Override

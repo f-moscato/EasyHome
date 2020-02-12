@@ -53,5 +53,6 @@
     <string name="day">Giorno:</string>
     <string name="nameInquilino_1">Tuno 1:</string>
     <string name="nameInquilino_2">Turno 2:</string>
+    <string name="home_add">Aggiungi casa</string>
 
 </resources>
