@@ -7,6 +7,7 @@ public class House {
     private String owner;
     private HashMap<String,String> inquilini= new HashMap<>();
    private HashMap<String,HashMap<String,String>> bills=new HashMap<>();
+   private String ssid;
 
 
    /* public void addBill(String type, double tot, String descr,String expiration,boolean pay){
@@ -52,11 +53,19 @@ public class House {
         this.setInquilini(inq);
     }
 
-    public House(String nome, String u,HashMap<String,String> inq,HashMap<String,HashMap<String,String>> b){
-        this.name=nome;
-        this.owner=u;
-        this.setInquilini(inq);
-        this.setBills(b);
+    public House(String name, String owner, HashMap<String, String> inquilini, HashMap<String, HashMap<String, String>> bills, String ssid) {
+        this.name = name;
+        this.owner = owner;
+        this.inquilini = inquilini;
+        this.bills = bills;
+        this.ssid = ssid;
     }
 
+    public String getSsid() {
+        return ssid;
+    }
+
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
+    }
 }

@@ -1,9 +1,16 @@
 package it.uniba.di.easyhome.inquilino;
 
 
+import android.Manifest;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.wifi.SupplicantState;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -17,6 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -46,6 +54,10 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class InquilinoActivity extends AppCompatActivity  {
 
     FloatingActionButton fab1,fab2,fab3;
+
+    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    private static final int LOCATION = 1;
     Animation FabOpen,FabClose,FabClock,FabAntiClock;
     TextView boll;
     SharedPref sharedpref;
@@ -64,7 +76,7 @@ public class InquilinoActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_inquilino);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(sharedpref.loadNightModeState()==true){
+        if(sharedpref.loadNightModeState()){
             this.setTheme(R.style.darktheme);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -83,9 +95,20 @@ public class InquilinoActivity extends AppCompatActivity  {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        checkWiFi();
 
     }
 
+    @Override
+    protected void onStart() {
+        checkWiFi();
+        super.onStart();
+    }
+
+    public void onPause() {
+        checkWiFi();
+        super.onPause();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -124,7 +147,6 @@ public class InquilinoActivity extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         switch (item.getItemId()) {
             case R.id.inq_nav_bills:
@@ -134,7 +156,12 @@ public class InquilinoActivity extends AppCompatActivity  {
                         NavController navController = Navigation.findNavController(InquilinoActivity.this, R.id.nav_host_fragment);
                         if(dataSnapshot.exists()){
                             for (DataSnapshot ds:dataSnapshot.getChildren()){
-                                House h=new House(ds.getValue(House.class).getName(),ds.getValue(House.class).getOwner(),ds.getValue(House.class).getInquilini(),ds.getValue(House.class).getBills());
+                                House h=new House(
+                                        ds.getValue(House.class).getName()
+                                        ,ds.getValue(House.class).getOwner()
+                                        ,ds.getValue(House.class).getInquilini()
+                                        ,ds.getValue(House.class).getBills()
+                                        ,ds.getValue(House.class).getSsid());
                                 Log.v(TAG, h.getName() + " / " +h.getInquilini().size()+"/"+currentUser.getDisplayName());
                                 for(String cod:h.getInquilini().keySet()){
                                     if(cod.equals(currentUser.getUid())){
@@ -163,5 +190,95 @@ public class InquilinoActivity extends AppCompatActivity  {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int[] grantResults) {
+        if(grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == LOCATION){
+            //User allowed the location and you can read it now
+            tryToReadSSID();
+        }
+    }
+    private String tryToReadSSID() {
+        //If requested permission isn't Granted yet
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return "bo";
+            }else{//Permission already granted
+                WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(WIFI_SERVICE);
+                if (wifiManager != null && wifiManager.getConnectionInfo() != null) {
+                    WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                    if (wifiInfo.getSupplicantState() == SupplicantState.COMPLETED) {
+                        return  wifiInfo.getBSSID();//Here you can access your SSID
+                    }
+                }
+
+            }
+
+        return "";
+
+    }
+
+    public  void checkWiFi(){
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+
+        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        ValueEventListener vel= new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot ds:dataSnapshot.getChildren()){
+                        House h=new House(
+                                ds.getValue(House.class).getName()
+                                ,ds.getValue(House.class).getOwner()
+                                ,ds.getValue(House.class).getInquilini()
+                                ,ds.getValue(House.class).getBills()
+                                ,ds.getValue(House.class).getSsid());
+                        Log.v(TAG, h.getName() + " / " +h.getInquilini().size()+"/"+currentUser.getDisplayName());
+                        for(String cod:h.getInquilini().keySet()){
+                            if(cod.equals(currentUser.getUid())){
+                                if(h.getSsid().equals(tryToReadSSID())){
+                                    Log.v(TAG,"uguale");
+                                    DatabaseReference referenceSameSSID=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/inquilini/"+cod);
+                                    referenceSameSSID.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            referenceSameSSID.setValue("true");
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else{
+                                    DatabaseReference referenceNotSameSSID=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/inquilini/"+cod);
+                                    referenceNotSameSSID.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            referenceNotSameSSID.setValue("false");
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        rootRef.addListenerForSingleValueEvent(vel);
     }
 }

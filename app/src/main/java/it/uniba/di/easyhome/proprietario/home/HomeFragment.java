@@ -75,7 +75,12 @@ public class HomeFragment extends Fragment {
                 final LinearLayout ly=root.findViewById(R.id.ly_home_inquilino);
                 if(dataSnapshot.exists()){
                     for(final DataSnapshot ds: dataSnapshot.getChildren()) {
-                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        House h=new House(
+                                ds.getValue(House.class).getName()
+                                ,ds.getValue(House.class).getOwner()
+                                ,ds.getValue(House.class).getInquilini()
+                                ,ds.getValue(House.class).getBills()
+                                ,ds.getValue(House.class).getSsid());
                         if(h.getOwner().equals(currentUser.getUid())){
                         Log.d(TAG, h.getName() + " / " + h.getOwner());
                         LinearLayout lyl = new LinearLayout(getActivity());
@@ -140,7 +145,12 @@ public void showCode(){
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if(dataSnapshot.exists()){
                 for(final DataSnapshot ds: dataSnapshot.getChildren()) {
-                    House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                    House h=new House(
+                            ds.getValue(House.class).getName()
+                            ,ds.getValue(House.class).getOwner()
+                            ,ds.getValue(House.class).getInquilini()
+                            ,ds.getValue(House.class).getBills()
+                            ,ds.getValue(House.class).getSsid());
                     if(h.getOwner().equals(currentUser.getUid())){
                        AlertDialog.Builder mBuilder= new AlertDialog.Builder(getContext());
                        mBuilder.setTitle(getResources().getText(R.string.id));

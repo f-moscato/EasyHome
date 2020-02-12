@@ -36,10 +36,11 @@ public class ViewBolletteFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-if(getActivity().equals(ProprietarioActivity.class)) {
-    FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
-    fab.hide();
-    fab.setClickable(false);}
+    if(getActivity().equals(ProprietarioActivity.class)) {
+        FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
+        fab.hide();
+        fab.setClickable(false);
+    }
 
     root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
 
@@ -58,8 +59,13 @@ if(getActivity().equals(ProprietarioActivity.class)) {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    for(DataSnapshot ds: dataSnapshot.getChildren()) {
-                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                    for(DataSnapshot dsCase: dataSnapshot.getChildren()) {
+                        House h=new House(
+                                dsCase.getValue(House.class).getName()
+                                ,dsCase.getValue(House.class).getOwner()
+                                ,dsCase.getValue(House.class).getInquilini()
+                                ,dsCase.getValue(House.class).getBills()
+                                ,dsCase.getValue(House.class).getSsid());
                         if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
                             for (HashMap<String, String> dettagli : h.getBills().values()) {
                                 String[] info = dettagli.values().toArray(new String[0]);
@@ -169,7 +175,12 @@ if(getActivity().equals(ProprietarioActivity.class)) {
 
                         if(dataSnapshot.exists()){
                             for(DataSnapshot ds: dataSnapshot.getChildren()) {
-                                House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                                House h=new House(
+                                        ds.getValue(House.class).getName()
+                                        ,ds.getValue(House.class).getOwner()
+                                        ,ds.getValue(House.class).getInquilini()
+                                        ,ds.getValue(House.class).getBills()
+                                        ,ds.getValue(House.class).getSsid());
                                 if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
                                     for (HashMap<String, String> dettagli : h.getBills().values()) {
                                         String[] info = dettagli.values().toArray(new String[0]);
@@ -304,7 +315,12 @@ if(getActivity().equals(ProprietarioActivity.class)) {
 
                         if(dataSnapshot.exists()) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                                House h=new House(
+                                        ds.getValue(House.class).getName()
+                                        ,ds.getValue(House.class).getOwner()
+                                        ,ds.getValue(House.class).getInquilini()
+                                        ,ds.getValue(House.class).getBills()
+                                        ,ds.getValue(House.class).getSsid());
                                 if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
                                     for (HashMap<String, String> dettagli : h.getBills().values()) {
                                         String[] info = dettagli.values().toArray(new String[0]);

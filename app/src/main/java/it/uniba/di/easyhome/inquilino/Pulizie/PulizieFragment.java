@@ -51,7 +51,12 @@ public class PulizieFragment extends Fragment {
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        House h=new House(
+                                ds.getValue(House.class).getName()
+                                ,ds.getValue(House.class).getOwner()
+                                ,ds.getValue(House.class).getInquilini()
+                                ,ds.getValue(House.class).getBills()
+                                ,ds.getValue(House.class).getSsid());
                         if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
                             for (String inq : h.getInquilini().keySet()) {
                                 // ricerca degli inquilini presenti nella stessa casa
@@ -67,10 +72,12 @@ public class PulizieFragment extends Fragment {
                                                     break;
 
                                         }
-                                        spinnerInq_1.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                                                android.R.layout.simple_list_item_1 ,spinnerInq ));
-                                        spinnerInq_2.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                                                android.R.layout.simple_list_item_1 ,spinnerInq ));
+                                        if(getActivity()!=null){
+                                            spinnerInq_1.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                                                    android.R.layout.simple_list_item_1 ,spinnerInq ));
+                                            spinnerInq_2.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                                                    android.R.layout.simple_list_item_1 ,spinnerInq ));
+                                        }
                                     }
 
                                     @Override
