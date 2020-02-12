@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome;
+package it.uniba.di.easyhome.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -30,12 +30,15 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.HashMap;
 import java.util.Objects;
 
+import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.Notifiche.APIService;
 import it.uniba.di.easyhome.Notifiche.Client;
 import it.uniba.di.easyhome.Notifiche.Data;
 import it.uniba.di.easyhome.Notifiche.Response;
 import it.uniba.di.easyhome.Notifiche.Sender;
 import it.uniba.di.easyhome.Notifiche.Token;
+import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -60,8 +63,6 @@ public class SendMessageFragment extends Fragment {
         final Button btnSender= root.findViewById(R.id.buttonSendMessage);
         final EditText editTextMessage= root.findViewById(R.id.messageToSend);
         final EditText editTextTitleMessage= root.findViewById(R.id.messageTitle);
-
-
 
         //creazione servizio API
         apiService= Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);

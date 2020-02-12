@@ -17,11 +17,11 @@
 
 
         <activity
-            android:name=".InquilinoActivity"
+            android:name=".inquilino.InquilinoActivity"
             android:label="@string/title_activity_inquilino"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ProprietarioActivity"
+            android:name=".proprietario.ProprietarioActivity"
             android:label="@string/title_activity_proprietario"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

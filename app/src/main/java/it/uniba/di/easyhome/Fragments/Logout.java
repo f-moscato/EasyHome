@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.proprietario.logout;
+package it.uniba.di.easyhome.Fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,9 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import it.uniba.di.easyhome.InquilinoActivity;
+import it.uniba.di.easyhome.inquilino.InquilinoActivity;
 import it.uniba.di.easyhome.LoginActivity;
-import it.uniba.di.easyhome.ProprietarioActivity;
+import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.User;
 

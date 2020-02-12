@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="it.uniba.di.easyhome.inquilino.tools.ToolsFragment"
+        android:name="it.uniba.di.easyhome.Fragments.ToolsFragment"
         android:label="@string/impostazioni"
         tools:layout="@layout/fragment_tools" /> />
 
@@ -25,13 +25,13 @@
 
     <fragment
         android:id="@+id/pr_nav_logout"
-        android:name="it.uniba.di.easyhome.proprietario.logout.Logout"
+        android:name="it.uniba.di.easyhome.Fragments.Logout"
         android:label="@string/logout"
         tools:layout="@layout/pr_logout" />
 
     <fragment
         android:id="@+id/pr_nav_info"
-        android:name="it.uniba.di.easyhome.proprietario.info.InfoFragment"
+        android:name="it.uniba.di.easyhome.Fragments.InfoFragment"
         android:label="@string/info"
         tools:layout="@layout/fragment_info" />
 </navigation>

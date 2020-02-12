@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.proprietario.info;
+package it.uniba.di.easyhome.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import it.uniba.di.easyhome.ProprietarioActivity;
+import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
 
 public class InfoFragment extends Fragment {

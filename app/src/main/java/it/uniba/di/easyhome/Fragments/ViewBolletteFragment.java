@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.proprietario.bollette;
+package it.uniba.di.easyhome.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,12 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 import it.uniba.di.easyhome.House;
-import it.uniba.di.easyhome.ProprietarioActivity;
+import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class BolletteFragment extends Fragment {
+public class ViewBolletteFragment extends Fragment {
 
     private View root;
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");

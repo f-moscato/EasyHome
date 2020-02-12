@@ -34,10 +34,10 @@ import java.util.HashMap;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.SendMessageFragment;
+import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.inquilino.Pulizie.PulizieFragment;
-import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
+import it.uniba.di.easyhome.Fragments.ViewBolletteFragment;
 
 import static android.content.Context.WIFI_SERVICE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -94,12 +94,9 @@ public class HomeFragment extends Fragment {
                                                         queryPerNomeUtente.addValueEventListener(new ValueEventListener() {
                                                             @Override
                                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
                                                     for(DataSnapshot ds1:dataSnapshot.getChildren()){
 
                                                                     if(ds1.getKey().equals(ds.getKey())){
-                                                                        Log.v(TAG,"ciao");
                                                                         LinearLayout lyInquilino = new LinearLayout(getActivity());
                                                                         LinearLayout.LayoutParams margin=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                                                         margin.setMargins(20,20,15,0);
@@ -111,9 +108,15 @@ public class HomeFragment extends Fragment {
                                                                         ImageView imgAtHome=new ImageView(getActivity());
                                                                         imgAtHome.setLayoutParams(marginImg);
                                                                         imgAtHome.setImageResource(R.drawable.athome);
+                                                                        /*if(tryToReadSSID()==ds.){
+                                                                                final HashMap<String,String> inq = new HashMap<>();
+                                                                                inq.put(currentUser.getUid(),"true");
+                                                                                House casa= new House(inq);
+                                                                                mDatabase.child("houses").child(ds.getKey()).child("inquilini").child(currentUser.getUid()).setValue(casa);}*/
                                                                         if(ds.getValue().toString().equals("true")){
                                                                             imgAtHome.setColorFilter(getResources().getColor(R.color.colorAtHome));
                                                                         }else{
+
                                                                             imgAtHome.setColorFilter(getResources().getColor(R.color.colorNotAtHome));
                                                                         }
                                                                         lyInquilino.addView(imgAtHome);
@@ -133,15 +136,9 @@ public class HomeFragment extends Fragment {
 
                                                             }
                                                         });
-
                                                     }
-
-
                                                 }
-                                            }else{
-                                                Log.v(TAG,"ciao");
                                             }
-
                                         }
 
                                         @Override
@@ -151,10 +148,6 @@ public class HomeFragment extends Fragment {
                                     });
 
                                 }
-
-
-
-
                                 break;
                             }
                         }
@@ -168,30 +161,21 @@ public class HomeFragment extends Fragment {
 
             }
         };
-
-
         rootRef.addListenerForSingleValueEvent(vel);
-
-
-
-
-
         LinearLayout ly_ButtonBill= (LinearLayout) root.findViewById(R.id.ly_bill_inquilino);
         ly_ButtonBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",tw_NomeCasa.getText().toString());
-                BolletteFragment bolletteFragment=new BolletteFragment() ;
-                bolletteFragment.setArguments(bundle);
+                ViewBolletteFragment viewBolletteFragment =new ViewBolletteFragment() ;
+                viewBolletteFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
-                fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"BILL");
+                fragmentTransaction.replace(R.id.nav_host_fragment, viewBolletteFragment,"BILL");
                 fragmentTransaction.commit();
             }
         });
-
-
         LinearLayout ly_ButtonCleaning= (LinearLayout) root.findViewById(R.id.ly_cleaning_inquilino);
         ly_ButtonCleaning.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,8 +190,6 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
-
         LinearLayout ly_ButtonChat= (LinearLayout) root.findViewById(R.id.ly_chat_inquilino);
         ly_ButtonChat.setOnClickListener(new View.OnClickListener() {
             @Override

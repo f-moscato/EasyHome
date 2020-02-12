@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.inquilino.tools;
+package it.uniba.di.easyhome.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

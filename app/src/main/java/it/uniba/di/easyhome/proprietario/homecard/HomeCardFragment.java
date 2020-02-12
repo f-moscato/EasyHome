@@ -23,10 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.SendMessageFragment;
+import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.User;
-import it.uniba.di.easyhome.proprietario.bollette.AddBolletteFragment;
-import it.uniba.di.easyhome.proprietario.bollette.BolletteFragment;
+import it.uniba.di.easyhome.Fragments.AddBolletteFragment;
+import it.uniba.di.easyhome.Fragments.ViewBolletteFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -156,11 +156,11 @@ public class HomeCardFragment extends Fragment{
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",twNomeCasa.getText().toString());
-                BolletteFragment bolletteFragment=new BolletteFragment() ;
-                bolletteFragment.setArguments(bundle);
+                ViewBolletteFragment viewBolletteFragment =new ViewBolletteFragment() ;
+                viewBolletteFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.nav_host_fragment,bolletteFragment,"Bills");
+                fragmentTransaction.replace(R.id.nav_host_fragment, viewBolletteFragment,"Bills");
                 fragmentTransaction.commit();
             }
         });

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context=".proprietario.bollette.AddBolletteFragment">
+    tools:context=".Fragments.AddBolletteFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,6 +38,7 @@
                     android:id="@+id/spinnerDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorAccent"
                     android:layout_toEndOf="@+id/day" />
 
             </RelativeLayout>
@@ -59,13 +60,42 @@
                     android:id="@+id/inqName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nameInquilino" />
+                    android:text="@string/nameInquilino_1" />
 
                 <Spinner
                     android:id="@+id/spinnerInq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/inqName" />
+                    android:layout_toEndOf="@+id/inqName"
+                    android:backgroundTint="@color/colorAccent"
+                    />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            app:cardBackgroundColor="?attr/cardbackground">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/inqName_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nameInquilino_2" />
+
+                <Spinner
+                    android:id="@+id/spinnerInq_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorAccent"
+                    android:layout_toEndOf="@+id/inqName_2" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -88,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/description_bollette" />
 
-                <TextView
+                <EditText
                     android:id="@+id/desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

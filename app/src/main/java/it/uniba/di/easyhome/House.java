@@ -8,11 +8,13 @@ public class House {
     private HashMap<String,String> inquilini= new HashMap<>();
    private HashMap<String,HashMap<String,String>> bills=new HashMap<>();
 
-    public House(){}
 
    /* public void addBill(String type, double tot, String descr,String expiration,boolean pay){
         bollette.add(new Bill(type,tot,descr,expiration,pay));
     }*/
+
+    public House() {
+    }
 
     public HashMap<String, HashMap<String, String>> getBills() {
         return bills;

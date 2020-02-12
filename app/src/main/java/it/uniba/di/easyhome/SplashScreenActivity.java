@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import it.uniba.di.easyhome.Notifiche.Token;
+import it.uniba.di.easyhome.inquilino.InquilinoActivity;
+import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 

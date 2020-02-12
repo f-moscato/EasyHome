@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome;
+package it.uniba.di.easyhome.proprietario;
 
 import android.app.FragmentManager;
 import android.content.res.Configuration;
@@ -25,6 +25,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Locale;
+
+import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
+import it.uniba.di.easyhome.User;
 
 
 public class ProprietarioActivity extends AppCompatActivity {

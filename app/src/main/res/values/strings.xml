@@ -54,7 +54,8 @@
     <string name="casa">Home name:</string>
     <string name="description_bollette">Description:</string>
     <string name="day">Day:</string>
-    <string name="nameInquilino">Turn:</string>
+    <string name="nameInquilino_2">Turn 2:</string>
+    <string name="nameInquilino_1">Turn 1:</string>
     <string name="send_message">Send Message</string>
     <string name="tot">Total:</string>
     <string name="cancel">Reset</string>

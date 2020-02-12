@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.proprietario.bollette;
+package it.uniba.di.easyhome.Fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;

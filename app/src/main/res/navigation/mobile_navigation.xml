@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/inq_nav_bills"
-        android:name="it.uniba.di.easyhome.proprietario.bollette.BolletteFragment"
+        android:name="it.uniba.di.easyhome.Fragments.ViewBolletteFragment"
         android:label="@string/menu_bollette"
         tools:layout="@layout/pr_fragment_bollette" >
 
@@ -27,19 +27,19 @@
 
     <fragment
         android:id="@+id/inq_nav_tools"
-        android:name="it.uniba.di.easyhome.inquilino.tools.ToolsFragment"
+        android:name="it.uniba.di.easyhome.Fragments.ToolsFragment"
         android:label="@string/impostazioni"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/inq_nav_logout"
-        android:name="it.uniba.di.easyhome.proprietario.logout.Logout"
+        android:name="it.uniba.di.easyhome.Fragments.Logout"
         android:label="@string/logout"
         tools:layout="@layout/inq_logout" />
 
     <fragment
         android:id="@+id/inq_nav_info"
-        android:name="it.uniba.di.easyhome.proprietario.info.InfoFragment"
+        android:name="it.uniba.di.easyhome.Fragments.InfoFragment"
         android:label="@string/info"
         tools:layout="@layout/fragment_info" />
 

@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome;
+package it.uniba.di.easyhome.inquilino;
 
 
 import android.app.FragmentManager;
@@ -34,6 +34,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
+
+import it.uniba.di.easyhome.House;
+import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
+import it.uniba.di.easyhome.User;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 

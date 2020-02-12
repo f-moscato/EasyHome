@@ -35,6 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
+import it.uniba.di.easyhome.inquilino.InquilinoActivity;
+import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LOGIN";
     private FirebaseAuth mAuth;

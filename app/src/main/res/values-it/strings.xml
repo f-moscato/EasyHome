@@ -50,5 +50,8 @@
     <string name="share">Condividi</string>
     <string name="id">Codice casa</string>
     <string name="atHome">Chi è presente in casa:</string>
+    <string name="day">Giorno:</string>
+    <string name="nameInquilino_1">Tuno 1:</string>
+    <string name="nameInquilino_2">Turno 2:</string>
 
 </resources>

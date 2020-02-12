@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.Home;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.proprietario.bollette.AddBolletteFragment;
+import it.uniba.di.easyhome.Fragments.AddBolletteFragment;
 
 public class AddCasaFragment extends Fragment {
 
