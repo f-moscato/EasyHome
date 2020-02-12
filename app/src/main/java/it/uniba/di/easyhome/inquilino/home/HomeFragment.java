@@ -108,12 +108,7 @@ public class HomeFragment extends Fragment {
                                                                         ImageView imgAtHome=new ImageView(getActivity());
                                                                         imgAtHome.setLayoutParams(marginImg);
                                                                         imgAtHome.setImageResource(R.drawable.athome);
-                                                                        /*if(tryToReadSSID()==ds.){
-                                                                                final HashMap<String,String> inq = new HashMap<>();
-                                                                                inq.put(currentUser.getUid(),"true");
-                                                                                House casa= new House(inq);
-                                                                                mDatabase.child("houses").child(ds.getKey()).child("inquilini").child(currentUser.getUid()).setValue(casa);}*/
-                                                                        if(ds.getValue().toString().equals("true")){
+                                                                         if(ds.getValue().toString().equals("true")){
                                                                             imgAtHome.setColorFilter(getResources().getColor(R.color.colorAtHome));
                                                                         }else{
 
@@ -213,15 +208,14 @@ public class HomeFragment extends Fragment {
                     int flag = 0;
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
-                        Log.v(TAG, h.getName() + " / " + h.getInquilini().size() + "/" + currentUser.getDisplayName());
                         for (String cod : h.getInquilini().keySet()) {
                             if (cod.equals(currentUser.getUid())) {
-                                flag = 12;
+                                flag = 55;
                                 tw_NomeCasa.setText(h.getName());
                                 break;
                             }
-                        }
-                        if (flag != 12) {
+                        }}
+                        if (flag != 55) {
                             AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                             alert.setTitle("Entra in una casa");
                             alert.setIcon(getResources().getDrawable(R.drawable.ic_person_add));
@@ -245,7 +239,6 @@ public class HomeFragment extends Fragment {
 
                             alert.show();
                         }
-                    }
                 }
             }
 
