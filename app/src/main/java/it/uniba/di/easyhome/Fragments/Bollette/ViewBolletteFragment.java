@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.Fragments;
+package it.uniba.di.easyhome.Fragments.Bollette;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -104,7 +104,7 @@ public class ViewBolletteFragment extends Fragment {
                                     img.setLayoutParams(marginImg);
                                     img.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
-                                    switch (info[3].toLowerCase()) {
+                                    switch (dettagli.getType().toLowerCase()) {
                                         case "gas":
                                             img.setImageResource(R.drawable.gas);
                                             break;
@@ -152,7 +152,7 @@ public class ViewBolletteFragment extends Fragment {
                                                                                 @Override
                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                                     for(DataSnapshot dsBill:dataSnapshot.getChildren()){
-                                                                                        if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(info[3]) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(info[2]) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(info[0])){
+                                                                                        if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(dettagli.getType()) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(dettagli.getExpiration()) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(dettagli.getTotal())){
                                                                                             FirebaseDatabase.getInstance().getReference("houses/"+dsCase.getKey()+"/bills/"+dsBill.getKey()+"/payed").setValue("true");
 
                                                                                             //refresh del fragment
