@@ -25,11 +25,6 @@ public class House {
    private HashMap<String,Bill> bills=new HashMap<>();
    private String ssid;
 
-
-   /* public void addBill(String type, double tot, String descr,String expiration,boolean pay){
-        bollette.add(new Bill(type,tot,descr,expiration,pay));
-    }*/
-
     public House() {
     }
 

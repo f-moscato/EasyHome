@@ -27,6 +27,7 @@
     <string name="lingua">Language:</string>
     <string name="bill">Bill</string>
     <string name="back">Back</string>
+    <string name="home_add">Home add</string>
     <string name="contact">Info Contact</string>
 <string name="house_list">House List:</string>
 <string name="sospeso">Not Payed</string>
@@ -63,11 +64,21 @@
     <string name="message_sent">Message sent</string>
     <string name="new_message_from">New Message from:</string>
     <string name="add_inq">Add Inq</string>
+    <string name="add_bill">Add Bill</string>
     <string name="share">Share</string>
     <string name="id">Home code</string>
     <string name="atHome">Who\'s in the house:</string>
     <string name="popup_pagamentoBolletta">Bill payment</string>
     <string name="popup_pagamentoBolletta_corpo">Are you sure you\'re paying this bill?</string>
+    <string name="no" translatable="false">No</string>
+    <string name="avviso" >Allert</string>
+    <string name="si">Yes</string>
+    <string name="messageDayCopy">Is there already a cleaning shift on this day you want to change it?</string>
+    <string name="turn1_error" >Select a turn 1</string>
+    <string name="turn2_error">Select a different turn 2</string>
+    <string name="titleInHome">Enter a house</string>
+    <string name="messageInHome">Paste the code of the house you want to add yourself to</string>
+
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>

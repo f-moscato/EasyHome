@@ -3,11 +3,9 @@ package it.uniba.di.easyhome.inquilino;
 
 import android.Manifest;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -88,7 +86,7 @@ public class InquilinoActivity extends AppCompatActivity  {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.inq_nav_bills,
+                R.id.nav_home, R.id.nav_annunci, R.id.inq_nav_bills,
                 R.id.inq_nav_tools, R.id.inq_nav_logout, R.id.inq_nav_info)
                 .setDrawerLayout(drawer)
                 .build();

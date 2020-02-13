@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="it.uniba.di.easyhome.inquilino.gallery.GalleryFragment"
+        android:id="@+id/nav_annunci"
+        android:name="it.uniba.di.easyhome.Fragments.SendMessageFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/send_message_fragment" />
 
     <fragment
         android:id="@+id/inq_nav_bills"
-        android:name="it.uniba.di.easyhome.Fragments.ViewBolletteFragment"
+        android:name="it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment"
         android:label="@string/menu_bollette"
         tools:layout="@layout/pr_fragment_bollette" >
 

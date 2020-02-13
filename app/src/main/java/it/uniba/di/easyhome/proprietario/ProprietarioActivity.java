@@ -64,33 +64,24 @@ public class ProprietarioActivity extends AppCompatActivity {
         FabAntiClock= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
 
 
-
-
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isOpen){
-                    fab3.startAnimation(FabClose);
                     fab2.startAnimation(FabClose);
                     boll.startAnimation(FabClose);
                     fab1.startAnimation(FabAntiClock);
-                    fab3.setClickable(false);
                     fab2.setClickable(false);
                     isOpen=false;
                 }else{
-                    fab3.startAnimation(FabOpen);
                     fab2.startAnimation(FabOpen);
                     boll.startAnimation(FabOpen);
                     fab1.startAnimation(FabClock);
-                    fab3.setClickable(true);
                     fab2.setClickable(true);
                     isOpen=true;
                 }
             }
         });
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

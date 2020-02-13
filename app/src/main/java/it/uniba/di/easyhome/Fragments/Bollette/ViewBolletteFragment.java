@@ -35,11 +35,9 @@ import java.util.HashMap;
 
 import it.uniba.di.easyhome.Bill;
 import it.uniba.di.easyhome.House;
-import it.uniba.di.easyhome.LoginActivity;
-import it.uniba.di.easyhome.User;
-import it.uniba.di.easyhome.inquilino.InquilinoActivity;
-import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.User;
+import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -106,7 +104,7 @@ public class ViewBolletteFragment extends Fragment {
                                     img.setLayoutParams(marginImg);
                                     img.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
-                                    switch (dettagli.getType().toLowerCase()) {
+                                    switch (info[3].toLowerCase()) {
                                         case "gas":
                                             img.setImageResource(R.drawable.gas);
                                             break;
@@ -154,7 +152,7 @@ public class ViewBolletteFragment extends Fragment {
                                                                                 @Override
                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                                     for(DataSnapshot dsBill:dataSnapshot.getChildren()){
-                                                                                        if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(dettagli.getType()) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(dettagli.getExpiration()) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(dettagli.getTotal())){
+                                                                                        if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(info[3]) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(info[2]) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(info[0])){
                                                                                             FirebaseDatabase.getInstance().getReference("houses/"+dsCase.getKey()+"/bills/"+dsBill.getKey()+"/payed").setValue("true");
 
                                                                                             //refresh del fragment
