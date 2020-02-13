@@ -1,5 +1,8 @@
 package it.uniba.di.easyhome.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,17 +16,25 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.EventListener;
 import java.util.HashMap;
 
+import it.uniba.di.easyhome.Bill;
 import it.uniba.di.easyhome.House;
+import it.uniba.di.easyhome.LoginActivity;
+import it.uniba.di.easyhome.User;
+import it.uniba.di.easyhome.inquilino.InquilinoActivity;
 import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 import it.uniba.di.easyhome.R;
 
@@ -32,6 +43,8 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class ViewBolletteFragment extends Fragment {
 
     private View root;
+
+    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -67,6 +80,8 @@ public class ViewBolletteFragment extends Fragment {
                                 ,dsCase.getValue(House.class).getBills()
                                 ,dsCase.getValue(House.class).getSsid());
                         if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
+
+
                             for (HashMap<String, String> dettagli : h.getBills().values()) {
                                 String[] info = dettagli.values().toArray(new String[0]);
                                 Log.d(TAG, h.getName() + " / " + dettagli.values());
@@ -111,6 +126,81 @@ public class ViewBolletteFragment extends Fragment {
                                     imgAlert.setImageResource(R.drawable.alert);
                                     imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
                                     imgAlert.setLayoutParams(marginImg);
+
+                                    //controllo se l'utente che ha effettuato l'accesso al fragemnt è proprietario
+                                    // SOLO I PROPIETARI POSSONO DEFINIRE UN BOLLETTA PAGATA O MENO
+                                    DatabaseReference refUser=FirebaseDatabase.getInstance().getReference("users");
+                                    refUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dsUser:dataSnapshot.getChildren()){
+                                                if(currentUser.getUid().equals(dsUser.getKey()) && dsUser.getValue(User.class).getRole().equalsIgnoreCase("P")){
+
+                                                    //creazione del pop up per avere la conferma del pagamento della bolletta in questione
+                                                    imgAlert.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                            builder.setTitle(getString(R.string.popup_pagamentoBolletta)).
+                                                                    setMessage(getString(R.string.popup_pagamentoBolletta_corpo));
+                                                            builder.setPositiveButton(R.string.pop_up_logout_yes,
+                                                                    new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialog, int id) {
+                                                                            DatabaseReference ref=FirebaseDatabase.getInstance().getReference("houses/"+dsCase.getKey()+"/bills");
+                                                                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                @Override
+                                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                                    for(DataSnapshot dsBill:dataSnapshot.getChildren()){
+                                                                                        if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(info[3]) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(info[2]) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(info[0])){
+                                                                                            FirebaseDatabase.getInstance().getReference("houses/"+dsCase.getKey()+"/bills/"+dsBill.getKey()+"/payed").setValue("true");
+
+                                                                                            //refresh del fragment
+                                                                                            Fragment frg = null;
+                                                                                            frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                                            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                                            ft.detach(frg);
+                                                                                            ft.attach(frg);
+                                                                                            ft.commit();
+                                                                                            break;
+                                                                                        }
+
+                                                                                    }
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                                                }
+                                                                            });
+
+                                                                        }
+                                                                    });
+                                                            builder.setNegativeButton(R.string.pop_out_logout_no,
+                                                                    new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialog, int id) {
+                                                                            Fragment frg = null;
+                                                                            frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                            ft.detach(frg);
+                                                                            ft.attach(frg);
+                                                                            ft.commit();
+                                                                        }
+                                                                    });
+                                                            AlertDialog alert11 = builder.create();
+                                                            alert11.show();
+                                                        }
+                                                    });
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
 
                                     //settaggio textbox che contengono le caratteristiche delle bollette
                                     LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

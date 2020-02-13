@@ -66,6 +66,8 @@
     <string name="share">Share</string>
     <string name="id">Home code</string>
     <string name="atHome">Who\'s in the house:</string>
+    <string name="popup_pagamentoBolletta">Bill payment</string>
+    <string name="popup_pagamentoBolletta_corpo">Are you sure you\'re paying this bill?</string>
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>
