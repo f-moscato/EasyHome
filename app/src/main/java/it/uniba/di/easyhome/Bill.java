@@ -65,4 +65,8 @@ public class Bill {
         return this.getType()+" - "+this.getTotal()+" - "+this.getDescription()+" - "+this.getExpiration()+" - "+this.isPayed();
     }
 
+    public int compareTo(Bill b){
+        return this.getExpiration().compareTo(b.getExpiration());
+    }
+
 }

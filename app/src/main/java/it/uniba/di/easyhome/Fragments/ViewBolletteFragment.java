@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 
@@ -69,6 +72,7 @@ public class ViewBolletteFragment extends Fragment {
         //Creazione del Value Listener; oggetto che permette l'acquisizione dei dati dal database su Firebase
         //il codice seguente mostra la sezione bollette non pagate al primo avvio del fragment
         final ValueEventListener vel=new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -81,11 +85,10 @@ public class ViewBolletteFragment extends Fragment {
                                 ,dsCase.getValue(House.class).getSsid());
                         if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
 
+                            ArrayList<Bill> sortedBill=h.ordinamentoTemporaleBollette();
+                            for (Bill dettagli : sortedBill) {
 
-                            for (HashMap<String, String> dettagli : h.getBills().values()) {
-                                String[] info = dettagli.values().toArray(new String[0]);
-                                Log.d(TAG, h.getName() + " / " + dettagli.values());
-                                if(info[4].equalsIgnoreCase("false")){
+                                if(dettagli.isPayed().equalsIgnoreCase("false")){
 
                                     //Creazione Layout dinamico con inserimento dei vari elementi quali textbox e immagini
                                     LinearLayout lySingolaBolletta = new LinearLayout(getActivity());
@@ -103,7 +106,7 @@ public class ViewBolletteFragment extends Fragment {
                                     img.setLayoutParams(marginImg);
                                     img.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
-                                    switch (info[3].toLowerCase()) {
+                                    switch (dettagli.getType().toLowerCase()) {
                                         case "gas":
                                             img.setImageResource(R.drawable.gas);
                                             break;
@@ -151,7 +154,7 @@ public class ViewBolletteFragment extends Fragment {
                                                                                 @Override
                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                                     for(DataSnapshot dsBill:dataSnapshot.getChildren()){
-                                                                                        if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(info[3]) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(info[2]) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(info[0])){
+                                                                                        if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(dettagli.getType()) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(dettagli.getExpiration()) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(dettagli.getTotal())){
                                                                                             FirebaseDatabase.getInstance().getReference("houses/"+dsCase.getKey()+"/bills/"+dsBill.getKey()+"/payed").setValue("true");
 
                                                                                             //refresh del fragment
@@ -208,13 +211,13 @@ public class ViewBolletteFragment extends Fragment {
                                     TextView tw_importo = new TextView(getActivity());
                                     tw_importo.setLayoutParams(tW);
                                     tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                    tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
+                                    tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(dettagli.getTotal()).append(System.getProperty("line.separator")).toString());
                                     TextView tw_datascadenza = new TextView(getActivity());
-                                    tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                    tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(dettagli.getExpiration()).toString());
                                     tw_datascadenza.setLayoutParams(tW);
                                     tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                     TextView tw_descr = new TextView(getActivity());
-                                    tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                    tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
                                     tw_descr.setLayoutParams(tW);
                                     tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
 
@@ -259,6 +262,7 @@ public class ViewBolletteFragment extends Fragment {
                 lyPrincipale.removeAllViews();
 
                 FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         final LinearLayout lyPrincipale=root.findViewById(R.id.pr_boll_layout);
@@ -272,11 +276,11 @@ public class ViewBolletteFragment extends Fragment {
                                         ,ds.getValue(House.class).getBills()
                                         ,ds.getValue(House.class).getSsid());
                                 if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
-                                    for (HashMap<String, String> dettagli : h.getBills().values()) {
-                                        String[] info = dettagli.values().toArray(new String[0]);
+                                    ArrayList<Bill> sortedBill=h.ordinamentoTemporaleBolletteStorico();
+                                    for (Bill dettagli : sortedBill) {
 
-                                        if (info[4].equalsIgnoreCase("true")) {
-                                            Log.d(TAG, h.getName() + " / " + dettagli.values());
+
+                                        if (dettagli.isPayed().equalsIgnoreCase("true")) {
                                             //creazione linearlayout principale della bolletta con settaggio dei margini
                                             LinearLayout lySingolaBolletta = new LinearLayout(getActivity());
                                             lySingolaBolletta.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
@@ -299,20 +303,20 @@ public class ViewBolletteFragment extends Fragment {
                                             TextView tw_importo = new TextView(getActivity());
                                             tw_importo.setLayoutParams(tW);
                                             tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                            tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
+                                            tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(dettagli.getTotal()).append(System.getProperty("line.separator")).toString());
                                             TextView tw_datascadenza = new TextView(getActivity());
-                                            tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                            tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(dettagli.getExpiration()).toString());
                                             tw_datascadenza.setLayoutParams(tW);
                                             tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                             TextView tw_descr = new TextView(getActivity());
-                                            tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                            tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
                                             tw_descr.setLayoutParams(tW);
                                             tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
 
                                             //inserimento immagini in base alla loro natura e conseguente aggiunta di tutti gli elementi nel linear layout principale
-                                            if (info[4].equalsIgnoreCase("true")) {
+                                            if (dettagli.isPayed().equalsIgnoreCase("true")) {
 
-                                                switch (info[3].toLowerCase()) {
+                                                switch (dettagli.getType().toLowerCase()) {
                                                     case "gas":
                                                         img.setImageResource(R.drawable.gas);
                                                         break;
@@ -372,6 +376,7 @@ public class ViewBolletteFragment extends Fragment {
 
                 FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
 
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         final LinearLayout lyPrincipale= root.findViewById(R.id.pr_boll_layout);
@@ -385,10 +390,9 @@ public class ViewBolletteFragment extends Fragment {
                                         ,ds.getValue(House.class).getBills()
                                         ,ds.getValue(House.class).getSsid());
                                 if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
-                                    for (HashMap<String, String> dettagli : h.getBills().values()) {
-                                        String[] info = dettagli.values().toArray(new String[0]);
-                                        Log.d(TAG, h.getName() + " / " + dettagli.values());
-                                        if (info[4].equalsIgnoreCase("false")) {
+                                    ArrayList<Bill> sortedBill=h.ordinamentoTemporaleBollette();
+                                    for (Bill dettagli : sortedBill) {
+                                        if (dettagli.isPayed().equalsIgnoreCase("false")) {
                                             //Creazione Layout dinamico con inserimento dei vari elementi quali textbox e immagini
                                             LinearLayout lySingolaBolletta = new LinearLayout(getActivity());
                                             lySingolaBolletta.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
@@ -405,7 +409,7 @@ public class ViewBolletteFragment extends Fragment {
                                             img.setLayoutParams(marginImg);
                                             img.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
-                                            switch (info[3].toLowerCase()) {
+                                            switch (dettagli.getType().toLowerCase()) {
                                                 case "gas":
                                                     img.setImageResource(R.drawable.gas);
                                                     break;
@@ -435,13 +439,13 @@ public class ViewBolletteFragment extends Fragment {
                                             TextView tw_importo = new TextView(getActivity());
                                             tw_importo.setLayoutParams(tW);
                                             tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                            tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(info[0]).append(System.getProperty("line.separator")).toString());
+                                            tw_importo.setText(new StringBuilder().append(getString(R.string.import_bollette)).append(System.getProperty("line.separator")).append(dettagli.getTotal()).append(System.getProperty("line.separator")).toString());
                                             TextView tw_datascadenza = new TextView(getActivity());
-                                            tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(info[2]).toString());
+                                            tw_datascadenza.setText(new StringBuilder().append(getString(R.string.expiration_bollette)).append(System.getProperty("line.separator")).append(dettagli.getExpiration()).toString());
                                             tw_datascadenza.setLayoutParams(tW);
                                             tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                             TextView tw_descr = new TextView(getActivity());
-                                            tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(info[1]).toString());
+                                            tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
                                             tw_descr.setLayoutParams(tW);
                                             tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
 
