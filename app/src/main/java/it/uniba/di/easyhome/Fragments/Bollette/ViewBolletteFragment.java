@@ -1,4 +1,4 @@
-package it.uniba.di.easyhome.Fragments;
+package it.uniba.di.easyhome.Fragments.Bollette;
 
 import android.graphics.Color;
 import android.os.Bundle;

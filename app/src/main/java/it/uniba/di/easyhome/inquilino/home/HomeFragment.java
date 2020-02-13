@@ -36,21 +36,20 @@ import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.User;
-import it.uniba.di.easyhome.inquilino.Pulizie.PulizieFragment;
-import it.uniba.di.easyhome.Fragments.ViewBolletteFragment;
+import it.uniba.di.easyhome.inquilino.Pulizie.AddTurnPulizieFragment;
+import it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment;
 
 import static android.content.Context.WIFI_SERVICE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
-    DatabaseReference mDatabase;
+    private DatabaseReference mDatabase;
     private static final int LOCATION = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);
-          final EditText input =new EditText(getContext());
         ImageView imgChat=root.findViewById(R.id.inqImgAnnunci);
         ImageView imgClean=root.findViewById(R.id.inqImgPulizie);
 
@@ -177,11 +176,11 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",tw_NomeCasa.getText().toString());
-                PulizieFragment pulizieFragment=new PulizieFragment();
-                pulizieFragment.setArguments(bundle);
+                AddTurnPulizieFragment addTurnPulizieFragment =new AddTurnPulizieFragment();
+                addTurnPulizieFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
-                fragmentTransaction.replace(R.id.nav_host_fragment,pulizieFragment,"PULIZIE");
+                fragmentTransaction.replace(R.id.nav_host_fragment, addTurnPulizieFragment,"PULIZIE");
                 fragmentTransaction.commit();
             }
         });
@@ -217,21 +216,22 @@ public class HomeFragment extends Fragment {
                         }}
                         if (flag != 55) {
                             AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                            alert.setTitle("Entra in una casa");
+                            alert.setTitle(getResources().getString(R.string.titleInHome));
                             alert.setIcon(getResources().getDrawable(R.drawable.ic_person_add));
-                            alert.setMessage("Incolla il codice della casa a cui vui aggiungerti");
+                            alert.setMessage(getResources().getString(R.string.messageInHome));
                             final EditText edittext = new EditText(getActivity());
                             alert.setView(edittext);
-                            alert.setPositiveButton("Yes Option", new DialogInterface.OnClickListener() {
+                            alert.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     //What ever you want to do with the value
                                     String code = edittext.getText().toString();
                                     //Add inq in Home
                                     addToHome(code);
+                                    // Reload current fragment
                                 }
                             });
 
-                            alert.setNegativeButton("No Option", new DialogInterface.OnClickListener() {
+                            alert.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     // what ever you want to do with No option.
                                 }
@@ -286,15 +286,16 @@ public class HomeFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
                         House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        final HashMap<String,Object> inq = new HashMap<>();
+                        inq.put(currentUser.getUid(),"true");
                         if (h.getOwner().equals(code)) {
-                            final HashMap<String,String> inq = new HashMap<>();
-                            inq.put(currentUser.getUid(),"true");
-                            mDatabase.child("houses").child(ds.getKey()).child("inquilini").push().setValue(inq);
+                            mDatabase.child("houses").child(ds.getKey()).child("inquilini").updateChildren(inq);
                         }
                     }
                 }
 
-
+                startActivity(getActivity().getIntent());
+                getActivity().finish();
             }
 
             @Override

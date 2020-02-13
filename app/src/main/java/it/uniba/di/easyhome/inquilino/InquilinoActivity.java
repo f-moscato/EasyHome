@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +22,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,11 +43,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class InquilinoActivity extends AppCompatActivity  {
 
-    FloatingActionButton fab1,fab2,fab3;
-    Animation FabOpen,FabClose,FabClock,FabAntiClock;
-    TextView boll;
     SharedPref sharedpref;
-    boolean isOpen=false;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override

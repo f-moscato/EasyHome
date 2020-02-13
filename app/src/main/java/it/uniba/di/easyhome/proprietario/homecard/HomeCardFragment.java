@@ -27,9 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import it.uniba.di.easyhome.Fragments.AddBolletteFragment;
+import it.uniba.di.easyhome.Fragments.Bollette.AddBolletteFragment;
 import it.uniba.di.easyhome.Fragments.SendMessageFragment;
-import it.uniba.di.easyhome.Fragments.ViewBolletteFragment;
+import it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.User;
