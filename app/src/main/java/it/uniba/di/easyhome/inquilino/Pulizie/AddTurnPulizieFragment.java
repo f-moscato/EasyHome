@@ -46,17 +46,16 @@ public class AddTurnPulizieFragment extends Fragment {
         final Bundle bundle=getArguments();
         spinnerDay.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.giorni) ));
-         final ArrayList<String> spinnerInq=new ArrayList<>();
-
-
+         final ArrayList<String> spinnerTurn_1=new ArrayList<>();
+        final ArrayList<String> spinnerTurn_2=new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        spinnerInq.clear();
-                        spinnerInq.add("nessuno");
+                        spinnerTurn_1.clear();
+                        spinnerTurn_2.clear();
+                        spinnerTurn_2.add("nessuno");
                         House h = new House(ds.getValue(House.class).getName(),
                                 ds.getValue(House.class).getOwner(),
                                 ds.getValue(House.class).getInquilini(),
@@ -74,13 +73,14 @@ public class AddTurnPulizieFragment extends Fragment {
 
                                                     User user=dataSnapshot.getValue(User.class);
                                                         // invio delle notifiche
-                                            spinnerInq.add(user.getName()+" "+user.getSurname());
+                                            spinnerTurn_1.add(user.getName()+" "+user.getSurname());
+                                            spinnerTurn_2.add(user.getName()+" "+user.getSurname());
                                                     break;
                                         }
                                         spinnerInq_1.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                                                android.R.layout.simple_list_item_1 ,spinnerInq ));
+                                                android.R.layout.simple_list_item_1 ,spinnerTurn_1 ));
                                         spinnerInq_2.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                                                android.R.layout.simple_list_item_1 ,spinnerInq ));
+                                                android.R.layout.simple_list_item_1 ,spinnerTurn_2 ));
                                     }
 
                                     @Override
@@ -107,7 +107,6 @@ bt.setOnClickListener(new View.OnClickListener() {
         String t_1=spinnerInq_1.getSelectedItem().toString();
         String t_2=spinnerInq_2.getSelectedItem().toString();
         String desc= d.getText().toString();
-        if(t_1!="nessuno"){
         if(t_1!=t_2){
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -179,19 +178,6 @@ bt.setOnClickListener(new View.OnClickListener() {
             });
             alert.show();
             }
-        }else{
-            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-            alert.setTitle(getResources().getString(R.string.avviso));
-            alert.setIcon(getResources().getDrawable(R.drawable.alert));
-            alert.setMessage(getResources().getString(R.string.turn1_error));
-            alert.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            alert.show();
-        }
     }
 });
 

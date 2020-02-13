@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,16 +23,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.Pulizia;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.inquilino.home.HomeFragment;
 
 public class ViewTurnPulizieFragment extends Fragment {
     DatabaseReference mDatabase;
+
     final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.view_turn_pulizie_fragment, container, false);
-            final Bundle bundle=getArguments();
+            final ImageButton add= root.findViewById(R.id.add_clean);
+            final Bundle c=getArguments();
             final LinearLayout lyPrincipale= root.findViewById(R.id.clean_layout);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -99,7 +104,19 @@ public class ViewTurnPulizieFragment extends Fragment {
 
                     }
                 });
-
+add.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Bundle bundle=new Bundle();
+        bundle.putString("nomeCasa",(c.getString("nomeCasa")));
+        AddTurnPulizieFragment pulizieFragment=new AddTurnPulizieFragment();
+        pulizieFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+        fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
+        fragmentTransaction.replace(R.id.nav_host_fragment,pulizieFragment,"PULIZIE");
+        fragmentTransaction.commit();
+    }
+});
         return root;
     }
 

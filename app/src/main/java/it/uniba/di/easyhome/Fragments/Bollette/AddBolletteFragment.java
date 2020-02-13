@@ -95,7 +95,6 @@ public class AddBolletteFragment extends Fragment {
                 fragmentTransaction.add(new HomeFragment(), "ListaCase").addToBackStack(HomeFragment.class.getName());
                 fragmentTransaction.replace(R.id.nav_host_fragment, homeCardFragment, "PROVA");
                 fragmentTransaction.commit();
-
             }
 
         });

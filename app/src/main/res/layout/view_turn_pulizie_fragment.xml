@@ -14,15 +14,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/turn_clean"
+        android:textStyle="bold"
     android:textSize="35dp"/>
-        <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-            android:background="@drawable/pulizie"/>
 
-
-
-    </LinearLayout>
+        <ImageButton
+            android:layout_width="54dp"
+            android:layout_height="59dp"
+            android:id="@+id/add_clean"
+            android:background="@drawable/ic_fab_principale" />
+       </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
