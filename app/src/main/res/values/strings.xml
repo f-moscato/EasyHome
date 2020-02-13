@@ -77,8 +77,10 @@
     <string name="turn1_error" >Select a turn 1</string>
     <string name="turn2_error">Select a different turn 2</string>
     <string name="titleInHome">Enter a house</string>
-    <string name="messageInHome">Paste the code of the house you want to add yourself to</string>
-
+    <string name="data">Date:</string>
+    <string name="turn_1" translatable="false">Turn 1:</string>
+    <string name="turn_2" translatable="false">Turn 2:</string>
+    <string name="turn_clean">Cleaning shifts:</string>
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>

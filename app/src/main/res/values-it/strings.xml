@@ -56,5 +56,28 @@
     <string name="home_add">Aggiungi casa</string>
     <string name="popup_pagamentoBolletta">Pagamento bolletta</string>
     <string name="popup_pagamentoBolletta_corpo">Sei sicuro di pagare questa bolletta?</string>
-
+    <string name="add_bill">Aggiungi Bolletta</string>
+    <string name="avviso">Avviso</string>
+    <string name="data">Data:</string>
+    <string name="messageDayCopy">Esiste già un turno di pulizie in questo giorno lo vuoi modificare?</string>
+    <string name="si">Si</string>
+    <string name="titleInHome">Entra in una casa</string>
+    <string name="turn1_error">Selezionare un turn 1</string>
+    <string name="turn2_error">Selezionare un turn 2 differente</string>
+    <string name="turn_clean">Turni di pulizie:</string>
+    <string-array name="tipo">
+        <item>Gas</item>
+        <item>Elettricità</item>
+        <item>Acqua</item>
+        <item>Altro</item>
+    </string-array>
+    <string-array name="giorni">
+        <item>Lunedì</item>
+        <item>Martedì</item>
+        <item>Mercoledì</item>
+        <item>Giovedì</item>
+        <item>Venerdì</item>
+        <item>Sabato</item>
+        <item>Domenica</item>
+    </string-array>
 </resources>

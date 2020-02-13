@@ -104,12 +104,15 @@ public class ViewBolletteFragment extends Fragment {
                                             img.setImageResource(R.drawable.gas);
                                             break;
                                         case "energy":
+                                        case "elettricità":
                                             img.setImageResource(R.drawable.energy);
                                             break;
                                         case "water":
+                                        case "acqua":
                                             img.setImageResource(R.drawable.acqua);
                                             break;
                                         case "other":
+                                        case "altro":
                                             img.setImageResource(R.drawable.other);
                                             break;
                                         default:
@@ -313,12 +316,15 @@ public class ViewBolletteFragment extends Fragment {
                                                         img.setImageResource(R.drawable.gas);
                                                         break;
                                                     case "energy":
+                                                    case "elettricità":
                                                         img.setImageResource(R.drawable.energy);
                                                         break;
                                                     case "water":
+                                                    case "acqua":
                                                         img.setImageResource(R.drawable.acqua);
                                                         break;
                                                     case "other":
+                                                    case "altro":
                                                         img.setImageResource(R.drawable.other);
                                                         break;
                                                     default:
@@ -406,12 +412,15 @@ public class ViewBolletteFragment extends Fragment {
                                                     img.setImageResource(R.drawable.gas);
                                                     break;
                                                 case "energy":
+                                                case "elettricità":
                                                     img.setImageResource(R.drawable.energy);
                                                     break;
                                                 case "water":
+                                                case "acqua":
                                                     img.setImageResource(R.drawable.acqua);
                                                     break;
                                                 case "other":
+                                                case "altro":
                                                     img.setImageResource(R.drawable.other);
                                                     break;
                                                 default:

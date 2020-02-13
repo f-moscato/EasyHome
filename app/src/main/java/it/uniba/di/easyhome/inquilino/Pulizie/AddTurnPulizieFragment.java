@@ -76,9 +76,7 @@ public class AddTurnPulizieFragment extends Fragment {
                                                         // invio delle notifiche
                                             spinnerInq.add(user.getName()+" "+user.getSurname());
                                                     break;
-
                                         }
-
                                         spinnerInq_1.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                                                 android.R.layout.simple_list_item_1 ,spinnerInq ));
                                         spinnerInq_2.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
