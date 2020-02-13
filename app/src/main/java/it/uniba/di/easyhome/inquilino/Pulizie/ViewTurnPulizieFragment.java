@@ -58,33 +58,31 @@ public class ViewTurnPulizieFragment extends Fragment {
                                         LinearLayout.LayoutParams margin = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                         margin.setMargins(20, 45, 15, 0);
                                         lySingolaBolletta.setLayoutParams(margin);
-
-
-                                        //settaggio textbox che contengono le caratteristiche delle bollette
+                                        //settaggio textbox che contengono le caratteristiche delle turni pulizie
                                         LinearLayout.LayoutParams tW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                         tW.setMargins(35, 60, 65, 0);
-                                        TextView tw_importo = new TextView(getActivity());
-                                        tw_importo.setLayoutParams(tW);
-                                        tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                        tw_importo.setText(new StringBuilder().append(getString(R.string.turn_1)).append(System.getProperty("line.separator")).append(p.getTurn_1()));
-                                        TextView tw_importo_2 = new TextView(getActivity());
-                                        tw_importo_2.setLayoutParams(tW);
-                                        tw_importo_2.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                        tw_importo_2.setText(new StringBuilder().append(getString(R.string.turn_2)).append(System.getProperty("line.separator")).append(p.getTurn_2()));
-                                        TextView tw_datascadenza = new TextView(getActivity());
-                                        tw_datascadenza.setText(new StringBuilder().append(getString(R.string.day)).append(System.getProperty("line.separator")).append(p.getDay()));
-                                        tw_datascadenza.setLayoutParams(tW);
-                                        tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        TextView tw_turn_1 = new TextView(getActivity());
+                                        tw_turn_1.setLayoutParams(tW);
+                                        tw_turn_1.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        tw_turn_1.setText(new StringBuilder().append(getString(R.string.turn_1)).append(System.getProperty("line.separator")).append(p.getTurn_1()));
+                                        TextView tw_turn2 = new TextView(getActivity());
+                                        tw_turn2.setLayoutParams(tW);
+                                        tw_turn2.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        tw_turn2.setText(new StringBuilder().append(getString(R.string.turn_2)).append(System.getProperty("line.separator")).append(p.getTurn_2()));
+                                        TextView tw_data = new TextView(getActivity());
+                                        tw_data.setText(new StringBuilder().append(getString(R.string.day)).append(System.getProperty("line.separator")).append(p.getDay()));
+                                        tw_data.setLayoutParams(tW);
+                                        tw_data.setTextColor(getResources().getColor(R.color.colorPrimary));
                                         TextView tw_descr = new TextView(getActivity());
                                         tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(p.getDescrzione()));
                                         tw_descr.setLayoutParams(tW);
                                         tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
 
-                                        //inserimento delle immagini e delle text box nel linear layout principale
-                                        lySingolaBolletta.addView(tw_datascadenza);
+                                        //inserimento delle text box nel linear layout principale
+                                        lySingolaBolletta.addView(tw_data);
                                         lySingolaBolletta.addView(tw_descr);
-                                        lySingolaBolletta.addView(tw_importo);
-                                        lySingolaBolletta.addView(tw_importo_2);
+                                        lySingolaBolletta.addView(tw_turn_1);
+                                        lySingolaBolletta.addView(tw_turn2);
                                         lyPrincipale.addView(lySingolaBolletta);
                                     }
                                 }
