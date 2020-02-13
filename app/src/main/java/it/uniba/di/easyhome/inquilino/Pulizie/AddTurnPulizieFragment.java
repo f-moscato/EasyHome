@@ -57,7 +57,11 @@ public class AddTurnPulizieFragment extends Fragment {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         spinnerInq.clear();
                         spinnerInq.add("nessuno");
-                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        House h = new House(ds.getValue(House.class).getName(),
+                                ds.getValue(House.class).getOwner(),
+                                ds.getValue(House.class).getInquilini(),
+                                ds.getValue(House.class).getBills(),
+                                ds.getValue(House.class).getSsid());
                         if(h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
                             for (String inq : h.getInquilini().keySet()) {
                                 // ricerca degli inquilini presenti nella stessa casa
