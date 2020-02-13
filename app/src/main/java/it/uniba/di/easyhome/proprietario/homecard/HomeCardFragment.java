@@ -204,7 +204,7 @@ public class HomeCardFragment extends Fragment{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(final DataSnapshot ds: dataSnapshot.getChildren()) {
-                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills());
+                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills(),ds.getValue(House.class).getSsid());
                         if(h.getOwner().equals(currentUser.getUid())){
                             AlertDialog.Builder mBuilder= new AlertDialog.Builder(getContext());
                             mBuilder.setTitle(getResources().getText(R.string.id));

@@ -30,8 +30,8 @@ import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.User;
-import it.uniba.di.easyhome.inquilino.Pulizie.PulizieFragment;
-import it.uniba.di.easyhome.Fragments.ViewBolletteFragment;
+import it.uniba.di.easyhome.inquilino.Pulizie.AddTurnPulizieFragment;
+import it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",tw_NomeCasa.getText().toString());
-                PulizieFragment pulizieFragment=new PulizieFragment();
+                AddTurnPulizieFragment pulizieFragment=new AddTurnPulizieFragment();
                 pulizieFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
