@@ -68,6 +68,8 @@
     <string name="share">Share</string>
     <string name="id">Home code</string>
     <string name="atHome">Who\'s in the house:</string>
+    <string name="popup_pagamentoBolletta">Bill payment</string>
+    <string name="popup_pagamentoBolletta_corpo">Are you sure you\'re paying this bill?</string>
     <string name="no" translatable="false">No</string>
     <string name="avviso" >Allert</string>
     <string name="si">Yes</string>
