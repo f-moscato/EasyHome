@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.proprietario.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.Home;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 
 public class AddCasaFragment extends Fragment {
-
+    SharedPref sharedpref;
      FirebaseAuth mAuth;
 
     public static AddCasaFragment newInstance() {
@@ -40,8 +42,12 @@ public class AddCasaFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_casa_fragment, container, false);
         final FloatingActionButton back= (getActivity().findViewById(R.id.fab2_plus));
+        sharedpref=new SharedPref(getContext());
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
         textIndietro.setText(getResources().getString(R.string.back));
+        if(sharedpref.loadNightModeState()){
+            textIndietro.setTextColor(Color.WHITE);
+        }
         final Bundle bundle=getArguments();
         final Button btSendt=(Button) root.findViewById(R.id.HomeSend);
         //dichiarazione delle edit

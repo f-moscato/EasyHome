@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.inquilino.Pulizie;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,12 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.Pulizia;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.inquilino.home.HomeFragment;
 
 public class ViewTurnPulizieFragment extends Fragment {
     DatabaseReference mDatabase;
+    SharedPref sharedpref;
 
-    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -37,6 +37,7 @@ public class ViewTurnPulizieFragment extends Fragment {
             final ImageButton add= root.findViewById(R.id.add_clean);
             final Bundle c=getArguments();
             final LinearLayout lyPrincipale= root.findViewById(R.id.clean_layout);
+        sharedpref=new SharedPref(getContext());
         mDatabase = FirebaseDatabase.getInstance().getReference();
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -77,7 +78,12 @@ public class ViewTurnPulizieFragment extends Fragment {
                                         tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(p.getDescrzione()));
                                         tw_descr.setLayoutParams(tW);
                                         tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
-
+                                        if(sharedpref.loadNightModeState()){
+                                            tw_data.setTextColor(Color.WHITE);
+                                            tw_turn_1.setTextColor(Color.WHITE);
+                                            tw_turn2.setTextColor(Color.WHITE);
+                                            tw_descr.setTextColor(Color.WHITE);
+                                        }
                                         //inserimento delle text box nel linear layout principale
                                         lySingolaBolletta.addView(tw_data);
                                         lySingolaBolletta.addView(tw_descr);
@@ -102,6 +108,7 @@ public class ViewTurnPulizieFragment extends Fragment {
 
                     }
                 });
+
 add.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {

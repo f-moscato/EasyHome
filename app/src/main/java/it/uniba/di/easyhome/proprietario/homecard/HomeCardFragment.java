@@ -3,12 +3,13 @@ package it.uniba.di.easyhome.proprietario.homecard;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,17 +29,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.Fragments.Bollette.AddBolletteFragment;
-import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment;
+import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeCardFragment extends Fragment{
-    Animation FabOpen,FabClose;
-    boolean isOpen=false;
+    SharedPref sharedpref;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -46,11 +47,22 @@ public class HomeCardFragment extends Fragment{
         final View root = inflater.inflate(R.layout.home_card_fragment, container, false);
         final FloatingActionButton add_bill_fab= (getActivity().findViewById(R.id.fab2_plus));
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-
+        sharedpref=new SharedPref(getContext());
+        ImageView imgChat=root.findViewById(R.id.prImgAnnunci);
+        ImageView imgBill=root.findViewById(R.id.prImgBill);
+        imgChat.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+        imgBill.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+        sharedpref=new SharedPref(getContext());
+        if(sharedpref.loadNightModeState()){
+            imgChat.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+            imgBill.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        }
         //Setting Back's Button
         add_bill_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
         textIndietro.setText(getResources().getString(R.string.add_bill));
-
+        if(sharedpref.loadNightModeState()){
+           textIndietro.setTextColor(Color.WHITE);
+        }
         final Bundle bundle=getArguments();
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
         twNomeCasa.setText(bundle.getString("nomeCasa"));

@@ -42,9 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         }else{
             this.setAppLocale("it");
         }
-        if(sharedpref.loadNightModeState()==true){
-            this.setTheme(R.style.darktheme);
-        }
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
         // [START initialize_database_ref]
