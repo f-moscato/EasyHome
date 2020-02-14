@@ -20,21 +20,36 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
 import it.uniba.di.easyhome.Bill;
+import it.uniba.di.easyhome.Notifiche.APIService;
+import it.uniba.di.easyhome.Notifiche.Client;
+import it.uniba.di.easyhome.Notifiche.Data;
+import it.uniba.di.easyhome.Notifiche.Response;
+import it.uniba.di.easyhome.Notifiche.Sender;
+import it.uniba.di.easyhome.Notifiche.Token;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
+import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.proprietario.home.HomeFragment;
 import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class AddBolletteFragment extends Fragment {
+    private final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private APIService apiService;
+
     DatePickerDialog dpd;
      DatabaseReference mDatabase;
      String pay;
@@ -49,6 +64,8 @@ public class AddBolletteFragment extends Fragment {
         View root = inflater.inflate(R.layout.add_bollette_fragment, container, false);
         final FloatingActionButton back= (getActivity().findViewById(R.id.fab2_plus));
         sharedpref=new SharedPref(getContext());
+        apiService= Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
+
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
         final Calendar c=Calendar.getInstance();
         final Spinner mySpinner = (Spinner) root.findViewById(R.id.spinner);
@@ -118,14 +135,45 @@ public class AddBolletteFragment extends Fragment {
                                     tot = totale.getText().toString();
                                     date = data.getText().toString();
                                     if(pay.equals("No")){
-                                  pay="false";
+                                        pay="false";
                                     }else{
                                         pay="true";
                                     }
-                                    String pr=(bundle.getString("Casa"));
-                                    writeNewBill(date, pay, type, desc, tot,pr);
+                                    String codCasa=(bundle.getString("Casa"));
+                                    writeNewBill(date, pay, type, desc, tot,codCasa);
 
-                                    Toast.makeText(getActivity(), pr,
+                                    //invio notifiche agli inquilini per avvisarli dell'inserimneto della nuova bolletta
+                                    DatabaseReference refInquilini=FirebaseDatabase.getInstance().getReference("houses/"+codCasa+"/inquilini");
+                                    refInquilini.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot ds1:dataSnapshot.getChildren()){
+                                                final DatabaseReference database=FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
+                                                database.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        User user=dataSnapshot.getValue(User.class);
+
+                                                            // invio delle notifiche
+                                                          sendNotification(ds1.getKey(),tot+ getString(R.string.notification_new_bill_body)+""+date ,type,codCasa);
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                    Toast.makeText(getActivity(), codCasa,
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -150,4 +198,64 @@ return root;
         mDatabase.child("houses").child(casa).child("bills").push().setValue(bill);
     }
 
+
+    private void sendNotification(String rec, final String mess, String title, String codCasa){
+        DatabaseReference allToken=FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query=allToken.orderByKey().equalTo(rec);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds:dataSnapshot.getChildren()){
+
+                    Token token=ds.getValue(Token.class);
+
+                    //ricerca dei codici identificativi deii destinatari delle notifiche.
+                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference("houses/"+codCasa+"/inquilini");
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot ds:dataSnapshot.getChildren()) {
+
+                                //selezione di tutti gli inquilini tranne che il mittente(se il mittente è un Inquilino).
+                                if(!ds.getKey().equals(currentUser.getUid())){
+                                    String codInquilino=ds.getKey();
+                                    // craezione oggetto data contenente tutti le caratteristiche fondamentali per l'invio del messaggio.
+                                    Data data= new Data(currentUser.getUid(),title+" : "+mess, getResources().getString(R.string.notification_new_bill_title),codInquilino,R.drawable.easyhome);
+
+                                    //invio della notifica contente  il messaggio.
+                                    Sender sender=new Sender(data,token.getToken());
+                                    apiService.sendNotification(sender)
+                                            .enqueue(new Callback<Response>() {
+                                                @Override
+                                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent)+response.message(), Toast.LENGTH_SHORT).show();
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Response> call, Throwable t) {
+                                                    Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
