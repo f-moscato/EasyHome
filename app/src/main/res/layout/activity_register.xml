@@ -31,6 +31,7 @@
         </FrameLayout>
 
         <RelativeLayout
+            android:id="@+id/rlEmailRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
@@ -71,6 +72,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlPasswordRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
@@ -110,6 +112,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlRePassRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
@@ -149,6 +152,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlNameRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
@@ -184,6 +188,7 @@
 
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rlSurnameRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
@@ -262,7 +267,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="18.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_fill__rounded_color"
+            android:background="@drawable/yellow_fill__rounded_color"
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
