@@ -80,4 +80,6 @@
         <item>Sabato</item>
         <item>Domenica</item>
     </string-array>
+    <string name="notification_new_bill_body">€  Scadenza:</string>
+    <string name="notification_new_bill_title">Nuova bolletta inserita</string>
 </resources>
