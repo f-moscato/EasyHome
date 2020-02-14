@@ -20,8 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
         <TextView
             android:id="@+id/text_home"
             android:layout_width="match_parent"
@@ -31,7 +29,7 @@
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
             android:textSize="30sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?attr/textcolor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -58,6 +56,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:id="@+id/inqImgBill"
                 android:background="@drawable/bill"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20dp" />
@@ -67,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/menu_bollette"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?attr/textcolor"
                 android:textSize="25dp" />
 
         </LinearLayout>
@@ -92,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/cleaning"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?attr/textcolor"
                 android:textSize="25dp" />
 
         </LinearLayout>
@@ -105,7 +104,6 @@
             android:orientation="horizontal"
             android:padding="10dp"
             android:onClick="onClick"
-
             android:clickable="true"
             android:focusable="true">
 
@@ -120,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/annunci"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?attr/textcolor"
                 android:textSize="25dp"/>
 
         </LinearLayout>

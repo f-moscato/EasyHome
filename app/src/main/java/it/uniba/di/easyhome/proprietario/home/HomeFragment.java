@@ -3,6 +3,7 @@ package it.uniba.di.easyhome.proprietario.home;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,22 +29,27 @@ import com.google.firebase.database.ValueEventListener;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
 
-
+    SharedPref sharedpref;
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
         final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
         final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab3_plus));
+        sharedpref=new SharedPref(getContext());
         //Start FAB AddInquilino
         final FloatingActionButton add_inq_fab= (getActivity().findViewById(R.id.fab2_plus));
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
         textIndietro.setText(getResources().getString(R.string.add_inq));
+        if(sharedpref.loadNightModeState()){
+            textIndietro.setTextColor(Color.WHITE);
+        }
         add_inq_fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_add));
         add_inq_fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +107,10 @@ public class HomeFragment extends Fragment {
                         tw.setText(h.getName());
                         tw.setLayoutParams(tW);
                         tw.setTextColor(getResources().getColor(R.color.colorPrimary));
+                            if(sharedpref.loadNightModeState()){
+                                img.setColorFilter(getResources().getColor(R.color.colorAccent));
+                                tw.setTextColor(Color.WHITE);
+                            }
                         lyl.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">#fcfcfc</item>
         <item name="cardbackground">#ffffff</item>
-        <item name="textcolor">#ffffff</item>
+        <item name="textcolor">@color/colorPrimary</item>
         <item name="tintcolor">#ffffff</item>
 
     </style>

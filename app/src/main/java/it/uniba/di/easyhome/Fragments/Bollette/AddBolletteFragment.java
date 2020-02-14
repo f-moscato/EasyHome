@@ -1,6 +1,7 @@
 package it.uniba.di.easyhome.Fragments.Bollette;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ import it.uniba.di.easyhome.Notifiche.Response;
 import it.uniba.di.easyhome.Notifiche.Sender;
 import it.uniba.di.easyhome.Notifiche.Token;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.proprietario.home.HomeFragment;
 import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
@@ -55,11 +57,13 @@ public class AddBolletteFragment extends Fragment {
      String desc;
      String tot;
      String date;
+    SharedPref sharedpref;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_bollette_fragment, container, false);
         final FloatingActionButton back= (getActivity().findViewById(R.id.fab2_plus));
+        sharedpref=new SharedPref(getContext());
         apiService= Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
@@ -68,6 +72,9 @@ public class AddBolletteFragment extends Fragment {
         final Spinner spinnerPay = (Spinner) root.findViewById(R.id.spinnerPay);
         final TextView data=(TextView) root.findViewById(R.id.data);
         textIndietro.setText(getResources().getString(R.string.back));
+        if(sharedpref.loadNightModeState()){
+            textIndietro.setTextColor(Color.WHITE);
+        }
 
         final Button dataBt=(Button) root.findViewById(R.id.dataBt);
         //dichiarazione delle edit

@@ -2,6 +2,7 @@ package it.uniba.di.easyhome.inquilino.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment;
 import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.inquilino.Pulizie.ViewTurnPulizieFragment;
 
@@ -38,21 +40,23 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class HomeFragment extends Fragment {
     DatabaseReference mDatabase;
     final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
+    SharedPref sharedpref;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);
-          final EditText input =new EditText(getContext());
         ImageView imgChat=root.findViewById(R.id.inqImgAnnunci);
         ImageView imgClean=root.findViewById(R.id.inqImgPulizie);
-
-
-
-
-        imgChat.setColorFilter(getResources().getColor(R.color.colorPrimary));
-        imgClean.setColorFilter(getResources().getColor(R.color.colorPrimary));
-
+        ImageView imgBill=root.findViewById(R.id.inqImgBill);
+        imgChat.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+        imgBill.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+        imgClean.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+        sharedpref=new SharedPref(getContext());
+        if(sharedpref.loadNightModeState()){
+            imgChat.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+            imgClean.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+            imgBill.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        }
         final LinearLayout ly_AtHome=root.findViewById(R.id.ly_AtHome);
         ly_AtHome.removeAllViews();
 

@@ -2,11 +2,9 @@ package it.uniba.di.easyhome.Fragments.Bollette;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,19 +28,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.HashMap;
 
 import it.uniba.di.easyhome.Bill;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 public class ViewBolletteFragment extends Fragment {
-
+    SharedPref sharedpref;
     private View root;
 
     final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -99,11 +94,14 @@ public class ViewBolletteFragment extends Fragment {
                                     LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                     marginImg.setMargins(30,78,15,8);
                                     ImageView img = new ImageView(getActivity());
+                                    sharedpref=new SharedPref(getContext());
                                     marginImg.height=80;
                                     marginImg.width=80;
                                     img.setLayoutParams(marginImg);
                                     img.setColorFilter(getResources().getColor(R.color.colorPrimary));
-
+                                    if(sharedpref.loadNightModeState()){
+                                         img.setColorFilter(getResources().getColor(R.color.colorAccent));
+                                    }
                                     switch (dettagli.getType().toLowerCase()) {
                                         case "gas":
                                             img.setImageResource(R.drawable.gas);
@@ -130,6 +128,9 @@ public class ViewBolletteFragment extends Fragment {
                                     imgAlert.setImageResource(R.drawable.alert);
                                     imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
                                     imgAlert.setLayoutParams(marginImg);
+                                    if(sharedpref.loadNightModeState()){
+                                        imgAlert.setColorFilter(getResources().getColor(R.color.colorNotAtHome));
+                                    }
 
                                     //controllo se l'utente che ha effettuato l'accesso al fragemnt è proprietario
                                     // SOLO I PROPIETARI POSSONO DEFINIRE UN BOLLETTA PAGATA O MENO
@@ -221,6 +222,11 @@ public class ViewBolletteFragment extends Fragment {
                                     tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
                                     tw_descr.setLayoutParams(tW);
                                     tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                    if(sharedpref.loadNightModeState()){
+                                        tw_importo.setTextColor(Color.WHITE);
+                                        tw_datascadenza.setTextColor(Color.WHITE);
+                                        tw_descr.setTextColor(Color.WHITE);
+                                    }
 
                                     //inserimento delle immagini e delle text box nel linear layout principale
                                     lySingolaBolletta.addView(img);
@@ -297,6 +303,9 @@ public class ViewBolletteFragment extends Fragment {
                                             ImageView img = new ImageView(getActivity());
                                             img.setLayoutParams(marginImg);
                                             img.setColorFilter(getResources().getColor(R.color.colorPrimary));
+                                            if(sharedpref.loadNightModeState()){
+                                                img.setColorFilter(getResources().getColor(R.color.colorAccent));
+                                            }
 
                                             //settaggio textbox che contengono le caratteristiche delle bollette
                                             LinearLayout.LayoutParams tW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -313,6 +322,11 @@ public class ViewBolletteFragment extends Fragment {
                                             tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
                                             tw_descr.setLayoutParams(tW);
                                             tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                            if(sharedpref.loadNightModeState()){
+                                                tw_importo.setTextColor(Color.WHITE);
+                                                tw_datascadenza.setTextColor(Color.WHITE);
+                                                tw_descr.setTextColor(Color.WHITE);
+                                            }
 
                                             //inserimento immagini in base alla loro natura e conseguente aggiunta di tutti gli elementi nel linear layout principale
                                             if (dettagli.isPayed().equalsIgnoreCase("true")) {
@@ -412,6 +426,9 @@ public class ViewBolletteFragment extends Fragment {
                                             ImageView img = new ImageView(getActivity());
                                             img.setLayoutParams(marginImg);
                                             img.setColorFilter(getResources().getColor(R.color.colorPrimary));
+                                            if(sharedpref.loadNightModeState()){
+                                                img.setColorFilter(getResources().getColor(R.color.colorAccent));
+                                            }
 
                                             switch (dettagli.getType().toLowerCase()) {
                                                 case "gas":
@@ -439,7 +456,9 @@ public class ViewBolletteFragment extends Fragment {
                                             imgAlert.setImageResource(R.drawable.alert);
                                             imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
                                             imgAlert.setLayoutParams(marginImg);
-
+                                            if(sharedpref.loadNightModeState()){
+                                                imgAlert.setColorFilter(getResources().getColor(R.color.colorNotAtHome));
+                                            }
                                             //settaggio textbox che contengono le caratteristiche delle bollette
                                             LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                             tW.setMargins(35,60,35,0);
@@ -455,6 +474,11 @@ public class ViewBolletteFragment extends Fragment {
                                             tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
                                             tw_descr.setLayoutParams(tW);
                                             tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                            if(sharedpref.loadNightModeState()){
+                                                tw_importo.setTextColor(Color.WHITE);
+                                                tw_datascadenza.setTextColor(Color.WHITE);
+                                                tw_descr.setTextColor(Color.WHITE);
+                                            }
 
                                             //inserimento delle immagini e delle text box nel linear layout principale
                                             lySingolaBolletta.addView(img);
