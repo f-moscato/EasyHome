@@ -29,6 +29,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
@@ -69,6 +70,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
@@ -115,7 +117,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="18.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_fill__rounded_color"
+            android:background="@drawable/yellow_fill__rounded_color"
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
@@ -209,17 +211,5 @@
 
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/mac_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="662dp"
-        android:layout_marginEnd="354dp"
-        android:layout_marginBottom="165dp"
-        android:text="" />
 
 </RelativeLayout>

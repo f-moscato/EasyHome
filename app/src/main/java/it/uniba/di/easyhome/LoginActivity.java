@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,6 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             this.setAppLocale("it");
         }
+        if(sharedpref.loadNightModeState()){
+            this.setTheme(R.style.darktheme);
+        }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION);}
         setContentView(R.layout.activity_login5);
@@ -59,11 +62,8 @@ public class LoginActivity extends AppCompatActivity {
         Button register= findViewById(R.id.B_register);
         final EditText ET_email=findViewById(R.id.username_input);
         final EditText ET_password= findViewById(R.id.pass);
-        TextView mac= findViewById(R.id.mac_1);
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService (Context.WIFI_SERVICE);
-        WifiInfo info = wifiManager.getConnectionInfo ();
-        String ssid  = info.getSSID();
-            mac.setText(ssid);
+        final RelativeLayout rlEmail=findViewById(R.id.rlEmail);
+        final RelativeLayout rlPass=findViewById(R.id.rlPass);
 
 
         // [START initialize_auth]
@@ -85,25 +85,33 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signInWithEmailAndPassword(ET_email.getText().toString().trim(),ET_password.getText().toString().trim())
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    updateUI(user);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                    updateUI(null);
-                                }
+                if(ET_email.getText().toString().equals("") || ET_password.getText().toString().equals("")){
+                    rlEmail.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                    rlPass.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                }else{
+                    mAuth.signInWithEmailAndPassword(ET_email.getText().toString().trim(),ET_password.getText().toString().trim())
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d(TAG, "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        updateUI(user);
+                                    } else {
+                                        rlEmail.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                                        rlPass.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                        updateUI(null);
+                                    }
 
-                            }
-                        });
+                                }
+                            });
+                }
+
             }
         });
     }
@@ -112,11 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         Resources res = getResources();
         DisplayMetrics dm=res.getDisplayMetrics();
         Configuration conf =res.getConfiguration();
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
-            conf.setLocale(new Locale(localeCode.toLowerCase()));
-        }else{
-            conf.locale=new Locale(localeCode.toLowerCase());
-        }
+        conf.setLocale(new Locale(localeCode.toLowerCase()));
         res.updateConfiguration(conf,dm);
     }
 

@@ -43,7 +43,7 @@
         android:layout_below="@+id/messageToSend"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-145dp"
-        android:background="@drawable/blue_fill__rounded_color"
+        android:background="@drawable/yellow_fill__rounded_color"
         android:gravity="center"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"

@@ -3,7 +3,6 @@ package it.uniba.di.easyhome;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
         }else{
             this.setAppLocale("it");
         }
+        if(sharedpref.loadNightModeState()){
+            this.setTheme(R.style.darktheme);
+        }
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
         // [START initialize_database_ref]
@@ -58,6 +61,12 @@ public class RegisterActivity extends AppCompatActivity {
         RB_Pr.setChecked(false);
         Button BT_register=findViewById(R.id.buttonToRegister);
 
+        RelativeLayout rlEmail=findViewById(R.id.rlEmailRegistration);
+        RelativeLayout rlPass=findViewById(R.id.rlPasswordRegistration);
+        RelativeLayout rlRePass=findViewById(R.id.rlRePassRegistration);
+        RelativeLayout rlName=findViewById(R.id.rlNameRegistration);
+        RelativeLayout rlSurname=findViewById(R.id.rlSurnameRegistration);
+
 
 
         BT_register.setOnClickListener(new View.OnClickListener() {
@@ -65,59 +74,79 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String pass=ET_pass.getText().toString().trim();
                 String repass=ET_repass.getText().toString().trim();
-                if(pass.equals(repass)){
-                    mAuth.createUserWithEmailAndPassword(ET_mail.getText().toString().trim(), ET_pass.getText().toString().trim())
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
+                final String name=ET_name.getText().toString().trim();
+                String mail=ET_mail.getText().toString().trim();
+                String surname=ET_surname.getText().toString().trim();
 
-                                    final String name=ET_name.getText().toString().trim();
-                                    String mail=ET_mail.getText().toString().trim();
-                                    String pass=ET_pass.getText().toString().trim();
-                                    String repass=ET_repass.getText().toString().trim();
-                                    String surname=ET_surname.getText().toString().trim();
+                rlName.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                rlSurname.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                rlEmail.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                rlPass.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
+                rlRePass.setBackground(getResources().getDrawable(R.drawable.blue_border_rounded_cornwe));
 
+                if(!name.equals("") && !mail.equals("") && !pass.equals("") && !repass.equals("") && !surname.equals("")){
+                    if(pass.equals(repass)){
+                        mAuth.createUserWithEmailAndPassword(ET_mail.getText().toString().trim(), ET_pass.getText().toString().trim())
+                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "createUserWithEmail:success");
 
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d(TAG, "createUserWithEmail:success");
-
-                                        if(!RB_Inq.isChecked() && !RB_Pr.isChecked()){
-                                            Toast.makeText(RegisterActivity.this, "Choose Role!",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }else if(name.matches("") || mail.matches("")
+                                            if(!RB_Inq.isChecked() && !RB_Pr.isChecked()){
+                                                Toast.makeText(RegisterActivity.this, "Choose Role!",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }else if(name.matches("") || mail.matches("")
                                                     || pass.matches("") || surname.matches("")
                                                     || repass.matches("")){
-                                            Toast.makeText(RegisterActivity.this, "Compile all fields",
-                                                    Toast.LENGTH_SHORT).show();
-                                        } else{
-                                            FirebaseUser user = mAuth.getCurrentUser();
-                                            updateUI(user);
+                                                Toast.makeText(RegisterActivity.this, "Compile all fields",
+                                                        Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                updateUI(user);
 
-                                            if(RB_Inq.isChecked()){
-                                                writeNewUser(user.getUid(),mail,pass,name,surname,"I");
-                                            }else{
-                                                writeNewUser(user.getUid(),mail,pass,name,surname,"P");
+                                                if (RB_Inq.isChecked()) {
+                                                    writeNewUser(user.getUid(), mail, pass, name, surname, "I");
+                                                } else {
+                                                    writeNewUser(user.getUid(), mail, pass, name, surname, "P");
+                                                }
                                             }
 
-
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                            Toast.makeText(RegisterActivity.this, "Registration failed.",
+                                                    Toast.LENGTH_SHORT).show();
+                                            updateUI(null);
                                         }
 
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(RegisterActivity.this, "Registration failed.",
-                                                Toast.LENGTH_SHORT).show();
-                                        updateUI(null);
                                     }
-
-                                }
-                            });
-                }else {
-                    Toast.makeText(RegisterActivity.this, "Different Password.",
-                            Toast.LENGTH_SHORT).show();
-                    updateUI(null);
+                                });
+                    }else {
+                        rlPass.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                        rlRePass.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                        Toast.makeText(RegisterActivity.this, "Different Password", Toast.LENGTH_SHORT).show();
+                        updateUI(null);
+                    }
+                }else{
+                    if(name.equals("")){
+                        rlName.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                    }
+                    if(surname.equals("")){
+                        rlSurname.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                    }
+                    if(mail.equals("")){
+                        rlEmail.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                    }
+                    if(pass.equals("")){
+                        rlPass.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                    }
+                    if(repass.equals("")){
+                        rlRePass.setBackground(getResources().getDrawable(R.drawable.red_border_rounded_cornwe));
+                    }
                 }
+
             }
         });
 
@@ -148,11 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
         Resources res = getResources();
         DisplayMetrics dm=res.getDisplayMetrics();
         Configuration conf =res.getConfiguration();
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
-            conf.setLocale(new Locale(localeCode.toLowerCase()));
-        }else{
-            conf.locale=new Locale(localeCode.toLowerCase());
-        }
+        conf.setLocale(new Locale(localeCode.toLowerCase()));
         res.updateConfiguration(conf,dm);
     }
 
