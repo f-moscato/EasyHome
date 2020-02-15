@@ -39,9 +39,6 @@ public class ViewTurnPulizieFragment extends Fragment {
             final LinearLayout lyPrincipale= root.findViewById(R.id.clean_layout);
         sharedpref=new SharedPref(getContext());
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        if(sharedpref.loadNightModeState()){
-          
-            }
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
