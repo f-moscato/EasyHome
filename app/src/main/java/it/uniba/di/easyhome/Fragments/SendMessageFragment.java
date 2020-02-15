@@ -48,22 +48,16 @@ public class SendMessageFragment extends Fragment {
 
     private final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-
     private APIService apiService;
     private boolean notify=false;
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-
 
         final View root = inflater.inflate(R.layout.send_message_fragment, container, false);
         final Button btnSender= root.findViewById(R.id.buttonSendMessage);
         final EditText editTextMessage= root.findViewById(R.id.messageToSend);
         final EditText editTextTitleMessage= root.findViewById(R.id.messageTitle);
-
         //creazione servizio API
         apiService= Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 

@@ -72,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fab_margin"
                 android:text="@string/versione"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?attr/textcolor"
+                />
 
             <TextView
                 android:id="@+id/num"
@@ -80,7 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/ver"
                 android:text="  xxxxx.1"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?attr/textcolor"
+                />
 
             <TextView
                 android:id="@+id/emailText"
@@ -93,7 +95,8 @@
                 android:background="@null"
                 android:text="xxxxx@yyyy.it"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?attr/textcolor"
+                />
 
             <TextView
                 android:id="@+id/adress"
@@ -109,7 +112,8 @@
                 android:ems="10"
                 android:text="via Peppino Di Capri, 85, Milano, MI"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?attr/textcolor"
+                />
 
 
         </RelativeLayout>

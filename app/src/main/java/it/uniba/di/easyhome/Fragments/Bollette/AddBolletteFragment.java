@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -89,6 +90,30 @@ public class AddBolletteFragment extends Fragment {
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.tipo) ));
         spinnerPay.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.pay) ));
+        if(sharedpref.loadNightModeState()){
+            spinnerPay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
         dataBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
