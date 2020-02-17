@@ -60,7 +60,7 @@
                     android:id="@+id/inqName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nameInquilino_1" />
+                    android:text="@string/turn_1" />
 
                 <Spinner
                     android:id="@+id/spinnerInq"
@@ -88,7 +88,7 @@
                     android:id="@+id/inqName_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nameInquilino_2" />
+                    android:text="@string/turn_2" />
 
                 <Spinner
                     android:id="@+id/spinnerInq_2"

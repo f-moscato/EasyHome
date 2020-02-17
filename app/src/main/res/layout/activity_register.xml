@@ -23,10 +23,10 @@
             android:background="@drawable/blue_bg">
 
             <ImageView
-                android:layout_width="77dp"
-                android:layout_height="77dp"
+                android:layout_width="180dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="93dp"
+                android:layout_marginTop="55dp"
                 android:src="@drawable/easyhome" />
         </FrameLayout>
 
@@ -37,7 +37,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="36.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:background="@drawable/border_login">
 
             <!-- INPUT -->
 
@@ -50,6 +50,7 @@
                 android:layout_toRightOf="@+id/username_icon"
                 android:background="@android:color/transparent"
                 android:hint="Email"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
@@ -78,7 +79,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="12.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:background="@drawable/border_login">
 
             <!-- INPUT -->
             <EditText
@@ -88,6 +89,7 @@
                 android:layout_toRightOf="@+id/icon"
                 android:background="@android:color/transparent"
                 android:hint="Password"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:inputType="textPassword"
                 android:maxLength="10"
                 android:maxLines="1"
@@ -118,7 +120,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="12.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:background="@drawable/border_login">
 
             <!-- INPUT -->
 
@@ -131,6 +133,7 @@
                 android:layout_toRightOf="@+id/repassicon"
                 android:background="@android:color/transparent"
                 android:hint="Re-Password"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
@@ -158,7 +161,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="12.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:background="@drawable/border_login">
 
             <EditText
                 android:id="@+id/nameToRegister"
@@ -168,6 +171,7 @@
                 android:layout_toRightOf="@+id/name_icon"
                 android:background="@android:color/transparent"
                 android:hint="Name"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
@@ -194,7 +198,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="12.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:background="@drawable/border_login">
 
             <EditText
                 android:id="@+id/surnameToRegister"
@@ -204,6 +208,7 @@
                 android:layout_toRightOf="@+id/surname_icon"
                 android:background="@android:color/transparent"
                 android:hint="Surname"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingLeft="17dp"

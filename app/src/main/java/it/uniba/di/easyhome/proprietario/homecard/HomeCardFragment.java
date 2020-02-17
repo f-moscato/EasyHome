@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,6 +43,25 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeCardFragment extends Fragment{
     SharedPref sharedpref;
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.proprietario,menu);
+        menu.findItem(R.id.action_add_inq).setVisible(true);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        if(id==R.id.action_add_inq){
+            showCode();
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -136,10 +158,7 @@ public class HomeCardFragment extends Fragment{
 
 
                                     }
-                                }else{
-                                    Log.v(TAG,"ciao");
                                 }
-
                             }
 
                             @Override

@@ -35,7 +35,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="36.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:background="@drawable/border_login">
 
             <!-- INPUT -->
 
@@ -48,6 +48,7 @@
                 android:layout_toRightOf="@+id/username_icon"
                 android:background="@android:color/transparent"
                 android:hint="Email"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
@@ -76,7 +77,7 @@
             android:layout_marginLeft="62dp"
             android:layout_marginTop="12.7dp"
             android:layout_marginRight="62dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:background="@drawable/border_login">
 
             <!-- INPUT -->
             <EditText
@@ -87,6 +88,7 @@
                 android:background="@android:color/transparent"
                 android:hint="Password"
                 android:inputType="textPassword"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:maxLength="10"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
@@ -144,7 +146,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="-95dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/blue_border_rounded_cornwe"
+            android:background="@drawable/border_login"
             android:text="@string/register"
             android:textColor="@color/colorPrimary"
             android:textSize="10.5sp" />

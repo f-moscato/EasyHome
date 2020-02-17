@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -32,7 +31,7 @@ import it.uniba.di.easyhome.User;
 
 
 public class ProprietarioActivity extends AppCompatActivity {
-    FloatingActionButton fab1,fab2,fab3;
+    FloatingActionButton fab1,fab2;
     Animation FabOpen,FabClose,FabClock,FabAntiClock;
     TextView boll;
     SharedPref sharedpref;
@@ -56,7 +55,6 @@ public class ProprietarioActivity extends AppCompatActivity {
         }
         fab1= findViewById(R.id.fab_plus);
         fab2= findViewById(R.id.fab2_plus);
-        fab3= findViewById(R.id.fab3_plus);
         boll=findViewById(R.id.agg_boll);
         FabOpen= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
         FabClose= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
@@ -98,13 +96,6 @@ public class ProprietarioActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);// collega il menu laterale con il "selettore" dei fragment
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration); //crea l'hamburger per il menu laterale
         NavigationUI.setupWithNavController(navigationView, navController); // permette la selezione dei fragment(log out..)
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.proprietario, menu);
-        return true;
     }
 
     @Override

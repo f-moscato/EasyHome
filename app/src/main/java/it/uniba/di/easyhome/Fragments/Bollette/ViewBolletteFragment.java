@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,7 +44,12 @@ public class ViewBolletteFragment extends Fragment {
 
     final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
-
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.proprietario,menu);
+        menu.findItem(R.id.action_add_inq).setVisible(false);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
     if(getActivity().equals(ProprietarioActivity.class)) {

@@ -1,8 +1,5 @@
 package it.uniba.di.easyhome.proprietario.home;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,23 +37,21 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
-        final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
-        final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab3_plus));
         sharedpref=new SharedPref(getContext());
+
+        final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
+
+
         //Start FAB AddInquilino
-        final FloatingActionButton add_inq_fab= (getActivity().findViewById(R.id.fab2_plus));
+        final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab2_plus));
         final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-        textIndietro.setText(getResources().getString(R.string.add_inq));
+
+        textIndietro.setText(getResources().getString(R.string.home_add));
+
         if(sharedpref.loadNightModeState()){
             textIndietro.setTextColor(Color.WHITE);
         }
-        add_inq_fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_add));
-        add_inq_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCode();
-            }
-        });
+
 //Start FAB AddHome
         add_home_fab.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
         fab.show();
@@ -147,49 +142,4 @@ public class HomeFragment extends Fragment {
         rootRef.addListenerForSingleValueEvent(vel);
          return root;
     }
-public void showCode(){
-    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
-    rootRef.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if(dataSnapshot.exists()){
-                for(final DataSnapshot ds: dataSnapshot.getChildren()) {
-                    House h=new House(
-                            ds.getValue(House.class).getName()
-                            ,ds.getValue(House.class).getOwner()
-                            ,ds.getValue(House.class).getInquilini()
-                            ,ds.getValue(House.class).getBills()
-                            ,ds.getValue(House.class).getSsid());
-                    if(h.getOwner().equals(currentUser.getUid())){
-                       AlertDialog.Builder mBuilder= new AlertDialog.Builder(getContext());
-                       mBuilder.setTitle(getResources().getText(R.string.id));
-                       mBuilder.setIcon(R.drawable.ic_person_add);
-                      final String code=h.getOwner();
-                       mBuilder.setMessage(code);
-                       mBuilder.setPositiveButton(getResources().getText(R.string.share), new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               Intent myIntent=new Intent(Intent.ACTION_SEND);
-                               myIntent.setType("text/plain");
-                               myIntent.putExtra(Intent.EXTRA_SUBJECT,code);
-                               myIntent.putExtra(Intent.EXTRA_TEXT,code);
-                               startActivity(Intent.createChooser(myIntent,"Share using"));
-                           }
-                       });
-                       mBuilder.show();
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    });
-
-}
-
-
 }

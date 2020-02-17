@@ -225,7 +225,6 @@ public class InquilinoActivity extends AppCompatActivity  {
                                 ,ds.getValue(House.class).getInquilini()
                                 ,ds.getValue(House.class).getBills()
                                 ,ds.getValue(House.class).getSsid());
-                        Log.v(TAG, h.getName() + " / " +h.getInquilini().size()+"/"+currentUser.getDisplayName());
                         for(String cod:h.getInquilini().keySet()){
                             if(cod.equals(currentUser.getUid())){
                                 if(h.getSsid().equals(tryToReadSSID())){
