@@ -7,54 +7,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".proprietario.home.AddCasaFragment">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        app:cardBackgroundColor="?attr/cardbackground">
 
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="10dp">
+
 
             <TextView
-                android:id="@+id/casaView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/casa" />
+                android:text="New House"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="25dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-         <EditText
-                android:id="@+id/casa"
-             android:layout_marginLeft="120dp"
-             android:hint="@string/casa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/casaView" />
+                <TextView
+                    android:id="@+id/casaView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/casa" />
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <EditText
+                    android:id="@+id/casa"
+                    android:layout_marginLeft="120dp"
+                    android:hint="@string/casa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/casaView" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
-        app:cardBackgroundColor="?attr/cardbackground">
+            </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_marginTop="25dp">
 
 
-            <Button
-                android:id="@+id/HomeSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/send" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/HomeSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/send"
+                    android:background="@drawable/yellow_fill__rounded_color"
+                    android:layout_marginLeft="250dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
 
 </RelativeLayout>
