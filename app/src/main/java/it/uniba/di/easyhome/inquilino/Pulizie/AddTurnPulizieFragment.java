@@ -2,14 +2,17 @@ package it.uniba.di.easyhome.inquilino.Pulizie;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,12 +30,15 @@ import java.util.Calendar;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.Pulizia;
 import it.uniba.di.easyhome.R;
+import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 
 public class AddTurnPulizieFragment extends Fragment {
     int flag=0;
     String code_puli;
     DatabaseReference mDatabase;
+
+    SharedPref sharedpref;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -48,6 +54,45 @@ public class AddTurnPulizieFragment extends Fragment {
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.giorni) ));
          final ArrayList<String> spinnerTurn_1=new ArrayList<>();
         final ArrayList<String> spinnerTurn_2=new ArrayList<>();
+
+        sharedpref=new SharedPref(getContext());
+
+        if(sharedpref.loadNightModeState()){
+            spinnerDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spinnerInq_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spinnerInq_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+        }
         FirebaseDatabase.getInstance().getReference("houses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

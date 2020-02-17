@@ -51,7 +51,7 @@
     <string name="id">Codice casa</string>
     <string name="atHome">Chi è presente in casa:</string>
     <string name="day">Giorno:</string>
-    <string name="nameInquilino_1">Tuno 1:</string>
+    <string name="nameInquilino_1">Turno 1:</string>
     <string name="nameInquilino_2">Turno 2:</string>
     <string name="home_add">Aggiungi casa</string>
     <string name="popup_pagamentoBolletta">Pagamento bolletta</string>
