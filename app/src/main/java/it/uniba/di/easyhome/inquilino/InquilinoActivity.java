@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -98,12 +97,6 @@ public class InquilinoActivity extends AppCompatActivity  {
     public void onPause() {
         checkWiFi();
         super.onPause();
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.inquilino, menu);
-        return true;
     }
 
     @Override

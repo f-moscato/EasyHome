@@ -1,6 +1,5 @@
 package it.uniba.di.easyhome;
 
-import android.nfc.Tag;
 import android.os.Build;
 import android.util.Log;
 
@@ -24,6 +23,7 @@ public class House {
     private HashMap<String,String> inquilini= new HashMap<>();
    private HashMap<String,Bill> bills=new HashMap<>();
    private String ssid;
+   private String id;
 
     public House() {
     }
@@ -64,6 +64,14 @@ public class House {
         this.setInquilini(inq);
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public House(String name, String owner, HashMap<String, String> inquilini, HashMap<String, Bill> bills, String ssid) {
         this.name = name;
         this.owner = owner;
@@ -71,9 +79,22 @@ public class House {
         this.bills = bills;
         this.ssid = ssid;
     }
-
+    public House(String name, String owner, HashMap<String, String> inquilini, HashMap<String, Bill> bills, String ssid,String id) {
+        this.name = name;
+        this.owner = owner;
+        this.inquilini = inquilini;
+        this.bills = bills;
+        this.ssid = ssid;
+        this.id=id;
+    }
     public String getSsid() {
         return ssid;
+    }
+
+    public House(String name,String owner,String id){
+        this.owner=owner;
+        this.name=name;
+        this.id=id;
     }
 
     public void setSsid(String ssid) {

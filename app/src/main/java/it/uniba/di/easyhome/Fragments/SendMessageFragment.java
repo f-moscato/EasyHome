@@ -90,12 +90,8 @@ public class SendMessageFragment extends Fragment {
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
                 if(!task.isSuccessful()){
                     Log.v(TAG,"getIstanceID failed", task.getException());
-                    return;
                 }
 
-                String msg = task.getResult().getToken();
-                Log.v(TAG, msg);
-                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
             }
         });
 

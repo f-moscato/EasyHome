@@ -24,7 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import it.uniba.di.easyhome.Home;
+import java.util.UUID;
+
+import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 
@@ -106,10 +108,10 @@ public class AddCasaFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         owner=mAuth.getUid();
-        Home casa = new Home(home,owner);
+        House casa = new House(home,owner, UUID.randomUUID().toString().substring(0,5));
         mDatabase.child("houses").push().setValue(casa);
     }
 
-    }
+}
 
 

@@ -15,131 +15,134 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            android:text="New Turn"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25dp"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            app:cardBackgroundColor="?attr/cardbackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="@android:color/transparent">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:id="@+id/day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/day"
+                        android:gravity="center"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        android:theme="@style/spinnerTheme"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/day"
+                android:padding="10dp"
+                android:layout_marginTop="25dp"
+                android:background="@android:color/transparent">
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/day" />
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/inqName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/turn_1"
+                        android:gravity="center"/>
 
-                <Spinner
-                    android:id="@+id/spinnerDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
-                    android:layout_toEndOf="@+id/day" />
+                    <Spinner
+                        android:id="@+id/spinnerInq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        />
+                </LinearLayout>
 
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            app:cardBackgroundColor="?attr/cardbackground">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/inqName"
+                android:padding="10dp"
+                android:layout_marginTop="25dp" >
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/turn_1" />
+                    android:layout_height="match_parent">
 
-                <Spinner
-                    android:id="@+id/spinnerInq"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/inqName"
-                    android:backgroundTint="@color/colorAccent"
-                    />
+                    <TextView
+                        android:id="@+id/inqName_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/turn_2"
+                        android:gravity="center"/>
+                    <Spinner
+                        android:id="@+id/spinnerInq_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        />
+                </LinearLayout>
 
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            app:cardBackgroundColor="?attr/cardbackground">
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/inqName_2"
+                android:padding="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp">
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/turn_2" />
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/descView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description_bollette" />
 
-                <Spinner
-                    android:id="@+id/spinnerInq_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
-                    android:layout_toEndOf="@+id/inqName_2" />
+                    <EditText
+                        android:id="@+id/desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:backgroundTint="@android:color/transparent"
+                        android:background="?attr/cardbackground"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:layout_marginLeft="15dp"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
 
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            app:cardBackgroundColor="?attr/cardbackground">
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/descView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/description_bollette" />
-
-                <EditText
-                    android:id="@+id/desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="?attr/cardbackground"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine" />
-
-
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            app:cardBackgroundColor="?attr/cardbackground">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="90dp"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -147,8 +150,10 @@
                     android:id="@+id/SendPuli"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/send" />
+                    android:background="@drawable/yellow_fill__rounded_color"
+                    android:text="@string/send"
+                    android:layout_marginLeft="250dp"
+                    android:textColor="@color/white" />
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </ScrollView>

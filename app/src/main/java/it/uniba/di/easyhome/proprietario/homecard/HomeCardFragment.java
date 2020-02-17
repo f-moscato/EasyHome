@@ -230,17 +230,18 @@ public class HomeCardFragment extends Fragment{
     public void showCode(){
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
+        final Bundle bundle=getArguments();
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(final DataSnapshot ds: dataSnapshot.getChildren()) {
-                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills(),ds.getValue(House.class).getSsid());
-                        if(h.getOwner().equals(currentUser.getUid())){
+                        House h = new House(ds.getValue(House.class).getName(), ds.getValue(House.class).getOwner(), ds.getValue(House.class).getInquilini(), ds.getValue(House.class).getBills(),ds.getValue(House.class).getSsid(),ds.getValue(House.class).getId());
+                        if(h.getOwner().equals(currentUser.getUid()) && h.getName().equalsIgnoreCase(bundle.getString("nomeCasa"))){
                             AlertDialog.Builder mBuilder= new AlertDialog.Builder(getContext());
                             mBuilder.setTitle(getResources().getText(R.string.id));
                             mBuilder.setIcon(R.drawable.ic_person_add);
-                            final String code=h.getOwner();
+                            final String code=h.getId();
                             mBuilder.setMessage(code);
                             mBuilder.setPositiveButton(getResources().getText(R.string.share), new DialogInterface.OnClickListener() {
                                 @Override
@@ -253,6 +254,7 @@ public class HomeCardFragment extends Fragment{
                                 }
                             });
                             mBuilder.show();
+                            break;
                         }
                     }
                 }
