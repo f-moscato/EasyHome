@@ -24,6 +24,7 @@ public class House {
     private HashMap<String,String> inquilini= new HashMap<>();
    private HashMap<String,Bill> bills=new HashMap<>();
    private String ssid;
+   private String id;
 
     public House() {
     }
@@ -74,6 +75,12 @@ public class House {
 
     public String getSsid() {
         return ssid;
+    }
+
+    public House(String name,String owner,String id){
+        this.owner=owner;
+        this.name=name;
+        this.id=id;
     }
 
     public void setSsid(String ssid) {

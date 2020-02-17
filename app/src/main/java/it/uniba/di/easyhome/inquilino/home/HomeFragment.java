@@ -236,7 +236,7 @@ public class HomeFragment extends Fragment {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     //What ever you want to do with the value
                                     String code = edittext.getText().toString();
-                                    //Add inq in Home
+                                    //Add inq in House
                                     addToHome(code);
                                 }
                             });
