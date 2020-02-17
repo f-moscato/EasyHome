@@ -107,7 +107,7 @@ bt.setOnClickListener(new View.OnClickListener() {
         String t_1=spinnerInq_1.getSelectedItem().toString();
         String t_2=spinnerInq_2.getSelectedItem().toString();
         String desc= d.getText().toString();
-        if(t_1!=t_2){
+        if(!t_1.equalsIgnoreCase(t_2)){
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -50,17 +50,23 @@ public class ViewBolletteFragment extends Fragment {
         fab.hide();
         fab.setClickable(false);
     }
-
     root = inflater.inflate(R.layout.pr_fragment_bollette, container, false);
 
         final Button buttonNotPayed= root.findViewById(R.id.buttonNotPayed);
         final Button buttonHistory= root.findViewById(R.id.buttonHystoriBills);
-
+        sharedpref=new SharedPref(getContext());
         final Bundle bundle=getArguments();
-
         final LinearLayout lyPrincipale= root.findViewById(R.id.pr_boll_layout);
+
         lyPrincipale.removeAllViews();
-        buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
+        if(sharedpref.loadNightModeState()){
+            buttonNotPayed.setTextColor(Color.WHITE);
+            buttonHistory.setTextColor(Color.WHITE);
+            buttonHistory.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+        }else{
+            buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
         buttonNotPayed.setBackgroundColor(Color.TRANSPARENT);
         //Creazione del Value Listener; oggetto che permette l'acquisizione dei dati dal database su Firebase
         //il codice seguente mostra la sezione bollette non pagate al primo avvio del fragment
@@ -94,7 +100,7 @@ public class ViewBolletteFragment extends Fragment {
                                     LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                     marginImg.setMargins(30,78,15,8);
                                     ImageView img = new ImageView(getActivity());
-                                    sharedpref=new SharedPref(getContext());
+
                                     marginImg.height=80;
                                     marginImg.width=80;
                                     img.setLayoutParams(marginImg);
@@ -260,10 +266,16 @@ public class ViewBolletteFragment extends Fragment {
             public void onClick(View v) {
 
                 //cambio di visualizzazione dei button raffiguranti lo storico delle bollette e le bollette non pagate
-                buttonHistory.setTextColor(getResources().getColor(R.color.colorPrimary));
+                if(sharedpref.loadNightModeState()){
+                    buttonNotPayed.setTextColor(Color.WHITE);
+                    buttonHistory.setTextColor(Color.WHITE);
+                }else{
+                    buttonHistory.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    buttonNotPayed.setTextColor(getResources().getColor(R.color.white));
+                }
                 buttonHistory.setBackgroundColor(Color.TRANSPARENT);
                 buttonNotPayed.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                buttonNotPayed.setTextColor(getResources().getColor(R.color.white));
+
 
                 //"pulizia" del layout
                 lyPrincipale.removeAllViews();
@@ -384,10 +396,15 @@ public class ViewBolletteFragment extends Fragment {
             public void onClick(View v) {
 
                 //cambio di visualizzazione dei button raffiguranti lo storico delle bollette e le bollette non pagate
-                buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
-                buttonNotPayed.setBackgroundColor(Color.TRANSPARENT);
+                if(sharedpref.loadNightModeState()){
+                    buttonNotPayed.setTextColor(Color.WHITE);
+
+                }else{
+                    buttonNotPayed.setTextColor(getResources().getColor(R.color.colorPrimary));
+                }
+                buttonHistory.setTextColor(Color.WHITE);
                 buttonHistory.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                buttonHistory.setTextColor(getResources().getColor(R.color.white));
+                buttonNotPayed.setBackgroundColor(Color.TRANSPARENT);
 
                 //"pulizia" del layout
                 lyPrincipale.removeAllViews();
