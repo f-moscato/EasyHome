@@ -59,7 +59,17 @@ public class ViewTurnPulizieFragment extends Fragment {
                                         LinearLayout.LayoutParams margin = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                         margin.setMargins(20, 45, 15, 0);
                                         lySingolaBolletta.setLayoutParams(margin);
+
+
+
+
                                         //settaggio textbox che contengono le caratteristiche delle turni pulizie
+                                        LinearLayout lyTurni=new LinearLayout(getActivity());
+
+                                        LinearLayout.LayoutParams marginTurni = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        marginTurni.setMargins(20, 0, 15, 55);
+                                        lyTurni.setLayoutParams(marginTurni);
+                                        lyTurni.setOrientation(LinearLayout.VERTICAL);
                                         LinearLayout.LayoutParams tW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                         tW.setMargins(35, 60, 65, 0);
                                         TextView tw_turn_1 = new TextView(getActivity());
@@ -70,6 +80,11 @@ public class ViewTurnPulizieFragment extends Fragment {
                                         tw_turn2.setLayoutParams(tW);
                                         tw_turn2.setTextColor(getResources().getColor(R.color.colorPrimary));
                                         tw_turn2.setText(new StringBuilder().append(getString(R.string.turn_2)).append(System.getProperty("line.separator")).append(p.getTurn_2()));
+                                        lyTurni.addView(tw_turn_1);
+                                        lyTurni.addView(tw_turn2);
+
+
+
                                         TextView tw_data = new TextView(getActivity());
                                         tw_data.setText(new StringBuilder().append(getString(R.string.day)).append(System.getProperty("line.separator")).append(p.getDay()));
                                         tw_data.setLayoutParams(tW);
@@ -87,8 +102,7 @@ public class ViewTurnPulizieFragment extends Fragment {
                                         //inserimento delle text box nel linear layout principale
                                         lySingolaBolletta.addView(tw_data);
                                         lySingolaBolletta.addView(tw_descr);
-                                        lySingolaBolletta.addView(tw_turn_1);
-                                        lySingolaBolletta.addView(tw_turn2);
+                                        lySingolaBolletta.addView(lyTurni);
                                         lyPrincipale.addView(lySingolaBolletta);
                                     }
                                 }
