@@ -18,7 +18,7 @@
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-            android:text="New Turn"
+            android:text="@string/nuovo_turno_pulizie"
             android:gravity="center"
             android:textSize="25dp"
             android:layout_marginTop="5dp"
@@ -152,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/yellow_fill__rounded_color"
                     android:text="@string/send"
-                    android:layout_marginLeft="250dp"
+                    android:layout_marginStart="250dp"
                     android:textColor="@color/white" />
             </RelativeLayout>
     </LinearLayout>

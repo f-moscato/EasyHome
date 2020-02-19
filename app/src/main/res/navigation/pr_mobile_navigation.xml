@@ -15,7 +15,7 @@
         android:id="@+id/nav_tools"
         android:name="it.uniba.di.easyhome.Fragments.ToolsFragment"
         android:label="@string/impostazioni"
-        tools:layout="@layout/fragment_tools" /> 
+        tools:layout="@layout/fragment_tools" />
 
     <fragment
     android:id="@+id/nav_card"

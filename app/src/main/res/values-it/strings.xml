@@ -51,14 +51,12 @@
     <string name="id">Codice casa</string>
     <string name="atHome">Chi è presente in casa:</string>
     <string name="day">Giorno:</string>
-    <string name="nameInquilino_1">Turno 1:</string>
-    <string name="nameInquilino_2">Turno 2:</string>
     <string name="home_add">Aggiungi casa</string>
     <string name="popup_pagamentoBolletta">Pagamento bolletta</string>
     <string name="popup_pagamentoBolletta_corpo">Sei sicuro di pagare questa bolletta?</string>
     <string name="add_bill">Aggiungi Bolletta</string>
     <string name="avviso">Avviso</string>
-    <string name="data">Data:</string>
+    <string name="data">Data</string>
     <string name="messageDayCopy">Esiste già un turno di pulizie in questo giorno lo vuoi modificare?</string>
     <string name="si">Si</string>
     <string name="titleInHome">Entra in una casa</string>
@@ -82,4 +80,7 @@
     </string-array>
     <string name="notification_new_bill_body">€  Scadenza:</string>
     <string name="notification_new_bill_title">Nuova bolletta inserita</string>
+    <string name="new_bill">Nuova Bolletta</string>
+    <string name="nuovo_turno_pulizie">Nuovo Turno Pulizie</string>
+    <string name="type_bolletta">Tipologia:</string>
 </resources>
