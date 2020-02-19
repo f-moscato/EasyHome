@@ -1,14 +1,10 @@
 package it.uniba.di.easyhome;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -57,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION);}
-        setContentView(R.layout.activity_login5);
+        setContentView(R.layout.activity_login);
         Button login= findViewById(R.id.B_login);
         Button register= findViewById(R.id.B_register);
         final EditText ET_email=findViewById(R.id.username_input);
