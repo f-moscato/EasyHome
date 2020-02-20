@@ -72,7 +72,7 @@ public class AddTurnPulizieFragment extends Fragment {
             spinnerInq_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                   // ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
+                    ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.fab1_color));
                 }
 
                 @Override
@@ -83,7 +83,7 @@ public class AddTurnPulizieFragment extends Fragment {
             spinnerInq_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                   // ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
+                   ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
                 }
 
                 @Override
