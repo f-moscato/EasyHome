@@ -42,7 +42,7 @@ public class AddTurnPulizieFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.pulizie_fragment, container, false);
+        View root = inflater.inflate(R.layout.add_turn_pulizie_fragment, container, false);
         final Spinner spinnerDay = (Spinner) root.findViewById(R.id.spinnerDay);
         final Spinner spinnerInq_1 = (Spinner) root.findViewById(R.id.spinnerInq);
         Button bt= (Button) root.findViewById(R.id.SendPuli);

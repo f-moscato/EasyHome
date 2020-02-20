@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     SharedPref sharedpref;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home_inquilino, container, false);
         final TextView tw_NomeCasa= root.findViewById(R.id.text_home);
         ImageView imgChat=root.findViewById(R.id.inqImgAnnunci);
         ImageView imgClean=root.findViewById(R.id.inqImgPulizie);

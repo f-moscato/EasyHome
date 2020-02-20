@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     SharedPref sharedpref;
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.pr_fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home_proprietario, container, false);
         sharedpref=new SharedPref(getContext());
 
         final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));

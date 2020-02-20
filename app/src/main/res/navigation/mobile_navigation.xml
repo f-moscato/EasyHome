@@ -9,7 +9,7 @@
         android:id="@+id/nav_home"
         android:name="it.uniba.di.easyhome.inquilino.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home_inquilino" />
 
     <fragment
         android:id="@+id/nav_annunci"
@@ -21,7 +21,7 @@
         android:id="@+id/inq_nav_bills"
         android:name="it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment"
         android:label="@string/menu_bollette"
-        tools:layout="@layout/pr_fragment_bollette" >
+        tools:layout="@layout/fragment_view_bollette" >
 
     </fragment>
 
@@ -35,7 +35,7 @@
         android:id="@+id/inq_nav_logout"
         android:name="it.uniba.di.easyhome.Fragments.Logout"
         android:label="@string/logout"
-        tools:layout="@layout/inq_logout" />
+        tools:layout="@layout/logout_inquilino" />
 
     <fragment
         android:id="@+id/inq_nav_info"
