@@ -60,11 +60,13 @@
     <string name="add_bill">Add Bill</string>
     <string name="share">Share</string>
     <string name="id">Home code</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="insert_import">Insert bill import.</string>
     <string name="atHome">Who\'s in the house:</string>
     <string name="popup_pagamentoBolletta">Bill payment</string>
     <string name="popup_pagamentoBolletta_corpo">Are you sure you\'re paying this bill?</string>
     <string name="no" translatable="false">No</string>
-    <string name="avviso" >Allert</string>
+    <string name="avviso" >Alert</string>
     <string name="si">Yes</string>
     <string name="messageDayCopy">Is there already a cleaning shift on this day you want to change it?</string>
     <string name="turn1_error" >Select a turn 1</string>
@@ -79,6 +81,7 @@
     <string name="type_bolletta">Type:</string>
     <string name="new_bill">New Bill</string>
     <string name="nuovo_turno_pulizie">New Cleaning Turn</string>
+    <string name="insert_date">Insert expiration date.</string>
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>

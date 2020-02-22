@@ -1,6 +1,8 @@
 package it.uniba.di.easyhome.Fragments.Bollette;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ import it.uniba.di.easyhome.Notifiche.Data;
 import it.uniba.di.easyhome.Notifiche.Response;
 import it.uniba.di.easyhome.Notifiche.Sender;
 import it.uniba.di.easyhome.Notifiche.Token;
+import it.uniba.di.easyhome.Pulizia;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
@@ -165,38 +168,68 @@ public class AddBolletteFragment extends Fragment {
                                         pay="true";
                                     }
                                     String codCasa=(bundle.getString("Casa"));
-                                    writeNewBill(date, pay, type, desc, tot,codCasa);
 
-                                    //invio notifiche agli inquilini per avvisarli dell'inserimneto della nuova bolletta
-                                    DatabaseReference refInquilini=FirebaseDatabase.getInstance().getReference("houses/"+codCasa+"/inquilini");
-                                    refInquilini.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for(DataSnapshot ds1:dataSnapshot.getChildren()){
-                                                final DatabaseReference database=FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
-                                                database.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                        User user=dataSnapshot.getValue(User.class);
+                                    if(date.equals("")){
+                                        AlertDialog.Builder popUpAlert = new AlertDialog.Builder(getContext());
+                                        popUpAlert.setTitle(getResources().getString(R.string.avviso));
+                                        popUpAlert.setIcon(getResources().getDrawable(R.drawable.alert));
+                                        popUpAlert.setMessage(getResources().getString(R.string.insert_date));
+
+                                        popUpAlert.setNegativeButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                                        popUpAlert.show();
+                                    }else if(tot.equals("")){
+                                        AlertDialog.Builder popUpAlert = new AlertDialog.Builder(getContext());
+                                        popUpAlert.setTitle(getResources().getString(R.string.avviso));
+                                        popUpAlert.setIcon(getResources().getDrawable(R.drawable.alert));
+                                        popUpAlert.setMessage(getResources().getString(R.string.insert_import));
+
+                                        popUpAlert.setNegativeButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                                        popUpAlert.show();
+                                    }else{
+                                        writeNewBill(date, pay, type, desc, tot,codCasa);
+                                        //invio notifiche agli inquilini per avvisarli dell'inserimneto della nuova bolletta
+                                        DatabaseReference refInquilini=FirebaseDatabase.getInstance().getReference("houses/"+codCasa+"/inquilini");
+                                        refInquilini.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for(DataSnapshot ds1:dataSnapshot.getChildren()){
+                                                    final DatabaseReference database=FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
+                                                    database.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            User user=dataSnapshot.getValue(User.class);
 
                                                             // invio delle notifiche
-                                                          sendNotification(ds1.getKey(),tot+ getString(R.string.notification_new_bill_body)+""+date ,type,codCasa);
+                                                            sendNotification(ds1.getKey(),tot+ getString(R.string.notification_new_bill_body)+""+date ,type,codCasa);
 
-                                                    }
+                                                        }
 
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                                    }
-                                                });
+                                                        }
+                                                    });
+                                                }
                                             }
-                                        }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                        }
-                                    });
+                                            }
+                                        });
+                                    }
+
+
 
                                     Toast.makeText(getActivity(), codCasa,
                                             Toast.LENGTH_SHORT).show();
