@@ -85,4 +85,5 @@
     <string name="type_bolletta">Tipologia:</string>
     <string name="insert_date">Inserisci la data di scadenza.</string>
     <string name="insert_import">Inserisci l\'importo della bolletta</string>
+    <string name="insert_homename">Inserisci il nome della casa.</string>
 </resources>

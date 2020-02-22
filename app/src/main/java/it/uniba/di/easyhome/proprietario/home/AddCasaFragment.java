@@ -1,5 +1,7 @@
 package it.uniba.di.easyhome.proprietario.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -80,11 +82,26 @@ public class AddCasaFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         home = casa.getText().toString();
+                        if (home.equals("")){
+                            AlertDialog.Builder popUpAlert = new AlertDialog.Builder(getContext());
+                            popUpAlert.setTitle(getResources().getString(R.string.avviso));
+                            popUpAlert.setIcon(getResources().getDrawable(R.drawable.alert));
+                            popUpAlert.setMessage(getResources().getString(R.string.insert_homename));
 
-                        writeNewHome(home);
+                            popUpAlert.setNegativeButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                        Toast.makeText(getActivity(), "Home's Add.",
-                                Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            popUpAlert.show();
+                        }else{
+                            writeNewHome(home);
+                            Toast.makeText(getActivity(), "Home's Add.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+
                     }
                 });
 
