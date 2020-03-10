@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -105,7 +106,8 @@ public class ViewBolletteFragment extends Fragment {
 
                                     //Settaggio margini immagine bolletta e caratteristiche
                                     LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    marginImg.setMargins(30,78,15,8);
+                                    marginImg.setMargins(25,0,25,0);
+                                    marginImg.gravity= Gravity.CENTER;
                                     ImageView img = new ImageView(getActivity());
 
                                     marginImg.height=80;
@@ -222,7 +224,7 @@ public class ViewBolletteFragment extends Fragment {
 
                                     //settaggio textbox che contengono le caratteristiche delle bollette
                                     LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    tW.setMargins(35,60,35,0);
+                                    tW.setMargins(35,30,25,0);
                                     TextView tw_importo = new TextView(getActivity());
                                     tw_importo.setLayoutParams(tW);
                                     tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -232,8 +234,10 @@ public class ViewBolletteFragment extends Fragment {
                                     tw_datascadenza.setLayoutParams(tW);
                                     tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                     TextView tw_descr = new TextView(getActivity());
+                                    LinearLayout.LayoutParams tWDescr=new LinearLayout.LayoutParams(215, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    tWDescr.setMargins(35,30,25,10);
                                     tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
-                                    tw_descr.setLayoutParams(tW);
+                                    tw_descr.setLayoutParams(tWDescr);
                                     tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
                                     if(sharedpref.loadNightModeState()){
                                         tw_importo.setTextColor(Color.WHITE);
@@ -316,7 +320,8 @@ public class ViewBolletteFragment extends Fragment {
 
                                             //Settaggio margini immagine bolletta e caratteristiche
                                             LinearLayout.LayoutParams marginImg = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            marginImg.setMargins(30, 78, 15, 8);
+                                            marginImg.setMargins(25,0,25,0);
+                                            marginImg.gravity= Gravity.CENTER;
                                             marginImg.height = 80;
                                             marginImg.width = 80;
                                             ImageView img = new ImageView(getActivity());
@@ -327,8 +332,8 @@ public class ViewBolletteFragment extends Fragment {
                                             }
 
                                             //settaggio textbox che contengono le caratteristiche delle bollette
-                                            LinearLayout.LayoutParams tW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            tW.setMargins(35, 60, 35, 0);
+                                            LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                            tW.setMargins(35,30,25,0);
                                             TextView tw_importo = new TextView(getActivity());
                                             tw_importo.setLayoutParams(tW);
                                             tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -338,15 +343,16 @@ public class ViewBolletteFragment extends Fragment {
                                             tw_datascadenza.setLayoutParams(tW);
                                             tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                             TextView tw_descr = new TextView(getActivity());
+                                            LinearLayout.LayoutParams tWDescr=new LinearLayout.LayoutParams(215, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                            tWDescr.setMargins(35,30,25,10);
                                             tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
-                                            tw_descr.setLayoutParams(tW);
+                                            tw_descr.setLayoutParams(tWDescr);
                                             tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
                                             if(sharedpref.loadNightModeState()){
                                                 tw_importo.setTextColor(Color.WHITE);
                                                 tw_datascadenza.setTextColor(Color.WHITE);
                                                 tw_descr.setTextColor(Color.WHITE);
                                             }
-
                                             //inserimento immagini in base alla loro natura e conseguente aggiunta di tutti gli elementi nel linear layout principale
                                             if (dettagli.isPayed().equalsIgnoreCase("true")) {
 
@@ -444,7 +450,8 @@ public class ViewBolletteFragment extends Fragment {
 
                                             //Settaggio margini immagine bolletta e caratteristiche
                                             LinearLayout.LayoutParams marginImg=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            marginImg.setMargins(30,78,15,8);
+                                            marginImg.setMargins(25,0,25,0);
+                                            marginImg.gravity= Gravity.CENTER;
                                             marginImg.height=80;
                                             marginImg.width=80;
                                             ImageView img = new ImageView(getActivity());
@@ -483,9 +490,88 @@ public class ViewBolletteFragment extends Fragment {
                                             if(sharedpref.loadNightModeState()){
                                                 imgAlert.setColorFilter(getResources().getColor(R.color.colorNotAtHome));
                                             }
+                                            //controllo se l'utente che ha effettuato l'accesso al fragemnt è proprietario
+                                            // SOLO I PROPIETARI POSSONO DEFINIRE UN BOLLETTA PAGATA O MENO
+                                            DatabaseReference refUser=FirebaseDatabase.getInstance().getReference("users");
+                                            refUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    for(DataSnapshot dsUser:dataSnapshot.getChildren()){
+                                                        if(currentUser.getUid().equals(dsUser.getKey()) && dsUser.getValue(User.class).getRole().equalsIgnoreCase("P")){
+
+                                                            //creazione del pop up per avere la conferma del pagamento della bolletta in questione
+                                                            imgAlert.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                                    builder.setTitle(getString(R.string.popup_pagamentoBolletta)).
+                                                                            setMessage(getString(R.string.popup_pagamentoBolletta_corpo));
+                                                                    builder.setPositiveButton(R.string.pop_up_logout_yes,
+                                                                            new DialogInterface.OnClickListener() {
+                                                                                public void onClick(DialogInterface dialog, int id) {
+                                                                                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/bills");
+                                                                                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                        @Override
+                                                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                                            for(DataSnapshot dsBill:dataSnapshot.getChildren()){
+                                                                                                if(dsBill.getValue(Bill.class).getType().equalsIgnoreCase(dettagli.getType()) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(dettagli.getExpiration()) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(dettagli.getTotal())){
+                                                                                                    FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/bills/"+dsBill.getKey()+"/payed").setValue("true");
+
+                                                                                                    //refresh del fragment
+                                                                                                   /* Fragment frg = null;
+                                                                                                    frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                                                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                                                    if (frg != null) {
+                                                                                                        ft.detach(frg);
+                                                                                                        ft.attach(frg);
+                                                                                                        ft.commit();
+                                                                                                    }*/
+
+                                                                                                    getFragmentManager().beginTransaction().detach(getFragmentManager().findFragmentByTag("Bills")).commitNowAllowingStateLoss();
+                                                                                                    getFragmentManager().beginTransaction().attach(getFragmentManager().findFragmentByTag("Bills")).commitAllowingStateLoss();
+
+                                                                                                    break;
+                                                                                                }
+
+                                                                                            }
+                                                                                        }
+
+                                                                                        @Override
+                                                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                                                        }
+                                                                                    });
+
+                                                                                }
+                                                                            });
+                                                                    builder.setNegativeButton(R.string.pop_out_logout_no,
+                                                                            new DialogInterface.OnClickListener() {
+                                                                                public void onClick(DialogInterface dialog, int id) {
+                                                                                    /*Fragment frg = null;
+                                                                                    frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                                    ft.detach(frg);
+                                                                                    ft.attach(frg);
+                                                                                    ft.commit();*/
+                                                                                }
+                                                                            });
+                                                                    AlertDialog alert11 = builder.create();
+                                                                    alert11.show();
+                                                                }
+                                                            });
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
                                             //settaggio textbox che contengono le caratteristiche delle bollette
                                             LinearLayout.LayoutParams tW=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            tW.setMargins(35,60,35,0);
+                                            tW.setMargins(35,30,25,0);
                                             TextView tw_importo = new TextView(getActivity());
                                             tw_importo.setLayoutParams(tW);
                                             tw_importo.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -495,8 +581,10 @@ public class ViewBolletteFragment extends Fragment {
                                             tw_datascadenza.setLayoutParams(tW);
                                             tw_datascadenza.setTextColor(getResources().getColor(R.color.colorPrimary));
                                             TextView tw_descr = new TextView(getActivity());
+                                            LinearLayout.LayoutParams tWDescr=new LinearLayout.LayoutParams(215, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                            tWDescr.setMargins(35,30,25,10);
                                             tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(dettagli.getDescription()).toString());
-                                            tw_descr.setLayoutParams(tW);
+                                            tw_descr.setLayoutParams(tWDescr);
                                             tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
                                             if(sharedpref.loadNightModeState()){
                                                 tw_importo.setTextColor(Color.WHITE);
