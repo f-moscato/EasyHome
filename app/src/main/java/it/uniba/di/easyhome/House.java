@@ -121,7 +121,6 @@ public class House {
                 }
 
                 if(data1.compareTo(data2)<=0){
-                    Log.v(TAG, String.valueOf(data1.compareTo(data2)));
                     return -1;
                 }else{
                     return 1;
