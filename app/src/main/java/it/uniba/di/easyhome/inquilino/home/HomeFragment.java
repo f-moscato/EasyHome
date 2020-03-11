@@ -265,8 +265,6 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-
-
     private void addToHome(final String code){
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");

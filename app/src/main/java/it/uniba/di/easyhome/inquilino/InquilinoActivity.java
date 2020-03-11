@@ -204,7 +204,6 @@ public class InquilinoActivity extends AppCompatActivity  {
 
     public  void checkWiFi(){
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
-
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         ValueEventListener vel= new ValueEventListener() {
             @Override
@@ -219,42 +218,43 @@ public class InquilinoActivity extends AppCompatActivity  {
                                 ,ds.getValue(House.class).getBills()
                                 ,ds.getValue(House.class).getSsid());
                         for(String cod:h.getInquilini().keySet()){
-                            if(cod.equals(currentUser.getUid())){
-                                if(h.getSsid().equals(tryToReadSSID())){
-                                    Log.v(TAG,"uguale");
-                                    DatabaseReference referenceSameSSID=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/inquilini/"+cod);
-                                    referenceSameSSID.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            referenceSameSSID.setValue("true");
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    });
+                            if(cod.equals(currentUser.getUid())) {
+                                if(!(ds.hasChild("ssid"))){
+                                    rootRef.child("ssid").setValue(tryToReadSSID());
                                 }else{
-                                    DatabaseReference referenceNotSameSSID=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/inquilini/"+cod);
-                                    referenceNotSameSSID.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            referenceNotSameSSID.setValue("false");
-                                        }
+                                    if (h.getSsid().equals(tryToReadSSID())) {
+                                        Log.v(TAG, "uguale");
+                                        DatabaseReference referenceSameSSID = FirebaseDatabase.getInstance().getReference("houses/" + ds.getKey() + "/inquilini/" + cod);
+                                        referenceSameSSID.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                referenceSameSSID.setValue("true");
+                                            }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                        }
-                                    });
-                                }
+                                            }
+                                        });
+                                    } else {
+                                        DatabaseReference referenceNotSameSSID = FirebaseDatabase.getInstance().getReference("houses/" + ds.getKey() + "/inquilini/" + cod);
+                                        referenceNotSameSSID.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                referenceNotSameSSID.setValue("false");
+                                            }
 
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    }}
+                            }
                             }
                         }
                     }
                 }
-            }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
