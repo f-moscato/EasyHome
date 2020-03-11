@@ -220,7 +220,7 @@ public class InquilinoActivity extends AppCompatActivity  {
                         for(String cod:h.getInquilini().keySet()){
                             if(cod.equals(currentUser.getUid())) {
                                 if(!(ds.hasChild("ssid"))){
-                                    rootRef.child("ssid").setValue(tryToReadSSID());
+                                    rootRef.child(ds.getKey()).child("ssid").setValue(tryToReadSSID());
                                 }else{
                                     if (h.getSsid().equals(tryToReadSSID())) {
                                         Log.v(TAG, "uguale");
