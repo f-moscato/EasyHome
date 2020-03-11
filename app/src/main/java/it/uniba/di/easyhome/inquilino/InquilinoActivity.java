@@ -220,7 +220,20 @@ public class InquilinoActivity extends AppCompatActivity  {
                         for(String cod:h.getInquilini().keySet()){
                             if(cod.equals(currentUser.getUid())) {
                                 if(!(ds.hasChild("ssid"))){
+                                    Log.v(TAG, "aggiunto SsID");
                                     rootRef.child(ds.getKey()).child("ssid").setValue(tryToReadSSID());
+                                    DatabaseReference referenceSameSSID = FirebaseDatabase.getInstance().getReference("houses/" + ds.getKey() + "/inquilini/" + cod);
+                                    referenceSameSSID.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            referenceSameSSID.setValue("true");
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }else{
                                     if (h.getSsid().equals(tryToReadSSID())) {
                                         Log.v(TAG, "uguale");
