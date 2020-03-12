@@ -2,14 +2,12 @@ package it.uniba.di.easyhome.proprietario.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,10 +28,8 @@ import java.util.UUID;
 
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
-import it.uniba.di.easyhome.SharedPref;
 
 public class AddCasaFragment extends Fragment {
-    SharedPref sharedpref;
      FirebaseAuth mAuth;
 
     public static AddCasaFragment newInstance() {
@@ -45,13 +41,7 @@ public class AddCasaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_casa_fragment, container, false);
-        final FloatingActionButton back= (getActivity().findViewById(R.id.fab2_plus));
-        sharedpref=new SharedPref(getContext());
-        final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-        textIndietro.setText(getResources().getString(R.string.back));
-        if(sharedpref.loadNightModeState()){
-            textIndietro.setTextColor(Color.WHITE);
-        }
+        final FloatingActionButton back= (getActivity().findViewById(R.id.fab_plus));
         final Bundle bundle=getArguments();
         final Button btSendt=(Button) root.findViewById(R.id.HomeSend);
         //dichiarazione delle edit
@@ -63,15 +53,12 @@ public class AddCasaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 back.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
-                textIndietro.setText(getResources().getString(R.string.home_add));
                 Fragment newFragment = new HomeFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
             }
-
         });
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");

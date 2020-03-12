@@ -39,23 +39,11 @@ public class HomeFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_home_proprietario, container, false);
         sharedpref=new SharedPref(getContext());
 
-        final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
-
-
         //Start FAB AddInquilino
-        final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab2_plus));
-        final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
-
-        textIndietro.setText(getResources().getString(R.string.home_add));
-
-        if(sharedpref.loadNightModeState()){
-            textIndietro.setTextColor(Color.WHITE);
-        }
+        final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab_plus));
 
 //Start FAB AddHome
         add_home_fab.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
-        fab.show();
-        fab.setClickable(true);
         add_home_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

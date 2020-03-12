@@ -35,7 +35,7 @@
         android:id="@+id/inq_nav_logout"
         android:name="it.uniba.di.easyhome.Fragments.Logout"
         android:label="@string/logout"
-        tools:layout="@layout/logout_inquilino" />
+        tools:layout="@layout/logout" />
 
     <fragment
         android:id="@+id/inq_nav_info"

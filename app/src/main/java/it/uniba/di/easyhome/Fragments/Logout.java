@@ -40,7 +40,7 @@ public class Logout extends Fragment {
             FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
             fab.hide();
             fab.setClickable(false);}
-        final View root = inflater.inflate(R.layout.logout_proprietario, container, false);
+        final View root = inflater.inflate(R.layout.logout, container, false);
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,8 +66,7 @@ public class HomeCardFragment extends Fragment{
                              @Nullable Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.home_card_fragment, container, false);
-        final FloatingActionButton add_bill_fab= (getActivity().findViewById(R.id.fab2_plus));
-        final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
+        final FloatingActionButton add_bill_fab= (getActivity().findViewById(R.id.fab_plus));
         sharedpref=new SharedPref(getContext());
         ImageView imgChat=root.findViewById(R.id.prImgAnnunci);
         ImageView imgBill=root.findViewById(R.id.prImgBill);
@@ -81,10 +79,6 @@ public class HomeCardFragment extends Fragment{
         }
         //Setting Back's Button
         add_bill_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
-        textIndietro.setText(getResources().getString(R.string.add_bill));
-        if(sharedpref.loadNightModeState()){
-           textIndietro.setTextColor(Color.WHITE);
-        }
         final Bundle bundle=getArguments();
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
         twNomeCasa.setText(bundle.getString("nomeCasa"));

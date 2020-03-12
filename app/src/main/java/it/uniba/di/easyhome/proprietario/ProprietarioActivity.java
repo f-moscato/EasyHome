@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +18,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Locale;
@@ -31,11 +28,9 @@ import it.uniba.di.easyhome.User;
 
 
 public class ProprietarioActivity extends AppCompatActivity {
-    FloatingActionButton fab1,fab2;
-    Animation FabOpen,FabClose,FabClock,FabAntiClock;
-    TextView boll;
+
     SharedPref sharedpref;
-    boolean isOpen=false;
+    
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -53,33 +48,6 @@ public class ProprietarioActivity extends AppCompatActivity {
         if(sharedpref.loadNightModeState()==true){
             this.setTheme(R.style.darktheme);
         }
-        fab1= findViewById(R.id.fab_plus);
-        fab2= findViewById(R.id.fab2_plus);
-        boll=findViewById(R.id.agg_boll);
-        FabOpen= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
-        FabClose= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
-        FabClock= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
-        FabAntiClock= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
-
-
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isOpen){
-                    fab2.startAnimation(FabClose);
-                    boll.startAnimation(FabClose);
-                    fab1.startAnimation(FabAntiClock);
-                    fab2.setClickable(false);
-                    isOpen=false;
-                }else{
-                    fab2.startAnimation(FabOpen);
-                    boll.startAnimation(FabOpen);
-                    fab1.startAnimation(FabClock);
-                    fab2.setClickable(true);
-                    isOpen=true;
-                }
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

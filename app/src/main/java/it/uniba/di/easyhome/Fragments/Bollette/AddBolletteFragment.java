@@ -41,7 +41,6 @@ import it.uniba.di.easyhome.Notifiche.Data;
 import it.uniba.di.easyhome.Notifiche.Response;
 import it.uniba.di.easyhome.Notifiche.Sender;
 import it.uniba.di.easyhome.Notifiche.Token;
-import it.uniba.di.easyhome.Pulizia;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
@@ -66,19 +65,14 @@ public class AddBolletteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_bollette_fragment, container, false);
-        final FloatingActionButton back= (getActivity().findViewById(R.id.fab2_plus));
+        final FloatingActionButton back= (getActivity().findViewById(R.id.fab_plus));
         sharedpref=new SharedPref(getContext());
         apiService= Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
-        final TextView textIndietro= (TextView) getActivity().findViewById(R.id.agg_boll);
         final Calendar c=Calendar.getInstance();
         final Spinner mySpinner = (Spinner) root.findViewById(R.id.spinner);
         final Spinner spinnerPay = (Spinner) root.findViewById(R.id.spinnerPay);
         final TextView data=(TextView) root.findViewById(R.id.data);
-        textIndietro.setText(getResources().getString(R.string.back));
-        if(sharedpref.loadNightModeState()){
-            textIndietro.setTextColor(Color.WHITE);
-        }
 
         final Button dataBt=(Button) root.findViewById(R.id.dataBt);
         //dichiarazione delle edit
