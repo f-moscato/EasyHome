@@ -14,22 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".inquilino.InquilinoActivity"
             android:label="@string/title_activity_inquilino"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".proprietario.ProprietarioActivity"
             android:label="@string/title_activity_proprietario"
+            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
             android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,10 +43,8 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/easyhome"/>

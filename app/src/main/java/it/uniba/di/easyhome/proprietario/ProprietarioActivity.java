@@ -30,7 +30,7 @@ import it.uniba.di.easyhome.User;
 public class ProprietarioActivity extends AppCompatActivity {
 
     SharedPref sharedpref;
-    
+
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
