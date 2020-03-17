@@ -12,8 +12,11 @@ import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
+import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 
 public class ToolsFragment extends Fragment {
     SharedPref sharedpref;
@@ -25,6 +28,10 @@ private Switch myswitch;
         View root = inflater.inflate(R.layout.fragment_tools, container, false);
         ImageButton it= root.findViewById(R.id.ButtonItalia);
         ImageButton gb= root.findViewById(R.id.ButtonGb);
+        //Delete ProprietarioActivity's fab
+        if(getActivity() instanceof ProprietarioActivity){
+        final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
+        fab.setVisibility(View.GONE);}
         sharedpref=new SharedPref(getActivity());
         myswitch=(Switch)root.findViewById(R.id.switch1);
                 if(sharedpref.loadNightModeState()==true){

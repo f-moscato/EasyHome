@@ -20,10 +20,10 @@ public class InfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        if(getActivity().equals(ProprietarioActivity.class)) {
-            FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
-            fab.hide();
-            fab.setClickable(false);}
+        //Delete ProprietarioActivity's fab
+        if(getActivity() instanceof ProprietarioActivity){
+            final FloatingActionButton fab= (getActivity().findViewById(R.id.fab_plus));
+            fab.setVisibility(View.GONE); }
         View root = inflater.inflate(R.layout.fragment_info, container, false);
 
 

@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
 
         //Start FAB AddInquilino
         final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab_plus));
+        add_home_fab.setVisibility(View.VISIBLE);
 
 //Start FAB AddHome
         add_home_fab.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));

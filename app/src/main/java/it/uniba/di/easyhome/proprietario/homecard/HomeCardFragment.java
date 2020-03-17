@@ -77,7 +77,8 @@ public class HomeCardFragment extends Fragment{
             imgChat.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
             imgBill.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
         }
-        //Setting Back's Button
+        //Setting FAB
+        add_bill_fab.setVisibility(View.VISIBLE);
         add_bill_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
         final Bundle bundle=getArguments();
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
@@ -175,6 +176,7 @@ public class HomeCardFragment extends Fragment{
         linearLayoutNotices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                add_bill_fab.setVisibility(View.GONE);
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",twNomeCasa.getText().toString());
                 SendMessageFragment sendMessageFragment=new SendMessageFragment();
