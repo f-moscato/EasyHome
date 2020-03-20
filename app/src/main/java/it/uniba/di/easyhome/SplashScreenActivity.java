@@ -93,7 +93,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                     for(DataSnapshot ds : dataSnapshot.getChildren()) {
                         if(ds.getValue(User.class).getEmail().equalsIgnoreCase(currentUser.getEmail())){
-                            Toast.makeText(SplashScreenActivity.this, "U Signed In successfully " +ds.getValue(User.class).getName(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(SplashScreenActivity.this, getString(R.string.sign_in) +ds.getValue(User.class).getName(), Toast.LENGTH_LONG).show();
                             if (ds.getValue(User.class).getRole().equalsIgnoreCase("P")) {
                                 startActivity(new Intent(SplashScreenActivity.this, ProprietarioActivity.class).putExtra("Utente",ds.getValue(User.class)));
                                 finish();
