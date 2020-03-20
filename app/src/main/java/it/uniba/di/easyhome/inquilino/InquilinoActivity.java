@@ -57,10 +57,10 @@ public class InquilinoActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref=new SharedPref(this);
-        if(sharedpref.loadLang().equals("en")){
-            this.setAppLocale("en");
-        }else{
+        if(sharedpref.loadLang().equals("it")){
             this.setAppLocale("it");
+        }else{
+            this.setAppLocale("en");
         }
         setContentView(R.layout.activity_inquilino);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -87,16 +87,27 @@ public class InquilinoActivity extends AppCompatActivity  {
         checkWiFi();
 
     }
-
+//Controllo se l'inquilino è in casa durante il ciclo di vita dell'activity
     @Override
     protected void onStart() {
         checkWiFi();
         super.onStart();
     }
-
-    public void onPause() {
+    @Override
+    public void onResume() {
         checkWiFi();
-        super.onPause();
+        super.onResume();
+    }
+    @Override
+    protected void onStop() {
+        checkWiFi();
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        checkWiFi();
+        super.onDestroy();
     }
 
     @Override
@@ -184,7 +195,6 @@ public class InquilinoActivity extends AppCompatActivity  {
     }
     private String tryToReadSSID() {
         //If requested permission isn't Granted yet
-
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return "bo";
             }else{//Permission already granted
@@ -195,11 +205,8 @@ public class InquilinoActivity extends AppCompatActivity  {
                         return  wifiInfo.getBSSID();//Here you can access your SSID
                     }
                 }
-
             }
-
         return "";
-
     }
 
     public  void checkWiFi(){

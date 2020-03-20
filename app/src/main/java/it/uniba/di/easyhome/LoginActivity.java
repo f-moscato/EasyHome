@@ -43,10 +43,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref=new SharedPref(this);
-        if(sharedpref.loadLang().equals("en")){
-            this.setAppLocale("en");
-        }else{
+        if(sharedpref.loadLang().equals("it")){
             this.setAppLocale("it");
+        }else{
+            this.setAppLocale("en");
         }
         if(sharedpref.loadNightModeState()){
             this.setTheme(R.style.darktheme);

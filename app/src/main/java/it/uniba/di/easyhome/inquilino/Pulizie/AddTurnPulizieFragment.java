@@ -161,43 +161,71 @@ bt.setOnClickListener(new View.OnClickListener() {
 
                 if (dataSnapshot.exists()) {
                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
-                        DatabaseReference rootRef1 = FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/pulizie");
+                        DatabaseReference rootRef1 = FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey());
                         mDatabase = FirebaseDatabase.getInstance().getReference();
                         rootRef1.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-                                    for(final DataSnapshot ds1 : dataSnapshot.getChildren()){
-                                        Pulizia p = (ds1.getValue(Pulizia.class));
-                                if(p.getDay().equals(day)) {
-                                flag=12;
-                                code_puli=ds1.getKey();
-                                }
-                                    }
-                                    if(flag==12){
-                                        AlertDialog.Builder v = new AlertDialog.Builder(getContext());
-                                        v.setTitle(getResources().getString(R.string.avviso));
-                                        v.setIcon(getResources().getDrawable(R.drawable.alert));
-                                        v.setMessage(getResources().getString(R.string.messageDayCopy));
-                                        v.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                    if (dataSnapshot.hasChild("pulizie")){
+                                        DatabaseReference rootRefPulizie=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/pulizie");
+                                        rootRefPulizie.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Pulizia d = new Pulizia(day, t_1, t_2, desc);
-                                                mDatabase.child("houses").child(ds.getKey()).child("pulizie").child(code_puli).setValue(d);
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for(final DataSnapshot ds1 : dataSnapshot.getChildren()){
+                                                    Pulizia p = (ds1.getValue(Pulizia.class));
+                                                    if(p.getDay().equals(day)) {
+                                                        flag=12;
+                                                        code_puli=ds1.getKey();
+                                                    }
+                                                }
+                                                if(flag==12){
+                                                    AlertDialog.Builder v = new AlertDialog.Builder(getContext());
+                                                    v.setTitle(getResources().getString(R.string.avviso));
+                                                    v.setIcon(getResources().getDrawable(R.drawable.alert));
+                                                    v.setMessage(getResources().getString(R.string.messageDayCopy));
+                                                    v.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            Pulizia d = new Pulizia(day, t_1, t_2, desc);
+                                                            mDatabase.child("houses").child(ds.getKey()).child("pulizie").child(code_puli).setValue(d);
+                                                        }
+                                                    });
+                                                    v.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+
+                                                        }
+                                                    });
+                                                    v.show();
+                                                }else{
+                                                    Pulizia d = new Pulizia(day, t_1, t_2, desc);
+                                                    mDatabase.child("houses").child(ds.getKey()).child("pulizie").push().setValue(d);
+                                                }
                                             }
-                                        });
-                                        v.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                             }
                                         });
-                                        v.show();
                                     }else{
-                                        Pulizia d = new Pulizia(day, t_1, t_2, desc);
-                                        mDatabase.child("houses").child(ds.getKey()).child("pulizie").push().setValue(d);
+
+                                        rootRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                Pulizia d = new Pulizia(day, t_1, t_2, desc);
+                                                mDatabase.child("houses").child(ds.getKey()).child("pulizie").push().setValue(d);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
                                 }
+
                             }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError){
