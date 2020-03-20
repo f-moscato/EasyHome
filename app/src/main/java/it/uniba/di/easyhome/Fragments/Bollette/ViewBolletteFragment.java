@@ -140,7 +140,7 @@ public class ViewBolletteFragment extends Fragment {
 
                                     //Settaggio immagine alert per le bollette non pagate
                                     ImageView imgAlert=new ImageView(getActivity());
-                                    imgAlert.setImageResource(R.drawable.alert);
+                                    imgAlert.setImageResource(R.drawable.payment);
                                     imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
                                     imgAlert.setLayoutParams(marginImg);
                                     if(sharedpref.loadNightModeState()){
@@ -484,7 +484,7 @@ public class ViewBolletteFragment extends Fragment {
 
                                             //Settaggio immagine alert per le bollette non pagate
                                             ImageView imgAlert=new ImageView(getActivity());
-                                            imgAlert.setImageResource(R.drawable.alert);
+                                            imgAlert.setImageResource(R.drawable.payment);
                                             imgAlert.setColorFilter(getResources().getColor(R.color.colorAccent));
                                             imgAlert.setLayoutParams(marginImg);
                                             if(sharedpref.loadNightModeState()){
@@ -518,14 +518,14 @@ public class ViewBolletteFragment extends Fragment {
                                                                                                     FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/bills/"+dsBill.getKey()+"/payed").setValue("true");
 
                                                                                                     //refresh del fragment
-                                                                                                   /* Fragment frg = null;
+                                                                                                   Fragment frg = null;
                                                                                                     frg = getFragmentManager().findFragmentByTag("Bills");
                                                                                                     final FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                                                                     if (frg != null) {
                                                                                                         ft.detach(frg);
                                                                                                         ft.attach(frg);
                                                                                                         ft.commit();
-                                                                                                    }*/
+                                                                                                    }
 
                                                                                                     getFragmentManager().beginTransaction().detach(getFragmentManager().findFragmentByTag("Bills")).commitNowAllowingStateLoss();
                                                                                                     getFragmentManager().beginTransaction().attach(getFragmentManager().findFragmentByTag("Bills")).commitAllowingStateLoss();
@@ -547,12 +547,12 @@ public class ViewBolletteFragment extends Fragment {
                                                                     builder.setNegativeButton(R.string.pop_out_logout_no,
                                                                             new DialogInterface.OnClickListener() {
                                                                                 public void onClick(DialogInterface dialog, int id) {
-                                                                                    /*Fragment frg = null;
+                                                                                    Fragment frg = null;
                                                                                     frg = getFragmentManager().findFragmentByTag("Bills");
                                                                                     final FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                                                     ft.detach(frg);
                                                                                     ft.attach(frg);
-                                                                                    ft.commit();*/
+                                                                                    ft.commit();
                                                                                 }
                                                                             });
                                                                     AlertDialog alert11 = builder.create();
