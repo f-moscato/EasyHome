@@ -76,6 +76,7 @@
     <string name="data">Date</string>
     <string name="turn_1" translatable="false">Turn 1:</string>
     <string name="turn_2" translatable="false">Turn 2:</string>
+    <string name="new_turn">New Turn add</string>
     <string name="turn_clean">Cleaning shifts:</string>
     <string name="notification_new_bill_body">€  Expiration:</string>
     <string name="notification_new_bill_title">New bill insereted</string>

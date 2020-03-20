@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -189,6 +190,7 @@ bt.setOnClickListener(new View.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             Pulizia d = new Pulizia(day, t_1, t_2, desc);
                                                             mDatabase.child("houses").child(ds.getKey()).child("pulizie").child(code_puli).setValue(d);
+                                                            Toast.makeText(getContext(),getResources().getString(R.string.new_turn),Toast.LENGTH_LONG).show();
                                                         }
                                                     });
                                                     v.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -201,6 +203,7 @@ bt.setOnClickListener(new View.OnClickListener() {
                                                 }else{
                                                     Pulizia d = new Pulizia(day, t_1, t_2, desc);
                                                     mDatabase.child("houses").child(ds.getKey()).child("pulizie").push().setValue(d);
+                                                    Toast.makeText(getContext(),getResources().getString(R.string.new_turn),Toast.LENGTH_LONG).show();
                                                 }
                                             }
 
@@ -216,6 +219,7 @@ bt.setOnClickListener(new View.OnClickListener() {
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 Pulizia d = new Pulizia(day, t_1, t_2, desc);
                                                 mDatabase.child("houses").child(ds.getKey()).child("pulizie").push().setValue(d);
+                                                Toast.makeText(getContext(),getResources().getString(R.string.new_turn),Toast.LENGTH_LONG).show();
                                             }
 
                                             @Override
