@@ -37,10 +37,10 @@ public class ProprietarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref=new SharedPref(this);
-        if(sharedpref.loadLang().equals("en")){
-            this.setAppLocale("en");
-        }else{
+        if(sharedpref.loadLang().equals("it")){
             this.setAppLocale("it");
+        }else{
+            this.setAppLocale("en");
         }
         setContentView(R.layout.activity_proprietario);
         Toolbar toolbar = findViewById(R.id.toolbar);

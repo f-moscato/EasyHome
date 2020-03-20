@@ -87,4 +87,6 @@
     <string name="insert_import">Inserisci l\'importo della bolletta</string>
     <string name="insert_homename">Inserisci il nome della casa.</string>
     <string name="sign_in">"Hai effettuato l'accesso correttamente "</string>
+
+    <string name="new_turn">Nuovo turno aggiunto</string>
 </resources>
