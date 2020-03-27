@@ -55,6 +55,8 @@ public class InquilinoActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         sharedpref=new SharedPref(this);
         if(sharedpref.loadLang().equals("it")){

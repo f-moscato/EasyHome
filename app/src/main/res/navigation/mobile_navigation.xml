@@ -8,39 +8,39 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="it.uniba.di.easyhome.inquilino.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home_inquilino" />
 
     <fragment
         android:id="@+id/nav_annunci"
         android:name="it.uniba.di.easyhome.Fragments.SendMessageFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/app_name"
         tools:layout="@layout/send_message_fragment" />
 
     <fragment
         android:id="@+id/inq_nav_bills"
         android:name="it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment"
-        android:label="@string/menu_bollette"
-        tools:layout="@layout/fragment_view_bollette" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_view_bollette">
 
     </fragment>
 
     <fragment
         android:id="@+id/inq_nav_tools"
         android:name="it.uniba.di.easyhome.Fragments.ToolsFragment"
-        android:label="@string/impostazioni"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/inq_nav_logout"
         android:name="it.uniba.di.easyhome.Fragments.Logout"
-        android:label="@string/logout"
+        android:label="@string/app_name"
         tools:layout="@layout/logout" />
 
     <fragment
         android:id="@+id/inq_nav_info"
         android:name="it.uniba.di.easyhome.Fragments.InfoFragment"
-        android:label="@string/info"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_info" />
 
 

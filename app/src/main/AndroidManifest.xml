@@ -23,7 +23,6 @@
             android:name=".proprietario.ProprietarioActivity"
             android:label="@string/title_activity_proprietario"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
