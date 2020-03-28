@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/nav_tools"
         android:name="it.uniba.di.easyhome.Fragments.ToolsFragment"
-        android:label="@string/app_name"
+        android:label="@string/action_settings"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
@@ -26,12 +26,12 @@
     <fragment
         android:id="@+id/pr_nav_logout"
         android:name="it.uniba.di.easyhome.Fragments.Logout"
-        android:label="@string/app_name"
+        android:label="@string/logout"
         tools:layout="@layout/logout_proprietario" />
 
     <fragment
         android:id="@+id/pr_nav_info"
         android:name="it.uniba.di.easyhome.Fragments.InfoFragment"
-        android:label="@string/app_name"
+        android:label="@string/info"
         tools:layout="@layout/fragment_info" />
 </navigation>

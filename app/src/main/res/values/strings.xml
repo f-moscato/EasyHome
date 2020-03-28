@@ -4,17 +4,12 @@
     <string name="prompt_password" translatable="false">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="app_name" translatable="false">EasyHome</string>
     <string name="title_activity_proprietario" translatable="false">ProprietarioActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="luce">Energy</string>
-    <string name="gas" translatable="false">Gas</string>
-    <string name="acqua">Water</string>
-    <string name="extra">Other</string>
     <string name="titolo">Message Title</string>
     <string name="messaggio">Message</string>
     <string name="versione">Version:</string>
@@ -28,7 +23,6 @@
     <string name="sospeso">Not Payed</string>
     <string name="storico">History</string>
     <string name="menu_home" translatable="false">Home</string>
-    <string name="menu_slideshow" translatable="false">Slideshow</string>
     <string name="menu_bollette">Bills</string>
     <string name="info">Info App</string>
     <string name="logout">Log Out</string>
@@ -73,6 +67,7 @@
     <string name="titleInHome">Enter a house</string>
     <string name="insert_homename">Insert house name.</string>
     <string name="data">Date</string>
+    <string name="house_card"> House\'s Card</string>
     <string name="turn_1" translatable="false">Turn 1:</string>
     <string name="turn_2" translatable="false">Turn 2:</string>
     <string name="new_turn">New Turn add</string>
