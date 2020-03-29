@@ -56,7 +56,6 @@ public class InquilinoActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         sharedpref=new SharedPref(this);
         if(sharedpref.loadLang().equals("it")){
@@ -124,6 +123,7 @@ public class InquilinoActivity extends AppCompatActivity  {
         if (fm.getBackStackEntryCount() > 0) {
             Log.i("MainActivity", "popping backstack");
             fm.popBackStack();
+
         } else {
             Log.i("MainActivity", "nothing on backstack, calling super");
             super.onBackPressed();

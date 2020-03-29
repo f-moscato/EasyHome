@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -260,7 +261,14 @@ public class SendMessageFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(!((AppCompatActivity)getActivity()).getSupportActionBar().getTitle().equals(getString(R.string.app_name))){
+            Log.v(TAG,"passo toolbar");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+        }
+    }
 
 
 }

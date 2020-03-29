@@ -2,6 +2,7 @@ package it.uniba.di.easyhome.inquilino.Pulizie;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -27,9 +29,12 @@ import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.inquilino.home.HomeFragment;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class ViewTurnPulizieFragment extends Fragment {
     DatabaseReference mDatabase;
     SharedPref sharedpref;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         setHasOptionsMenu(true);
@@ -54,9 +59,14 @@ public class ViewTurnPulizieFragment extends Fragment {
             fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
             fragmentTransaction.replace(R.id.nav_host_fragment,pulizieFragment,"PULIZIE");
             fragmentTransaction.commit();
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.cleaning));
+            Log.v(TAG,"Cambio");
+
         }
         return super.onOptionsItemSelected(item);
     }
+
+
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -151,4 +161,11 @@ public class ViewTurnPulizieFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(!((AppCompatActivity)getActivity()).getSupportActionBar().getTitle().equals(getString(R.string.app_name))){
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
         }
+    }
+}

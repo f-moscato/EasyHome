@@ -1,6 +1,7 @@
 package it.uniba.di.easyhome.inquilino.home;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -41,6 +43,9 @@ public class HomeFragment extends Fragment {
     DatabaseReference mDatabase;
     final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     SharedPref sharedpref;
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home_inquilino, container, false);
@@ -172,6 +177,7 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
                 fragmentTransaction.replace(R.id.nav_host_fragment, viewBolletteFragment,"BILL");
                 fragmentTransaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_bollette));
             }
         });
         LinearLayout ly_ButtonCleaning= (LinearLayout) root.findViewById(R.id.ly_cleaning_inquilino);
@@ -186,6 +192,7 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
                 fragmentTransaction.replace(R.id.nav_host_fragment,pulizieFragment,"PULIZIE");
                 fragmentTransaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.cleaning));
             }
         });
         LinearLayout ly_ButtonChat= (LinearLayout) root.findViewById(R.id.ly_chat_inquilino);
@@ -200,6 +207,7 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
                 fragmentTransaction.replace(R.id.nav_host_fragment,sendMessageFragment,"CHAT");
                 fragmentTransaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.annunci));
 
             }
         });

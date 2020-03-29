@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -39,6 +41,8 @@ import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class ViewBolletteFragment extends Fragment {
     SharedPref sharedpref;
     private View root;
@@ -53,12 +57,12 @@ public class ViewBolletteFragment extends Fragment {
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-    if(getActivity().equals(ProprietarioActivity.class)) {
-        FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
-        fab.hide();
-        fab.setClickable(false);
-    }
-    root = inflater.inflate(R.layout.fragment_view_bollette, container, false);
+        if(getActivity().equals(ProprietarioActivity.class)) {
+            FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
+            fab.hide();
+            fab.setClickable(false);
+        }
+        root = inflater.inflate(R.layout.fragment_view_bollette, container, false);
 
         final Button buttonNotPayed= root.findViewById(R.id.buttonNotPayed);
         final Button buttonHistory= root.findViewById(R.id.buttonHystoriBills);
@@ -624,5 +628,12 @@ public class ViewBolletteFragment extends Fragment {
         return root;
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(!((AppCompatActivity)getActivity()).getSupportActionBar().getTitle().equals(getString(R.string.app_name))){
+            Log.v(TAG,"passo toolbar");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+        }
+    }
 }
