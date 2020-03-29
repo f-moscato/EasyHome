@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.proprietario.home;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,6 +36,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class HomeFragment extends Fragment {
 
     SharedPref sharedpref;
+    @SuppressLint("RestrictedApi")
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home_proprietario, container, false);
@@ -43,7 +46,7 @@ public class HomeFragment extends Fragment {
         final FloatingActionButton add_home_fab= (getActivity().findViewById(R.id.fab_plus));
         add_home_fab.setVisibility(View.VISIBLE);
 
-//Start FAB AddHome
+        //Start FAB AddHome
         add_home_fab.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
         add_home_fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +56,7 @@ public class HomeFragment extends Fragment {
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.house_card));
             }
         });
 

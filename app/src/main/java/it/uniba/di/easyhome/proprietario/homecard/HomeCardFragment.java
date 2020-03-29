@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.proprietario.homecard;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -61,6 +63,7 @@ public class HomeCardFragment extends Fragment{
         }
         return super.onOptionsItemSelected(item);
     }
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -174,6 +177,7 @@ public class HomeCardFragment extends Fragment{
 
         LinearLayout linearLayoutNotices=root.findViewById(R.id.ly_chat_Casa);
         linearLayoutNotices.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
                 add_bill_fab.setVisibility(View.GONE);
@@ -185,6 +189,7 @@ public class HomeCardFragment extends Fragment{
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.nav_host_fragment,sendMessageFragment,"Notices");
                 fragmentTransaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.annunci));
             }
         });
 
@@ -200,6 +205,7 @@ public class HomeCardFragment extends Fragment{
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.nav_host_fragment, viewBolletteFragment,"Bills");
                 fragmentTransaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_bollette));
             }
         });
 
@@ -215,6 +221,7 @@ public class HomeCardFragment extends Fragment{
                 transaction.replace(R.id.nav_host_fragment, newFragment,"AddBills");
                 transaction.addToBackStack(null);
                 transaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_bollette));
 
             }
         });
@@ -264,4 +271,11 @@ public class HomeCardFragment extends Fragment{
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(!((AppCompatActivity)getActivity()).getSupportActionBar().getTitle().equals(getString(R.string.app_name))){
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+        }
+    }
 }
