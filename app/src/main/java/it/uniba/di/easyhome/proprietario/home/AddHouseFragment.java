@@ -28,11 +28,11 @@ import java.util.UUID;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 
-public class AddCasaFragment extends Fragment {
+public class AddHouseFragment extends Fragment {
      FirebaseAuth mAuth;
 
-    public static AddCasaFragment newInstance() {
-        return new AddCasaFragment();
+    public static AddHouseFragment newInstance() {
+        return new AddHouseFragment();
     }
     private DatabaseReference mDatabase;
     String home;
@@ -71,8 +71,7 @@ public class AddCasaFragment extends Fragment {
                             popUpAlert.show();
                         }else{
                             writeNewHome(home);
-                            Toast.makeText(getActivity(), "Home's Add.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getString(R.string.add_home),Toast.LENGTH_SHORT).show();
                         }
 
 

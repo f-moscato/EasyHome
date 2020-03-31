@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
         add_home_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment newFragment = new AddCasaFragment();
+                Fragment newFragment = new AddHouseFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);

@@ -84,4 +84,6 @@
     <string name="sign_in">"Hai effettuato l'accesso correttamente "</string>
     <string name="new_turn">Nuovo turno aggiunto</string>
     <string name="house_card">Scheda Casa</string>
+    <string name="add_home">Casa Aggiunta</string>
+    <string name="new_house">Nuova Casa</string>
 </resources>

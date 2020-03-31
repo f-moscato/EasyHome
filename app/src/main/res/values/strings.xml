@@ -79,6 +79,8 @@
     <string name="nuovo_turno_pulizie">New Cleaning Turn</string>
     <string name="insert_date">Insert expiration date.</string>
     <string name="sign_in">"U Signed In successfully "</string>
+    <string name="add_home">"Home's add"</string>
+    <string name="new_house">New House</string>
     <string-array name="tipo">
         <item>Gas</item>
         <item>Energy</item>
