@@ -214,11 +214,6 @@ public class AddBillFragment extends Fragment {
                                             }
                                         });
                                     }
-
-
-
-                                    Toast.makeText(getActivity(), codCasa,
-                                            Toast.LENGTH_SHORT).show();
                                 }
                             });
 
