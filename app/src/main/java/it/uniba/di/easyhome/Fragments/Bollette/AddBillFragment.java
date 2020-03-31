@@ -233,11 +233,7 @@ public class AddBillFragment extends Fragment {
                                             }
                                         });
                                     }
-
-
-
-                                    Toast.makeText(getActivity(), codCasa,
-                                            Toast.LENGTH_SHORT).show();
+                                    
                                 }
                             });
 
@@ -252,7 +248,7 @@ public class AddBillFragment extends Fragment {
         };
         rootRef.addListenerForSingleValueEvent(vel);
 
-return root;
+        return root;
 
     }
 
