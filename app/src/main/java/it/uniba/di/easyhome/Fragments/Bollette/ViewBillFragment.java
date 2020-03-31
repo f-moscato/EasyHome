@@ -42,8 +42,6 @@ import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 public class ViewBillFragment extends Fragment {
     SharedPref sharedpref;
     private View root;
@@ -58,11 +56,30 @@ public class ViewBillFragment extends Fragment {
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        if(getActivity().equals(ProprietarioActivity.class)) {
+
+        if(getActivity() instanceof ProprietarioActivity ) {
+            Log.v("tag_proprietario","L'activity is ProprietarioActivity.class");
             FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
-            fab.hide();
-            fab.setClickable(false);
-        }
+            fab.setVisibility(View.VISIBLE);
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                final Bundle bd=getArguments();
+                bundle.putString("nomeCasa",bd.getString("nomeCasa"));
+                bundle.putString("Casa",bd.getString("Casa"));
+                Fragment newFragment = new AddBillFragment();
+                newFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, newFragment,"AddBills");
+                transaction.addToBackStack(null);
+                transaction.commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_bollette));
+
+            }
+        });
+    }
         root = inflater.inflate(R.layout.fragment_view_bollette, container, false);
 
         final Button buttonNotPayed= root.findViewById(R.id.buttonNotPayed);

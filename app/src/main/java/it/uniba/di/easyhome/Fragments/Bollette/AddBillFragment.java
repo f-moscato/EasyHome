@@ -20,7 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,8 +43,6 @@ import it.uniba.di.easyhome.Notifiche.Token;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
-import it.uniba.di.easyhome.proprietario.home.HomeFragment;
-import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -65,9 +62,11 @@ public class AddBillFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_bollette_fragment, container, false);
-        final FloatingActionButton back= (getActivity().findViewById(R.id.fab_plus));
         sharedpref=new SharedPref(getContext());
         apiService= Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
+        FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
+        fab.setVisibility(View.GONE);
+
 
         final Calendar c=Calendar.getInstance();
         final Spinner mySpinner = (Spinner) root.findViewById(R.id.spinner);
@@ -80,8 +79,6 @@ public class AddBillFragment extends Fragment {
         final EditText totale= root.findViewById(R.id.number);
         final EditText descrizione=root.findViewById(R.id.desc);
         final Button add= root.findViewById(R.id.send);
-
-        back.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
 
         mySpinner.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.tipo) ));
@@ -128,21 +125,6 @@ public class AddBillFragment extends Fragment {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            final Bundle bd=getArguments();
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("nomeCasa",bd.getString("nomeCasa"));
-                HomeCardFragment homeCardFragment = new HomeCardFragment();
-                homeCardFragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.add(new HomeFragment(), "ListaCase").addToBackStack(HomeFragment.class.getName());
-                fragmentTransaction.replace(R.id.nav_host_fragment, homeCardFragment, "PROVA");
-                fragmentTransaction.commit();
-            }
-
-        });
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         ValueEventListener vel=new ValueEventListener() {
             @Override
