@@ -226,11 +226,12 @@ public class SendMessageFragment extends Fragment {
 
                                     //invio della notifica contente  il messaggio.
                                     Sender sender=new Sender(data,token.getToken());
+                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent), Toast.LENGTH_SHORT).show();
                                     apiService.sendNotification(sender)
                                             .enqueue(new Callback<Response>() {
                                                 @Override
                                                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent)+response.message(), Toast.LENGTH_SHORT).show();
+
                                                 }
 
                                                 @Override
@@ -266,7 +267,6 @@ public class SendMessageFragment extends Fragment {
     public void onStop() {
         super.onStop();
         if(!((AppCompatActivity)getActivity()).getSupportActionBar().getTitle().equals(getString(R.string.app_name))){
-            Log.v(TAG,"passo toolbar");
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
         }
     }
