@@ -79,6 +79,7 @@ public class AddBillFragment extends Fragment {
         final EditText totale= root.findViewById(R.id.number);
         final EditText descrizione=root.findViewById(R.id.desc);
         final Button add= root.findViewById(R.id.send);
+        final Button cleanButton= root.findViewById(R.id.reset);
 
         mySpinner.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1 ,getResources().getStringArray(R.array.tipo) ));
@@ -122,6 +123,15 @@ public class AddBillFragment extends Fragment {
                 },day,month,year);
                 dpd.getDatePicker().setMinDate(System.currentTimeMillis());
                 dpd.show();
+            }
+        });
+
+        cleanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.setText("");
+                totale.setText("");
+                descrizione.getText().clear();
             }
         });
 
@@ -258,11 +268,12 @@ return root;
 
                                     //invio della notifica contente  il messaggio.
                                     Sender sender=new Sender(data,token.getToken());
+                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent), Toast.LENGTH_SHORT).show();
                                     apiService.sendNotification(sender)
                                             .enqueue(new Callback<Response>() {
                                                 @Override
                                                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent)+response.message(), Toast.LENGTH_SHORT).show();
+
                                                 }
 
                                                 @Override

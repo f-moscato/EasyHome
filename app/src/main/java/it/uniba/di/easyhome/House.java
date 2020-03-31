@@ -105,7 +105,7 @@ public class House {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<Bill> ordinamentoTemporaleBollette(){
         ArrayList<Bill> ret=new ArrayList<>();
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         ret.addAll(this.bills.values());
         Collections.sort(ret,new Comparator<Bill>() {
@@ -115,7 +115,7 @@ public class House {
                 Date data2= null;
                 try {
                     data1=format.parse(o1.getExpiration());
-                    Log.v(TAG,o1.getExpiration()+" "+o2.getExpiration());
+
                     data2=format.parse(o2.getExpiration());
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -135,7 +135,7 @@ public class House {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<Bill> ordinamentoTemporaleBolletteStorico(){
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         ArrayList<Bill> ret = new ArrayList<>(this.bills.values());
         Collections.sort(ret,new Comparator<Bill>() {
@@ -152,7 +152,6 @@ public class House {
 
                 assert data1 != null;
                 if(data1.compareTo(data2)<=0){
-                    Log.v(TAG, String.valueOf(data1.compareTo(data2)));
                     return 1;
                 }else{
                     return -1;
