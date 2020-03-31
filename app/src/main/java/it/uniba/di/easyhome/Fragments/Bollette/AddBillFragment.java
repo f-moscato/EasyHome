@@ -80,6 +80,7 @@ public class AddBillFragment extends Fragment {
         final EditText totale= root.findViewById(R.id.number);
         final EditText descrizione=root.findViewById(R.id.desc);
         final Button add= root.findViewById(R.id.send);
+        final Button cleanButton= root.findViewById(R.id.reset);
 
         back.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
 
@@ -143,6 +144,16 @@ public class AddBillFragment extends Fragment {
             }
 
         });
+
+        cleanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.setText("");
+                totale.setText("");
+                descrizione.getText().clear();
+            }
+        });
+
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         ValueEventListener vel=new ValueEventListener() {
             @Override
@@ -276,11 +287,12 @@ return root;
 
                                     //invio della notifica contente  il messaggio.
                                     Sender sender=new Sender(data,token.getToken());
+                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent), Toast.LENGTH_SHORT).show();
                                     apiService.sendNotification(sender)
                                             .enqueue(new Callback<Response>() {
                                                 @Override
                                                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                                    Toast.makeText(getContext(), getContext().getString(R.string.message_sent)+response.message(), Toast.LENGTH_SHORT).show();
+
                                                 }
 
                                                 @Override
