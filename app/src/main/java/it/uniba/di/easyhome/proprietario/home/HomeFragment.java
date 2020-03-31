@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
                         img.setColorFilter(getResources().getColor(R.color.colorPrimary));
                         img.setImageResource(R.drawable.casa);
                         LinearLayout.LayoutParams tW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                        tW.setMargins(90, 70, 0, 0);
+                        tW.setMargins(90, 50, 0, 0);
                         final TextView tw = new TextView(getActivity());
                         tw.setText(h.getName());
                         tw.setLayoutParams(tW);
