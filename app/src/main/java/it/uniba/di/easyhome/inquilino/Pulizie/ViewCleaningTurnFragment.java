@@ -24,14 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import it.uniba.di.easyhome.Pulizia;
+import it.uniba.di.easyhome.Cleaning;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.inquilino.home.HomeFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class ViewTurnPulizieFragment extends Fragment {
+public class ViewCleaningTurnFragment extends Fragment {
     DatabaseReference mDatabase;
     SharedPref sharedpref;
 
@@ -53,7 +53,7 @@ public class ViewTurnPulizieFragment extends Fragment {
         if(id==R.id.action_add_turn){
             Bundle bundle=new Bundle();
             bundle.putString("nomeCasa",(c.getString("nomeCasa")));
-            AddTurnPulizieFragment pulizieFragment=new AddTurnPulizieFragment();
+            AddCleaningTurnFragment pulizieFragment=new AddCleaningTurnFragment();
             pulizieFragment.setArguments(bundle);
             FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
             fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
@@ -87,7 +87,7 @@ public class ViewTurnPulizieFragment extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     for (final DataSnapshot ds1 : dataSnapshot.getChildren()) {
-                                        Pulizia p = (ds1.getValue(Pulizia.class));
+                                        Cleaning p = (ds1.getValue(Cleaning.class));
 
                                         //Creazione Layout dinamico con inserimento dei vari elementi quali textbox e immagini
                                         LinearLayout lySingolaBolletta = new LinearLayout(getActivity());
@@ -126,7 +126,7 @@ public class ViewTurnPulizieFragment extends Fragment {
                                         tw_data.setLayoutParams(tW);
                                         tw_data.setTextColor(getResources().getColor(R.color.colorPrimary));
                                         TextView tw_descr = new TextView(getActivity());
-                                        tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(p.getDescrzione()));
+                                        tw_descr.setText(new StringBuilder().append(getString(R.string.description_bollette)).append(System.getProperty("line.separator")).append(p.getDescrizione()));
                                         tw_descr.setLayoutParams(tW);
                                         tw_descr.setTextColor(getResources().getColor(R.color.colorPrimary));
                                         if(sharedpref.loadNightModeState()){

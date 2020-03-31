@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +30,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import it.uniba.di.easyhome.House;
-import it.uniba.di.easyhome.Pulizia;
+import it.uniba.di.easyhome.Cleaning;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
-public class AddTurnPulizieFragment extends Fragment {
+public class AddCleaningTurnFragment extends Fragment {
     int flag=0;
     String code_puli;
     DatabaseReference mDatabase;
@@ -178,7 +175,7 @@ bt.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 for(final DataSnapshot ds1 : dataSnapshot.getChildren()){
-                                                    Pulizia p = (ds1.getValue(Pulizia.class));
+                                                    Cleaning p = (ds1.getValue(Cleaning.class));
                                                     if(p.getDay().equals(day)) {
                                                         flag=12;
                                                         code_puli=ds1.getKey();
@@ -192,7 +189,7 @@ bt.setOnClickListener(new View.OnClickListener() {
                                                     v.setPositiveButton(getResources().getString(R.string.si), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
-                                                            Pulizia d = new Pulizia(day, t_1, t_2, desc);
+                                                            Cleaning d = new Cleaning(day, t_1, t_2, desc);
                                                             mDatabase.child("houses").child(ds.getKey()).child("pulizie").child(code_puli).setValue(d);
                                                             Toast.makeText(getContext(),getResources().getString(R.string.new_turn),Toast.LENGTH_LONG).show();
                                                         }
@@ -205,7 +202,7 @@ bt.setOnClickListener(new View.OnClickListener() {
                                                     });
                                                     v.show();
                                                 }else{
-                                                    Pulizia d = new Pulizia(day, t_1, t_2, desc);
+                                                    Cleaning d = new Cleaning(day, t_1, t_2, desc);
                                                     mDatabase.child("houses").child(ds.getKey()).child("pulizie").push().setValue(d);
                                                     Toast.makeText(getContext(),getResources().getString(R.string.new_turn),Toast.LENGTH_LONG).show();
                                                 }
@@ -221,7 +218,7 @@ bt.setOnClickListener(new View.OnClickListener() {
                                         rootRef1.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                Pulizia d = new Pulizia(day, t_1, t_2, desc);
+                                                Cleaning d = new Cleaning(day, t_1, t_2, desc);
                                                 mDatabase.child("houses").child(ds.getKey()).child("pulizie").push().setValue(d);
                                                 Toast.makeText(getContext(),getResources().getString(R.string.new_turn),Toast.LENGTH_LONG).show();
                                             }

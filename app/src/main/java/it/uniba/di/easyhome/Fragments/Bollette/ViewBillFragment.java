@@ -44,7 +44,7 @@ import it.uniba.di.easyhome.proprietario.ProprietarioActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class ViewBolletteFragment extends Fragment {
+public class ViewBillFragment extends Fragment {
     SharedPref sharedpref;
     private View root;
 

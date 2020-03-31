@@ -1,7 +1,6 @@
 package it.uniba.di.easyhome.inquilino.home;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -29,13 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-import it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment;
+import it.uniba.di.easyhome.Fragments.Bollette.ViewBillFragment;
 import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
 import it.uniba.di.easyhome.SharedPref;
 import it.uniba.di.easyhome.User;
-import it.uniba.di.easyhome.inquilino.Pulizie.ViewTurnPulizieFragment;
+import it.uniba.di.easyhome.inquilino.Pulizie.ViewCleaningTurnFragment;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -171,11 +170,11 @@ public class HomeFragment extends Fragment {
 
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",tw_NomeCasa.getText().toString());
-                ViewBolletteFragment viewBolletteFragment =new ViewBolletteFragment() ;
-                viewBolletteFragment.setArguments(bundle);
+                ViewBillFragment viewBillFragment =new ViewBillFragment() ;
+                viewBillFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());
-                fragmentTransaction.replace(R.id.nav_host_fragment, viewBolletteFragment,"BILL");
+                fragmentTransaction.replace(R.id.nav_host_fragment, viewBillFragment,"BILL");
                 fragmentTransaction.commit();
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_bollette));
             }
@@ -186,7 +185,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",tw_NomeCasa.getText().toString());
-                ViewTurnPulizieFragment pulizieFragment=new ViewTurnPulizieFragment();
+                ViewCleaningTurnFragment pulizieFragment=new ViewCleaningTurnFragment();
                 pulizieFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.add(new HomeFragment(),"Casa").addToBackStack(HomeFragment.class.getName());

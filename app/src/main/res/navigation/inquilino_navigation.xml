@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/inq_nav_bills"
-        android:name="it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment"
+        android:name="it.uniba.di.easyhome.Fragments.Bollette.ViewBillFragment"
         android:label="@string/menu_bollette"
         tools:layout="@layout/fragment_view_bollette">
 

@@ -32,8 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import it.uniba.di.easyhome.Fragments.Bollette.AddBolletteFragment;
-import it.uniba.di.easyhome.Fragments.Bollette.ViewBolletteFragment;
+import it.uniba.di.easyhome.Fragments.Bollette.AddBillFragment;
+import it.uniba.di.easyhome.Fragments.Bollette.ViewBillFragment;
 import it.uniba.di.easyhome.Fragments.SendMessageFragment;
 import it.uniba.di.easyhome.House;
 import it.uniba.di.easyhome.R;
@@ -199,11 +199,11 @@ public class HomeCardFragment extends Fragment{
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",twNomeCasa.getText().toString());
-                ViewBolletteFragment viewBolletteFragment =new ViewBolletteFragment() ;
-                viewBolletteFragment.setArguments(bundle);
+                ViewBillFragment viewBillFragment =new ViewBillFragment() ;
+                viewBillFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.nav_host_fragment, viewBolletteFragment,"Bills");
+                fragmentTransaction.replace(R.id.nav_host_fragment, viewBillFragment,"Bills");
                 fragmentTransaction.commit();
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_bollette));
             }
@@ -215,7 +215,7 @@ public class HomeCardFragment extends Fragment{
                 Bundle bundle=new Bundle();
                 bundle.putString("nomeCasa",twNomeCasa.getText().toString());
                 bundle.putString("Casa",pr);
-                Fragment newFragment = new AddBolletteFragment();
+                Fragment newFragment = new AddBillFragment();
                 newFragment.setArguments(bundle);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment,"AddBills");

@@ -1,12 +1,12 @@
 package it.uniba.di.easyhome;
 
-public class Pulizia {
+public class Cleaning {
     String day;
     String turn_1;
     String turn_2;
-    String descrzione;
+    String descrizione;
 
-    public Pulizia() {
+    public Cleaning() {
     }
 
     public String getDay() {
@@ -33,18 +33,18 @@ public class Pulizia {
         this.turn_2 = turn_2;
     }
 
-    public String getDescrzione() {
-        return descrzione;
+    public String getDescrizione() {
+        return descrizione;
     }
 
-    public void setDescrzione(String descrzione) {
-        this.descrzione = descrzione;
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
-    public Pulizia(String day, String turn_1, String turn_2, String descrzione) {
+    public Cleaning(String day, String turn_1, String turn_2, String descrizione) {
         this.day = day;
         this.turn_1 = turn_1;
         this.turn_2 = turn_2;
-        this.descrzione = descrzione;
+        this.descrizione = descrizione;
     }
 }

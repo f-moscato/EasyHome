@@ -49,7 +49,7 @@ import it.uniba.di.easyhome.proprietario.homecard.HomeCardFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class AddBolletteFragment extends Fragment {
+public class AddBillFragment extends Fragment {
     private final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private APIService apiService;
 
