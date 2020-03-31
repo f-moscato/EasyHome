@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,24 +41,12 @@ public class AddCasaFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_casa_fragment, container, false);
         final FloatingActionButton back= (getActivity().findViewById(R.id.fab_plus));
+        back.setVisibility(View.GONE);
         final Bundle bundle=getArguments();
         final Button btSendt=(Button) root.findViewById(R.id.HomeSend);
         //dichiarazione delle edit
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final EditText casa= root.findViewById(R.id.casa);
-
-        back.setImageDrawable(getResources().getDrawable(R.drawable.indietro));
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back.setImageDrawable(getResources().getDrawable(R.drawable.home_plus));
-                Fragment newFragment = new HomeFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("houses");
         ValueEventListener vel=new ValueEventListener() {
