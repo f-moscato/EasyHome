@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.Fragments.Bollette;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -58,6 +59,7 @@ public class AddBillFragment extends Fragment {
      String tot;
      String date;
     SharedPref sharedpref;
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -217,9 +219,6 @@ public class AddBillFragment extends Fragment {
 
                                 }
                             });
-
-
-
             }
 
             @Override
