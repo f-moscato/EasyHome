@@ -66,7 +66,7 @@ public class ViewBillFragment extends Fragment {
             Log.v("tag_proprietario","L'activity is ProprietarioActivity.class");
             FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
             fab.setVisibility(View.VISIBLE);
-        fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.bill_plus));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

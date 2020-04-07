@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class ToolsFragment extends Fragment {
 
 
 private Switch myswitch;
+    @SuppressLint("RestrictedApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_tools, container, false);

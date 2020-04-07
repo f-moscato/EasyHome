@@ -82,7 +82,7 @@ public class HomeCardFragment extends Fragment{
         }
         //Setting FAB
         add_bill_fab.setVisibility(View.VISIBLE);
-        add_bill_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill));
+        add_bill_fab.setImageDrawable(getResources().getDrawable(R.drawable.bill_plus));
         final Bundle bundle=getArguments();
         final TextView twNomeCasa=root.findViewById(R.id.nomeCasaProprietario);
         twNomeCasa.setText(bundle.getString("nomeCasa"));
