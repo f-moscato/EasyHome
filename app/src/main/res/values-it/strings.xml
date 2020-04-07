@@ -86,4 +86,7 @@
     <string name="house_card">Scheda Casa</string>
     <string name="add_home">Casa Aggiunta</string>
     <string name="new_house">Nuova Casa</string>
+    <string name="popup_deleteBolletta">Eliminazione bolletta</string>
+    <string name="popup_deleteBolletta_corpo">Sei sicuro di voler elimanare questa bolletta?</string>
+    <string name="snack_message">Se vuoi eleimanre una bolletta, premi su di essa a lungo.</string>
 </resources>

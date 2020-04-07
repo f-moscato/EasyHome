@@ -1,5 +1,6 @@
 package it.uniba.di.easyhome.Fragments.Bollette;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -54,10 +56,13 @@ public class ViewBillFragment extends Fragment {
         menu.findItem(R.id.action_add_inq).setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
+    @SuppressLint("RestrictedApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         if(getActivity() instanceof ProprietarioActivity ) {
+            Snackbar snackBar = Snackbar.make(getActivity().findViewById(R.id.app_bar_proprietario),getString(R.string.snack_message), Snackbar.LENGTH_LONG);
+            snackBar.show();
             Log.v("tag_proprietario","L'activity is ProprietarioActivity.class");
             FloatingActionButton fab = (getActivity().findViewById(R.id.fab_plus));
             fab.setVisibility(View.VISIBLE);
@@ -81,7 +86,6 @@ public class ViewBillFragment extends Fragment {
         });
     }
         root = inflater.inflate(R.layout.fragment_view_bollette, container, false);
-
         final Button buttonNotPayed= root.findViewById(R.id.buttonNotPayed);
         final Button buttonHistory= root.findViewById(R.id.buttonHystoriBills);
         sharedpref=new SharedPref(getContext());
@@ -178,6 +182,60 @@ public class ViewBillFragment extends Fragment {
                                             for(DataSnapshot dsUser:dataSnapshot.getChildren()){
                                                 if(currentUser.getUid().equals(dsUser.getKey()) && dsUser.getValue(User.class).getRole().equalsIgnoreCase("P")){
 
+                                                   /*Eliminazione di una bolletta con l'uso del OnLongClickListener()*/
+                                                    lySingolaBolletta.setOnLongClickListener(new View.OnLongClickListener() {
+                                                        @Override
+                                                        public boolean onLongClick(View v) {
+                                                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                            builder.setTitle(getString(R.string.popup_deleteBolletta)).setMessage(getString(R.string.popup_deleteBolletta_corpo));
+                                                            builder.setPositiveButton(R.string.pop_up_logout_yes,
+                                                                    new DialogInterface.OnClickListener() {
+
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                            DatabaseReference ref=FirebaseDatabase.getInstance().getReference("houses/"+dsCase.getKey()+"/bills");
+                                                                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                @Override
+                                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                                    for(DataSnapshot dsBill:dataSnapshot.getChildren()) {
+                                                                                        if (dsBill.getValue(Bill.class).getType().equalsIgnoreCase(dettagli.getType()) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(dettagli.getExpiration()) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(dettagli.getTotal())) {
+                                                                                            ref.child(dsBill.getKey()).removeValue();
+                                                                                            //refresh del fragment
+                                                                                            Fragment frg = null;
+                                                                                            frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                                            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                                            ft.detach(frg);
+                                                                                            ft.attach(frg);
+                                                                                            ft.commit();
+                                                                                            break;
+                                                                                        }
+                                                                                    }
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+                                                            builder.setNegativeButton(R.string.pop_out_logout_no,
+                                                                    new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialog, int id) {
+                                                                            Fragment frg = null;
+                                                                            frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                            ft.detach(frg);
+                                                                            ft.attach(frg);
+                                                                            ft.commit();
+                                                                        }
+                                                                    });
+                                                            AlertDialog alert11 = builder.create();
+                                                            alert11.show();
+
+                                                            return true;
+                                                        }
+                                                    });
                                                     //creazione del pop up per avere la conferma del pagamento della bolletta in questione
                                                     imgAlert.setOnClickListener(new View.OnClickListener() {
                                                         @Override
@@ -520,7 +578,60 @@ public class ViewBillFragment extends Fragment {
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                     for(DataSnapshot dsUser:dataSnapshot.getChildren()){
                                                         if(currentUser.getUid().equals(dsUser.getKey()) && dsUser.getValue(User.class).getRole().equalsIgnoreCase("P")){
+                                                            /*Eliminazione di una bolletta con l'uso del OnLongClickListener()*/
+                                                            lySingolaBolletta.setOnLongClickListener(new View.OnLongClickListener() {
+                                                                @Override
+                                                                public boolean onLongClick(View v) {
+                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                                    builder.setTitle(getString(R.string.popup_deleteBolletta)).setMessage(getString(R.string.popup_deleteBolletta_corpo));
+                                                                    builder.setPositiveButton(R.string.pop_up_logout_yes,
+                                                                            new DialogInterface.OnClickListener() {
 
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference("houses/"+ds.getKey()+"/bills");
+                                                                                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                        @Override
+                                                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                                            for(DataSnapshot dsBill:dataSnapshot.getChildren()) {
+                                                                                                if (dsBill.getValue(Bill.class).getType().equalsIgnoreCase(dettagli.getType()) && dsBill.getValue(Bill.class).getExpiration().equalsIgnoreCase(dettagli.getExpiration()) && dsBill.getValue(Bill.class).getTotal().equalsIgnoreCase(dettagli.getTotal())) {
+                                                                                                    ref.child(dsBill.getKey()).removeValue();
+                                                                                                    //refresh del fragment
+                                                                                                    Fragment frg = null;
+                                                                                                    frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                                                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                                                    ft.detach(frg);
+                                                                                                    ft.attach(frg);
+                                                                                                    ft.commit();
+                                                                                                    break;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+
+                                                                                        @Override
+                                                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                    builder.setNegativeButton(R.string.pop_out_logout_no,
+                                                                            new DialogInterface.OnClickListener() {
+                                                                                public void onClick(DialogInterface dialog, int id) {
+                                                                                    Fragment frg = null;
+                                                                                    frg = getFragmentManager().findFragmentByTag("Bills");
+                                                                                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                                    ft.detach(frg);
+                                                                                    ft.attach(frg);
+                                                                                    ft.commit();
+                                                                                }
+                                                                            });
+                                                                    AlertDialog alert11 = builder.create();
+                                                                    alert11.show();
+
+                                                                    return true;
+                                                                }
+                                                            });
                                                             //creazione del pop up per avere la conferma del pagamento della bolletta in questione
                                                             imgAlert.setOnClickListener(new View.OnClickListener() {
                                                                 @Override
